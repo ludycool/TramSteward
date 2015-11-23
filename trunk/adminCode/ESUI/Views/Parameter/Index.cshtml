@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <!-- 编辑器Star-->
+
+    <link href="~/Content/umditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" charset="utf-8" src="~/Content/umditor/umeditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="~/Content/umditor/umeditor.min.js"></script>
+    <script type="text/javascript" src="~/Content/umditor/lang/zh-cn/zh-cn.js"></script>
+
+
+    <script type="text/javascript" charset="utf-8" src="~/Content/js/ImgUp.js"></script>
+    <!-- 编辑器End-->
+    @* ReSharper disable once NotAllPathsReturnValue *@
+
+    <style>
+        .perview {
+            width: 600px;
+            background: #fff;
+            font-size: 12px;
+            border-collapse: collapse;
+        }
+
+            .perview td, .perview th {
+                padding: 5px;
+                border: 1px solid #ccc;
+            }
+
+            .perview th {
+                background-color: #f0f0f0;
+                height: 20px;
+            }
+
+            .perview a:link, .perview a:visited, .perview a:hover, .perview a:active {
+                color: #00F;
+            }
+
+            .perview table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+    </style>
+
+    @section Jsprepare{
+        <script type="text/javascript">
+     @Html.Raw(ViewBag.RuteUrl)
+
+
+            jQuery(document).ready(function () {
+                var ue1 = UM.getEditor('Value');
+                DataGridSet();
+
+            });
+            function DataGridSet() {
+            @Html.Raw(ViewBag.toolbar)
+
+                $('#dg').datagrid({
+                    url: BaseUrl + 'Search',
+                    columns: [[
+                        { field: 'ck', checkbox: true },
+                    { field: 'keys', title: '名称', width: 500 }
+                    ]],
+                    iconCls: 'icon-save',
+                    title: '参数',
+                    nowrap: true,
+                    striped: true,
+                    collapsible: true,
+                    pagination: true,
+                    width: 'auto',
+                    height: 700,
+
+                    rownumbers: true,
+                    toolbar: toolbars
+                });
+
+            }
+            //实现按钮的编辑，包括增查改
+            function SaveInfo() {
+
+                //判断按钮的信息是否通过验证
+                var validate = $("#ff").form('validate');
+                if (validate == false) {
+                    return false;
+                }
+                var data = DataBaseFunction.GetFormData("ff");
+                $.post(BaseUrl + 'EditInfo', data, function (data) {
+                    if (data = "OK") {
+                        alerts("编辑成功", 1);
+                        $('#DivEditor').dialog('close');
+                        $(".validatebox-tip").remove();
+                        // $("#DivEditor").dialog("close");
+                        $("#dg").datagrid("reload");
+                    }
+                    else {
+                        alerts("编辑失败，请您检查", 5);
+
+                    }
+                });
+
+            }
+            //easyUI 弹出添加的对话框
+            function AddInfo() {
+                $("#DivEditor").dialog('open').dialog('setTitle', '添加信息').window('resize', { top: 100 });
+                DataBaseFunction.ClearForm("ff");
+            }
+
+            //easyUI 弹出修改的对话框
+            function EditInfo() {
+                var rows = $("#dg").datagrid("getSelections");
+                //首先取出来值判断只能选择一个
+                if (rows.length != 1) {
+                    $.messager.alert("友情提示", "每次只能修改/浏览一条，你已经选择了<font color='red'  size='6'>" + rows.length + "</font>条", "error");
+                    return;
+                }
+                //处理修改的信息，弹出修改的对话框,然后显示选择的按钮的详细信息
+                $("#DivEditor").dialog('open').dialog('setTitle', '修改信息').window('resize', { top: 100 });
+
+                var ID = $("#dg").datagrid("getSelections")[0].Id;  //获取到了用按钮选择的ID
+                $.ajax({
+                    url: BaseUrl + 'GetInfo',
+                    type: 'POST',
+                    data: { ID: ID },
+                    cache: false,
+                    error: function () { alert('BindShowUpdateInfo error'); },
+                    success: function (result) {
+                        DataBaseFunction.BindForm("ff", result);
+
+                    }
+
+                });
+            }
+            //搜索
+            function Search() {
+                DataBaseFunction.Search("fSearh", "dg");
+            }
+            //删除
+            function Del() {
+                DataBaseFunction.deleteInfo("dg", "Id", "keys");
+            }
+        </script>
+    }
+</head>
+<body>
+    <table id="dg"></table>
+    <div id="DivEditor" class="easyui-dialog" style="width: 600px; height: 500px; padding: 10px 20px"
+        closed="true" resizable="true" modal="true" buttons="#dlg-buttons">
+        <form id="ff" method="post" enctype="multipart/form-data">
+            <fieldset>
+                <legend>信息栏</legend>
+
+                <table id="tblAdd">
+                    <input type="hidden" name="Id" />
+                    <tr>
+                        <td>
+                            <label>名称：</label></td>
+                        <td>
+                            <input type="text" name="keys" /></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>内容：</label></td>
+                        <td colspan="5">
+                            <!--style给定宽度可以影响编辑器的最终宽度-->
+                            <textarea  name="Value" style=" width:450px; height:320px" cols="20" rows="2"></textarea>
+                            
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="text-align: center; padding-top: 10px">
+                            <a href="javascript:void(0)" class="easyui-linkbutton" id="btnAddRole" iconcls="icon-ok" onclick="SaveInfo();">确定</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" onclick="$('#DivEditor').dialog('close')">关闭</a>
+                        </td>
+                    </tr>
+                </table>
+
+
+            </fieldset>
+
+        </form>
+    </div>
+</body>
+</html>

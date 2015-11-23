@@ -1,0 +1,319 @@
+﻿
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <script type="text/javascript" charset="utf-8" src="~/Content/js/DictionaryHelper.js"></script>
+
+      @section Jsprepare{  
+  <script type="text/javascript">
+      @Html.Raw(ViewBag.RuteUrl)
+      var UserId = "";
+      jQuery(document).ready(function () {
+          BindDictionary("Category", "03");
+          BindDictionary("CategoryS", "03");
+          DataGridSet();
+      });
+      function DataGridSet() {
+            @Html.Raw(ViewBag.toolbar)
+
+          $('#dg').datagrid({
+              url: BaseUrl + 'GetList',
+              columns: [[
+      { field: 'ck', checkbox: true },
+  { field: 'Title', title: '标题', width: 200 },
+             { field: 'UserName', title: '用户名', width: 100 },
+     { field: 'Alias', title: '别名', width: 200 },
+      { field: 'Tags', title: '标签组', width: 100 },
+     {
+         field: 'Contents', title: '正文', width: 500, align: 'right',
+         formatter: function (value) {
+             if (value != undefined) {
+                 if (value.length > 20) {
+                     value = value.substring(0, 20);
+                 }
+             }
+             return value;
+         }
+     }
+
+              ]],
+              iconCls: 'icon-save',
+              title: '用户',
+              nowrap: true,
+              striped: true,
+              collapsible: true,
+              pagination: true,
+              width: 'auto',
+              height: 700,
+
+              rownumbers: true,
+              toolbar: toolbars
+          });
+
+      }
+      function pushTags() {
+          //弹出层
+          // $("#DivEditor").dialog('open').dialog('setTitle', '添加医院信息');
+          $('#DivTags').dialog({
+              title: '发送消息',
+              //width: 400,
+              //height: 200,
+              closed: false,
+              cache: false,
+              // href: 'get_content.php',
+              modal: true,
+              top: 100,
+              onClose: function () {
+                  //解决弹出窗口关闭后，验证消息还显示在最上面
+
+              }
+          });
+          $("#DivTags").form("clear");
+
+
+
+      }
+      function pushAlias() {
+          //弹出层
+          // $("#DivEditor").dialog('open').dialog('setTitle', '添加医院信息');
+          $('#DivAlias').dialog({
+              title: '发送消息',
+              //width: 400,
+              //height: 200,
+              closed: false,
+              cache: false,
+              top: 100,
+              // href: 'get_content.php',
+              modal: true,
+              onClose: function () {
+                  //解决弹出窗口关闭后，验证消息还显示在最上面
+
+              }
+          });
+          $("#fAlias").form("clear");
+          $("#fAlias input[name='Alias']").val("");
+          $("#fAlias input[name='UserName']").val("");
+          $("#fAlias #username").html("");
+
+
+
+      }
+      function selectUser() {
+          $("#DviUser").window('open').window('resize', { top: 100 });
+          $('#dgUser').datagrid({
+              url: '/httpHandle/YH_ClientUserDataHandler.ashx?action=GetUser',
+              columns: [[
+                        { field: 'ck', checkbox: true },
+                    { field: 'UserName', title: '用户名', width: 100 },
+                    { field: 'TrueName', title: '姓名', width: 100 },
+                     { field: 'Phone', title: '电话', width: 100 },
+                    { field: 'Address', title: '地址', width: 100 },
+                     { field: 'Category', title: '类别', width: 100 },
+                     { field: 'Details', title: '详情', width: 100 }
+              ]],
+              iconCls: 'icon-save',
+              title: '用户',
+              nowrap: true,
+              striped: true,
+              collapsible: true,
+              pagination: true,
+              singleSelect: true,
+              width: 'auto',
+              height: 350,
+
+              rownumbers: true
+          });
+      }
+      function SelectOK() {
+          var rows = $("#dgUser").datagrid("getSelections");
+          //首先取出来值判断只能选择一个
+          if (rows.length != 1) {
+              $.messager.alert("友情提示", "每次只能选择一条，你已经选择了<font color='red'  size='6'>" + rows.length + "</font>条", "error");
+              return;
+          }
+          var ID = $("#dgUser").datagrid("getSelections")[0].Id;  //获取到了用资迅选择的ID
+          var UserName = $("#dgUser").datagrid("getSelections")[0].UserName;
+          $("input[name='Alias']").val(ID.replace(new RegExp('-', 'gm'), ''));
+          $("input[name='UserName']").val(UserName);
+
+          $("#username").html(UserName);
+          $('#DviUser').dialog('close');
+
+      }
+      //实现医院的编辑，包括增查改
+      function SendTags() {
+
+          //判断医院的信息是否通过验证
+          var validate = $("#fTags").form('validate');
+          if (validate == false) {
+              return false;
+          }
+          $("input[name='Tags']").val($('#Category').combotree('getValue'));
+
+          if ($("input[name='Tags']").val() == "") {
+              alerts("请选择分类", 5)
+              return false;
+          }
+          if ($("#fTags input[name='Title']").val() == "") {
+              alerts("请填写标题", 5)
+              return false;
+          }
+
+          if ($(" #fTags [name='Contents']").val() == "") {
+              alerts("请填写内容", 5)
+              return false;
+          }
+
+          //获取需要传递的参数传递给前台 push
+          var postData = $("#fTags").serializeArray();
+
+          //发送异步请求到后台保存医院数据
+          $.post(BaseUrl + 'pushTags', postData, function (data) {
+              var d = eval('(' + data + ')');
+              if (d.Code > 0) {
+                  //添加成功  1.关闭弹出层，2.刷新DataGird
+                  alerts(d.Msg, 1);
+                  $('#DivTags').dialog('close');
+                  $("#dg").datagrid("reload");
+                  $("#fTags").form("clear");
+              }
+              else {
+                  alerts(d.Msg, 5);
+              }
+          });
+
+      }
+      //实现医院的编辑，包括增查改
+      function SendAlias() {
+
+          //判断医院的信息是否通过验证
+          var validate = $("#fAlias").form('validate');
+          if (validate == false) {
+              return false;
+          }
+          if ($("#fAlias input[name='UserName']").val() == "") {
+              alerts("请选择用户", 5)
+              return false;
+          }
+          if ($("#fAlias input[name='Title']").val() == "") {
+              alerts("请填写标题", 5)
+              return false;
+          }
+          if ($("#fAlias [name='Contents']").val() == "") {
+              alerts("请填写内容", 5)
+              return false;
+          }
+          //获取需要传递的参数传递给前台 push
+          var postData = $("#fAlias").serializeArray();
+
+          //发送异步请求到后台保存医院数据
+          $.post(BaseUrl + 'pushAlias', postData, function (data) {
+              var d = eval('(' + data + ')');
+              if (d.Code > 0) {
+                  //添加成功  1.关闭弹出层，2.刷新DataGird
+                  alerts(d.Msg, 1);
+                  $('#DivAlias').dialog('close');
+                  $("#dg").datagrid("reload");
+                  $("#fAlias").form("clear");
+              }
+              else {
+                  alerts(d.Msg, 5);
+              }
+          });
+
+      }
+
+      function Del() {
+          DataBaseFunction.deleteInfo("dg", "Id", "Title");
+      }
+
+      //搜索
+      function Search() {
+          $("input[name='Category_like1']").val($('#CategoryS').combotree('getValue'));
+          DataBaseFunction.Search("fSearh", "dgUser");
+      }
+</script>
+           }
+</head>
+<body>
+
+    <div  class="easyui-layout" style="width:1200px;height:800px;">
+    <div region="center" title="消息" style="padding:5px;background:#eee;" iconCls: 'icon-user_earth'><table id="dg" ></table></div>
+     </div>
+    <div id="DivTags" class="easyui-dialog" style="width:580px;height:335px;padding:10px 20px"
+         closed="true" resizable="true" modal="true" buttons="#dlg-buttons">
+              <form id="fTags" method="post" enctype="multipart/form-data">
+            <fieldset>
+                <legend>发送信息信息</legend>
+                <table id="tblAdd"><input  type="hidden"  name="Id" />
+                   <input type="hidden" name="Tags" />
+                    <tr><td><label >组：</label></td><td>  <ul id="Category"></ul></td></tr>
+                     <tr>
+                        <td>
+                            <label>标题：</label></td>
+                        <td>
+                            <input type="text" name="Title" /></td>
+                    </tr>
+<tr><td><label >正文：</label></td><td><textarea name="Contents" style="width:400px;height:100px;" cols="20" rows="2"></textarea></td></tr>
+                    <tr>
+                        <td colspan="4" style="text-align:center; padding-top:10px">
+                            <a href="javascript:void(0)" class="easyui-linkbutton" id="btnAddRole" iconcls="icon-ok"  onclick="SendTags();" >确定</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" onclick="$('#DivTags').dialog('close')">关闭</a>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+
+        </form>
+    </div>
+ <div id="DivAlias" class="easyui-dialog" style="width:580px;height:335px;padding:10px 20px"
+         closed="true" resizable="true" modal="true" buttons="#dlg-buttons">
+              <form id="fAlias" method="post" enctype="multipart/form-data">
+            <fieldset>
+                <legend>发送信息信息</legend>
+                <table id="tblAdd"><input  type="hidden"  name="Id" />
+                   <input type="hidden" name="Alias" />
+                     <input type="hidden" name="UserName" />
+                    <tr><td><label >用户：</label></td><td><span id="username"></span>  <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-user" onclick="selectUser();">选择</a></td></tr>
+                     <tr>
+                        <td>
+                            <label>标题：</label></td>
+                        <td>
+                            <input type="text" name="Title" /></td>
+                    </tr>
+<tr><td><label >正文：</label></td><td><textarea name="Contents" style="width:400px;height:100px;" cols="20" rows="2"></textarea></td></tr>
+                    <tr>
+                        <td colspan="4" style="text-align:center; padding-top:10px">
+                            <a href="javascript:void(0)" class="easyui-linkbutton"  iconcls="icon-ok"  onclick="SendAlias();" >确定</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" onclick="$('#DivAlias').dialog('close')">关闭</a>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+
+        </form>
+    </div>
+     <div id="DviUser" class="easyui-window" style="width:680px;height:450px;padding:10px 20px" title="选择用户"
+			closed="true" resizable="true" modal="true" buttons="#dlg-buttons" >
+                 <form id="fSearh">
+
+            <span>类别：  
+                <ul id="CategoryS"></ul>
+                <input name="Category_like1" type="hidden" /></span>
+            <span>姓名：<input name="TrueName_like" type="text" style=" width:50px;" /></span>
+            <span>电话：<input name="Phone_like" type="text" style=" width:100px;" /></span>
+         <span>   <a href="javascript:void(0)" class="easyui-linkbutton" id="btnSearh" iconcls="icon-search" onclick="Search();">搜索</a> 
+                      <a href="javascript:void(0)" class="easyui-linkbutton"  iconcls="icon-tick" onclick="SelectOK();">确定</a> 
+                     </span>
+        </form>
+         <table id="dgUser" ></table>
+
+
+
+         </div>
+
+</body>
+</html>

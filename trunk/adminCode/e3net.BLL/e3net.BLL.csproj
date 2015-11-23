@@ -1,0 +1,112 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{ADEFF34B-9E34-4C9A-8F97-DDE8EFE88E8C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>e3net.BLL</RootNamespace>
+    <AssemblyName>e3net.BLL</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Moon.Orm">
+      <HintPath>..\e3net.common\libs\Moon.Orm.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ParameterXmlHelper.cs" />
+    <Compile Include="AgSys\ClientUserBiz.cs" />
+    <Compile Include="AgSys\CommentBiz.cs" />
+    <Compile Include="AgSys\File_tbBiz.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RMS\RMS_ButtonsBiz.cs" />
+    <Compile Include="RMS\RMS_MenuButtonsBiz.cs" />
+    <Compile Include="RMS\RMS_MenusBiz.cs" />
+    <Compile Include="RMS\RMS_RoleBiz.cs" />
+    <Compile Include="RMS\RMS_RoleManuButtonsBiz.cs" />
+    <Compile Include="RMS\RMS_RoleManusBiz.cs" />
+    <Compile Include="RMS\RMS_UserBiz.cs" />
+    <Compile Include="RMS\RMS_UserRoleBiz.cs" />
+    <Compile Include="RMS\RMS_DepartmentBiz.cs" />
+    <Compile Include="Sys_DictionaryBiz.cs" />
+    <Compile Include="V_BLL\V_DoctorBiz.cs" />
+    <Compile Include="AdvertisingXmlHelper.cs" />
+    <Compile Include="SystemLogsBiz.cs" />
+    <Compile Include="YhSys\PushMessageBiz.cs" />
+    <Compile Include="AppVersionBiz.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\e3net.common\e3net.common.csproj">
+      <Project>{58141a1b-b38a-41e2-8d6e-6b50d670507a}</Project>
+      <Name>e3net.common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\e3net.DAL\e3net.DAL.csproj">
+      <Project>{D5F561F5-B526-4503-8C33-CA8084835EC3}</Project>
+      <Name>e3net.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\e3net.IDAL\e3net.IDAL.csproj">
+      <Project>{09E811E9-D6B3-460A-A447-583D4AF9E677}</Project>
+      <Name>e3net.IDAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\e3net.Mode\e3net.Mode.csproj">
+      <Project>{D107D886-2E8A-4823-80BC-C0F68978DAB9}</Project>
+      <Name>e3net.Mode</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\e3net.tools\e3net.tools.csproj">
+      <Project>{D3D7C4C0-4798-4352-ADC7-B76A296249C1}</Project>
+      <Name>e3net.tools</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

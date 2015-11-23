@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <Data Id="f14aa043-44fe-4b4d-89e7-5b66391987b2">
+    <Id>f14aa043-44fe-4b4d-89e7-5b66391987b2</Id>
+    <OrderNo>2</OrderNo>
+    <CName>较满意</CName>
+    <ValueName>2</ValueName>
+  </Data>
+  <Data Id="c8a7e3e8-adf6-4ea8-b397-21a9f806002e">
+    <Id>c8a7e3e8-adf6-4ea8-b397-21a9f806002e</Id>
+    <OrderNo>1</OrderNo>
+    <CName>满意</CName>
+    <ValueName>1</ValueName>
+  </Data>
+  <Data Id="28d7720b-7f32-45dc-8fd8-e956b3d8c2e0">
+    <Id>28d7720b-7f32-45dc-8fd8-e956b3d8c2e0</Id>
+    <OrderNo>3</OrderNo>
+    <CName>一般</CName>
+    <ValueName>3</ValueName>
+  </Data>
+  <Data Id="c67fd329-1b6a-4b57-ba45-861f797fc37e">
+    <Id>c67fd329-1b6a-4b57-ba45-861f797fc37e</Id>
+    <OrderNo>4</OrderNo>
+    <CName>不满意</CName>
+    <ValueName>4</ValueName>
+  </Data>
+  <Data Id="8245c4b7-2e9b-40e2-a4d2-88bf2a1f0c2f">
+    <Id>8245c4b7-2e9b-40e2-a4d2-88bf2a1f0c2f</Id>
+    <OrderNo>1</OrderNo>
+    <CName>小于10分钟</CName>
+    <ValueName>1</ValueName>
+  </Data>
+  <Data Id="5b8ce3a0-fe96-4720-bb56-b4d269f2d09f">
+    <Id>5b8ce3a0-fe96-4720-bb56-b4d269f2d09f</Id>
+    <OrderNo>2</OrderNo>
+    <CName>10-20分钟</CName>
+    <ValueName>2</ValueName>
+  </Data>
+  <Data Id="3db5a2f0-db35-4211-820f-ff737f03dfff">
+    <Id>3db5a2f0-db35-4211-820f-ff737f03dfff</Id>
+    <OrderNo>3</OrderNo>
+    <CName>20分钟以上</CName>
+    <ValueName>3</ValueName>
+  </Data>
+</root>

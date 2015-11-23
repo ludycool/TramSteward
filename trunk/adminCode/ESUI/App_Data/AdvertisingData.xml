@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <Data>
+    <Id>4f0d5c11-17ab-44a8-bf00-40534ca93d20</Id>
+    <ImgeUrl>/Upload/20150414085135_991.png</ImgeUrl>
+    <Category>0201</Category>
+    <Title>广告一</Title>
+    <Details>&lt;p&gt;ddss&lt;/p&gt;</Details>
+    <Website>www.baidu.com</Website>
+    <AddTime>2015/4/8 15:29:28</AddTime>
+    <UpdateTime>2015/4/14 8:51:40</UpdateTime>
+    <States>2</States>
+  </Data>
+  <Data>
+    <Id>6048d654-fa74-4ab4-ad3f-465d3b4655e0</Id>
+    <ImgeUrl>/Upload/20150414085203_549.png</ImgeUrl>
+    <Category>0201</Category>
+    <Title>广告二</Title>
+    <Details>
+    </Details>
+    <Website>www.hao123.com</Website>
+    <AddTime>2015/4/8 15:32:58</AddTime>
+    <UpdateTime>2015/4/14 8:52:05</UpdateTime>
+    <States>1</States>
+  </Data>
+  <Data>
+    <Id>9e7f2b01-8358-410f-8428-5102211bc15d</Id>
+    <ImgeUrl>/Upload/20150414085239_837.png</ImgeUrl>
+    <Category>0201</Category>
+    <Title>广告三</Title>
+    <Details>
+    </Details>
+    <Website>www.163.com</Website>
+    <AddTime>2015/4/8 15:35:55</AddTime>
+    <UpdateTime>2015/4/14 8:52:46</UpdateTime>
+    <States>2</States>
+  </Data>
+</root>

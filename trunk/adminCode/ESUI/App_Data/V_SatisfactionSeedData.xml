@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <Data Id="f4c17147-0f87-462b-8fab-049691520bb2">
+    <Id>f4c17147-0f87-462b-8fab-049691520bb2</Id>
+    <SatisfactionSeedId>9b5f3502-a5dc-4ca8-a960-81fa94f04073</SatisfactionSeedId>
+    <SatisfactionItemId>9338b8f7-4b7b-400f-aa59-f17d0ade55a8</SatisfactionItemId>
+    <OrderNo>1</OrderNo>
+    <CName>满意</CName>
+    <ValueName>1</ValueName>
+  </Data>
+  <Data Id="64ee5619-4f77-47c1-b7e7-c8ed85b7b34e">
+    <Id>64ee5619-4f77-47c1-b7e7-c8ed85b7b34e</Id>
+    <SatisfactionSeedId>9b5f3502-a5dc-4ca8-a960-81fa94f04073</SatisfactionSeedId>
+    <SatisfactionItemId>789c73c8-538a-4ff1-ba6a-1eb3169944ad</SatisfactionItemId>
+    <OrderNo>2</OrderNo>
+    <CName>较满意</CName>
+    <ValueName>2</ValueName>
+  </Data>
+  <Data Id="85a37971-7d3e-47a9-91f9-0ab57b9c37fb">
+    <Id>85a37971-7d3e-47a9-91f9-0ab57b9c37fb</Id>
+    <SatisfactionSeedId>9b5f3502-a5dc-4ca8-a960-81fa94f04073</SatisfactionSeedId>
+    <SatisfactionItemId>62d638df-c9fb-4cf2-834c-7e2c5b6164b4</SatisfactionItemId>
+    <OrderNo>3</OrderNo>
+    <CName>一般</CName>
+    <ValueName>3</ValueName>
+  </Data>
+  <Data Id="21aa5652-95fa-4856-81a7-c1c369243289">
+    <Id>21aa5652-95fa-4856-81a7-c1c369243289</Id>
+    <SatisfactionSeedId>9b5f3502-a5dc-4ca8-a960-81fa94f04073</SatisfactionSeedId>
+    <SatisfactionItemId>c8a7e3e8-adf6-4ea8-b397-21a9f806002e</SatisfactionItemId>
+    <OrderNo>4</OrderNo>
+    <CName>满意</CName>
+    <ValueName>1</ValueName>
+  </Data>
+  <Data Id="8e3ddccb-70d7-4721-9bea-fc06db6ac261">
+    <Id>8e3ddccb-70d7-4721-9bea-fc06db6ac261</Id>
+    <SatisfactionSeedId>78d3cdd6-267a-4db6-a4fd-72d81f16fae5</SatisfactionSeedId>
+    <SatisfactionItemId>8245c4b7-2e9b-40e2-a4d2-88bf2a1f0c2f</SatisfactionItemId>
+    <OrderNo>1</OrderNo>
+    <CName>小于10分钟</CName>
+    <ValueName>1</ValueName>
+  </Data>
+  <Data Id="b4ca6413-749c-47fe-89f8-1266e066eeab">
+    <Id>b4ca6413-749c-47fe-89f8-1266e066eeab</Id>
+    <SatisfactionSeedId>78d3cdd6-267a-4db6-a4fd-72d81f16fae5</SatisfactionSeedId>
+    <SatisfactionItemId>5b8ce3a0-fe96-4720-bb56-b4d269f2d09f</SatisfactionItemId>
+    <OrderNo>2</OrderNo>
+    <CName>10-20分钟</CName>
+    <ValueName>2</ValueName>
+  </Data>
+  <Data Id="cd02c5fb-4aea-412b-97bf-ec786a7b4eeb">
+    <Id>cd02c5fb-4aea-412b-97bf-ec786a7b4eeb</Id>
+    <SatisfactionSeedId>78d3cdd6-267a-4db6-a4fd-72d81f16fae5</SatisfactionSeedId>
+    <SatisfactionItemId>3db5a2f0-db35-4211-820f-ff737f03dfff</SatisfactionItemId>
+    <OrderNo>3</OrderNo>
+    <CName>20分钟以上</CName>
+    <ValueName>3</ValueName>
+  </Data>
+</root>
