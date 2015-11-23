@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <Data Id="78d3cdd6-267a-4db6-a4fd-72d81f16fae5">
+    <Id>78d3cdd6-267a-4db6-a4fd-72d81f16fae5</Id>
+    <OrderNo>1</OrderNo>
+    <CName>你的就诊时间需要</CName>
+    <ValueName>1</ValueName>
+  </Data>
+  <Data Id="9b5f3502-a5dc-4ca8-a960-81fa94f04073">
+    <Id>9b5f3502-a5dc-4ca8-a960-81fa94f04073</Id>
+    <OrderNo>2</OrderNo>
+    <CName>你对医院的总体印象是？</CName>
+    <ValueName>2</ValueName>
+  </Data>
+</root>

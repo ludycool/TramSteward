@@ -1,0 +1,246 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <script src="~/Content/js/Buttons.js"></script>
+    @* ReSharper disable once NotAllPathsReturnValue *@
+    <style type="text/css">
+        #iconlist li {
+            display: block;
+            float: left;
+        }
+    </style>
+    @section Jsprepare{
+        <script type="text/javascript">
+     @Html.Raw(ViewBag.RuteUrl)
+
+
+            jQuery(document).ready(function () {
+
+                DataGridSet();
+            });
+            function DataGridSet() {
+            @Html.Raw(ViewBag.toolbar)
+
+          $('#dg').datagrid({
+              url: BaseUrl + 'Search',
+              columns: [[
+                  { field: 'ck', checkbox: true },
+              { field: 'Title', title: '标题', width: 100 },
+              { field: 'Unit', title: '单位', width: 100 },
+               { field: 'Bulk', title: '起批量', width: 100 },
+                 { field: 'price', title: '价格', width: 100 },
+                     { field: 'Origin', title: '产地', width: 100 },
+              { field: 'Address', title: '地址', width: 100 },
+               { field: 'Category', title: '类别', width: 100 },
+               { field: 'Clicks', title: '点击数', width: 100 }
+              ]],
+              iconCls: 'icon-save',
+              title: '农产品',
+              nowrap: true,
+              striped: true,
+              collapsible: true,
+              pagination: true,
+              width: 'auto',
+              height: 700,
+
+              rownumbers: true,
+              toolbar: toolbars
+          });
+
+      }
+      //实现按钮的编辑，包括增查改
+      function SaveInfo() {
+
+          //判断按钮的信息是否通过验证
+          var validate = $("#ff").form('validate');
+          if (validate == false) {
+              return false;
+          }
+          var data = DataBaseFunction.GetFormData("ff")
+
+          $.post(BaseUrl + 'EditInfo', data, function (data) {
+              if (data = "OK") {
+                  alert("编辑成功");
+                  $('#DivEditor').dialog('close');
+                  $(".validatebox-tip").remove();
+                  // $("#DivEditor").dialog("close");
+                  $("#dg").datagrid("reload");
+              }
+              else {
+                  alert("编辑失败，请您检查");
+              }
+          });
+
+      }
+      //easyUI 弹出添加的对话框
+      function AddInfo() {
+          //弹出层
+          $('#DivEditor').dialog({
+              title: '添加产品',
+              //width: 400,
+              //height: 200,
+              closed: false,
+              cache: false,
+              // href: 'get_content.php',
+              modal: true,
+              onClose: function () {
+                  //解决弹出窗口关闭后，验证消息还显示在最上面
+              }
+          });
+          DataBaseFunction.ClearForm("ff");
+
+      }
+
+      //easyUI 弹出修改的对话框
+      function EditInfo() {
+          var rows = $("#dg").datagrid("getSelections");
+          //首先取出来值判断只能选择一个
+          if (rows.length != 1) {
+              $.messager.alert("友情提示", "每次只能修改/浏览一条，你已经选择了<font color='red'  size='6'>" + rows.length + "</font>条", "error");
+              return;
+          }
+          //处理修改的信息，弹出修改的对话框,然后显示选择的按钮的详细信息
+          $("#DivEditor").dialog('open').dialog('setTitle', '修改信息');
+
+          var ID = $("#dg").datagrid("getSelections")[0].Id;  //获取到了用按钮选择的ID
+          $.ajax({
+              url: BaseUrl + 'GetInfo',
+              type: 'POST',
+              data: { ID: ID },
+              cache: false,
+              error: function () { alert('BindShowUpdateInfo error'); },
+              success: function (result) {
+                  DataBaseFunction.BindForm("ff", result);
+
+                  var map = new BMap.Map("Mapcontainer");          // 创建地图实例  
+                  var opts = { type: BMAP_NAVIGATION_CONTROL_LARGE }
+                  map.addControl(new BMap.NavigationControl(opts));
+                  var point = new BMap.Point(result["Longitude"], result["Latitude"]);  // 创建点坐标  
+                  map.centerAndZoom(point, 12);                 // 初始化地图，设置中心点坐标和地图级别  
+                  var marker = new BMap.Marker(point);        // 创建标注    
+                  map.addOverlay(marker);                     // 将标注添加到地图中
+                  var Wopts = {
+                      width: 250,     // 信息窗口宽度    
+                      height: 100,     // 信息窗口高度    
+                      title: "地址信息"  // 信息窗口标题   
+                  }
+                  var infoWindow = new BMap.InfoWindow(result["Address"], Wopts);  // 创建信息窗口对象    
+                  map.openInfoWindow(infoWindow, map.getCenter());      // 打开信息窗口
+              }
+
+          });
+      }
+      //搜索
+      function Search() {
+          DataBaseFunction.Search("fSearh", "dg");
+      }
+      //删除
+      function Del() {
+          DataBaseFunction.deleteInfo("dg", "Id", "UserName");
+      }
+        </script>
+    }
+</head>
+<body>
+
+    <div id="DivSearh" class="easyui-panel"
+        style="width: 1200px; height: 45px; padding: 10px; background: #fafafa;"
+        data-options="iconCls:'icon-save',closable:true,    
+                collapsible:true,minimizable:true,maximizable:true">
+        <form id="fSearh">
+            <span>标题：<input name="Title_like" type="text" /></span>
+
+
+            <span>开始时间:<input type="text" class="easyui-datebox" name="AddTime_ge"></input>
+            </span>
+
+            <span>结束时间:<input type="text" class="easyui-datebox" name="AddTime_le"></input>
+            </span>
+            <a href="javascript:void(0)" class="easyui-linkbutton" id="btnSearh" iconcls="icon-search" onclick="Search();">搜索</a> </span>
+        </form>
+    </div>
+
+    <table id="dg"></table>
+    <div id="DivEditor" class="easyui-dialog" style="width: 580px; height: 740px; padding: 10px 20px"
+        closed="true" resizable="true" modal="true" buttons="#dlg-buttons">
+        <form id="ff" method="post" novalidate="novalidate">
+            <fieldset>
+                <legend>农产品信息栏</legend>
+                <table id="tblAdd">
+                    <input type="hidden" name="Id" />
+                    <input type="hidden" name="UserId" />
+                    <input type="hidden" name="Clicks" />
+                    <input type="hidden" name="Longitude" />
+                    <input type="hidden" name="Latitude" />
+                    <input type="hidden" name="LocationUpdateTime" />
+                    <input type="hidden" name="AddTime" />
+                    <input type="hidden" name="UpdateTime" />
+                    <tr>
+                        <td>
+                            <label>标题：</label></td>
+                        <td>
+                            <input type="text" name="Title" /></td>
+                    
+                        <td>
+                            <label>单位：</label></td>
+                        <td>
+                            <input type="text" name="Unit" /></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>类别：</label></td>
+                        <td>
+                            <input type="text" name="Category" /></td>
+                  
+                        <td>
+                            <label>地址：</label></td>
+                        <td>
+                            <input type="text" name="Address" /></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>起批量：</label></td>
+                        <td>
+                            <input type="text" name="Bulk" /></td>
+                    
+                        <td>
+                            <label>价格：</label></td>
+                        <td>
+                            <input type="text" name="price" /></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>起源地：</label></td>
+                        <td>
+                            <input type="text" name="Origin" /></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>详情：</label></td>
+                        <td>
+                            <input type="text" name="Details" /></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="4" style="text-align: center; padding-top: 10px">
+                            <a href="javascript:void(0)" class="easyui-linkbutton" id="btnAddRole" iconcls="icon-ok" onclick="SaveInfo();">确定</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" onclick="$('#DivEditor').dialog('close')">关闭</a>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+
+        </form>
+        <div id="Mapcontainer" style=" height:460px; width:100%"></div> 
+    </div>
+
+
+
+    <div id="DviIcon" class="easyui-window" style="width: 680px; height: 400px; padding: 10px 20px" title="选择图标"
+        closed="true" resizable="true" modal="true" buttons="#dlg-buttons">
+    </div>
+</body>
+</html>

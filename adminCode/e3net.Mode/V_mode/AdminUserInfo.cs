@@ -1,0 +1,56 @@
+﻿using e3net.Mode.RMS;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace e3net.Mode.V_mode
+{
+    /// <summary>
+    /// 个人信息
+    /// </summary>
+    public class AdminUserInfo
+    {
+        public V_UserRole UserInfo
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 拥有的菜单
+        /// </summary>
+        public List<Manu> ListManus
+        {
+            get;
+            set;
+        }
+    }
+    /// <summary>
+    ///菜单
+    /// </summary>
+    public class Manu
+    {
+        public V_RoleManus manuInfo
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 这个菜单所有的按钮
+        /// </summary>
+        public List<V_MenuButtons> ManuAllButton
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 拥有的按钮
+        /// </summary>
+        public List<V_RoleManuButtons> ListButtons
+        {
+            get;
+            set;
+        }
+
+    }
+}
