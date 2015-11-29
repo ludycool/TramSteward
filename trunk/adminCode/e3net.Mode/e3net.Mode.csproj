@@ -61,6 +61,14 @@
     <Compile Include="AgSys\Comment.cs" />
     <Compile Include="AgSys\File_tb.cs" />
     <Compile Include="AppVersion.cs" />
+    <Compile Include="TramStewardDB\TS_Car.cs" />
+    <Compile Include="TramStewardDB\TS_ClientUser.cs" />
+    <Compile Include="TramStewardDB\TS_File_tb.cs" />
+    <Compile Include="TramStewardDB\TS_RepairMan.cs" />
+    <Compile Include="TramStewardDB\TS_Service.cs" />
+    <Compile Include="TramStewardDB\TS_Shop.cs" />
+    <Compile Include="TramStewardDB\TS_ShopUser.cs" />
+    <Compile Include="TramStewardDB\TS_Transaction.cs" />
     <Compile Include="V_mode\AdminUserInfo.cs" />
     <Compile Include="V_mode\V_YH_SatisfactionSeed.cs" />
     <Compile Include="HttpView\HttpReSultMode.cs" />

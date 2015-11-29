@@ -72,6 +72,13 @@
     <Compile Include="RMS\IRMS_UserDao.cs" />
     <Compile Include="RMS\IRMS_UserRoleDao.cs" />
     <Compile Include="RMS\IRMS_DepartmentDao.cs" />
+    <Compile Include="TramStewardDB\ITS_CarDao.cs" />
+    <Compile Include="TramStewardDB\ITS_ClientUserDao.cs" />
+    <Compile Include="TramStewardDB\ITS_File_tbDao.cs" />
+    <Compile Include="TramStewardDB\ITS_ServiceDao.cs" />
+    <Compile Include="TramStewardDB\ITS_ShopDao.cs" />
+    <Compile Include="TramStewardDB\ITS_ShopUserDao.cs" />
+    <Compile Include="TramStewardDB\ITS_TransactionDao.cs" />
     <Compile Include="V_IDAL\IV_DoctorDao.cs" />
     <Compile Include="ISystemLogsDao.cs" />
     <Compile Include="YhSys\IPushMessageDao.cs" />

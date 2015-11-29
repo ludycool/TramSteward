@@ -72,6 +72,13 @@
     <Compile Include="RMS\RMS_UserRoleBiz.cs" />
     <Compile Include="RMS\RMS_DepartmentBiz.cs" />
     <Compile Include="Sys_DictionaryBiz.cs" />
+    <Compile Include="TramStewardDB\TS_CarBiz.cs" />
+    <Compile Include="TramStewardDB\TS_ClientUserBiz.cs" />
+    <Compile Include="TramStewardDB\TS_File_tbBiz.cs" />
+    <Compile Include="TramStewardDB\TS_ServiceBiz.cs" />
+    <Compile Include="TramStewardDB\TS_ShopBiz.cs" />
+    <Compile Include="TramStewardDB\TS_ShopUserBiz.cs" />
+    <Compile Include="TramStewardDB\TS_TransactionBiz.cs" />
     <Compile Include="V_BLL\V_DoctorBiz.cs" />
     <Compile Include="AdvertisingXmlHelper.cs" />
     <Compile Include="SystemLogsBiz.cs" />
