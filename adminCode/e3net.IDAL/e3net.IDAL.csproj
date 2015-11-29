@@ -74,7 +74,6 @@
     <Compile Include="RMS\IRMS_DepartmentDao.cs" />
     <Compile Include="TramStewardDB\ITS_CarDao.cs" />
     <Compile Include="TramStewardDB\ITS_ClientUserDao.cs" />
-    <Compile Include="TramStewardDB\ITS_File_tbDao.cs" />
     <Compile Include="TramStewardDB\ITS_ServiceDao.cs" />
     <Compile Include="TramStewardDB\ITS_ShopDao.cs" />
     <Compile Include="TramStewardDB\ITS_ShopUserDao.cs" />

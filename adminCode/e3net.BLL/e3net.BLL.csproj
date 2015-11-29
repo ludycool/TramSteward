@@ -74,7 +74,6 @@
     <Compile Include="Sys_DictionaryBiz.cs" />
     <Compile Include="TramStewardDB\TS_CarBiz.cs" />
     <Compile Include="TramStewardDB\TS_ClientUserBiz.cs" />
-    <Compile Include="TramStewardDB\TS_File_tbBiz.cs" />
     <Compile Include="TramStewardDB\TS_ServiceBiz.cs" />
     <Compile Include="TramStewardDB\TS_ShopBiz.cs" />
     <Compile Include="TramStewardDB\TS_ShopUserBiz.cs" />
