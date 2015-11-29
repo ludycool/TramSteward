@@ -209,19 +209,12 @@ var DataBaseFunction = {
             $.messager.confirm("删除信息", "您确认删除<font color='red' size='3'>" + Name + "</font>吗？", function (Delete) {
                 if (Delete) {
                     $.get(BaseUrl + "Del", postData, function (data) {
-                        if (data == "OK") {
-                            //友情提示按钮删除成功，刷新表格
-                            $.messager.alert("友情提示", "删除");
+                        alerts(data.Msg, 2);
+                        if (data.Code > 0) {
                             $("#" + datagridId).datagrid("reload");
-                            //当删除完成之后，第二次删除的时候还记得上次的信息，这样是不可以的，所以我们需要清除第一次的信息
-                            //第一种方法
-                            rows.length = "";
-                            //第二种方法
                             $("#" + datagridId).datagrid("clearSelections");
                         }
-                        else {
-                            $.messager.alert("友情提示", data);
-                        }
+
                     });
                 }
             });
