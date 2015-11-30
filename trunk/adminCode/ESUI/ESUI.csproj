@@ -490,6 +490,8 @@
     <Content Include="Content\JqueryEasyUI\themes\default\tree.css" />
     <Content Include="Content\JqueryEasyUI\themes\default\validatebox.css" />
     <Content Include="Content\JqueryEasyUI\themes\default\window.css" />
+    <Content Include="Content\PIE\PIE.htc" />
+    <Content Include="Content\PIE\PIE.js" />
     <Content Include="Content\Style.css" />
     <Content Include="Content\JqueryEasyUI\themes\gray\accordion.css" />
     <Content Include="Content\JqueryEasyUI\themes\gray\calendar.css" />
