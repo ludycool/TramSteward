@@ -17,12 +17,6 @@
 
     <script type="text/javascript" charset="utf-8" src="~/Content/js/ImgUp.js"></script>
     <script type="text/javascript" charset="utf-8" src="~/Content/js/DictionaryHelper.js"></script>
-    <script type="text/javascript" charset="utf-8" src="~/Content/js/CommonPage.js"></script>
-    <style type="text/css">
-        tr {
-            background-color: expression((this.sectionRowIndex%2==0)?"#E1F1F1":"#F0F0F0");
-        }
-    </style>
     @* ReSharper disable once NotAllPathsReturnValue *@
 
 
@@ -210,31 +204,31 @@
                             <td>
                                 <label>姓名：</label></td>
                             <td>
-                                <input class="easyui-validatebox" type="text" name="TrueName" /></td>
+                                <input class="easyui-validatebox textbox" style="width:200px;height:24px" type="text" data-options="required:true" name="TrueName" /></td>
                         </tr>
                         <tr>
                             <td>
                                 <label>用户名：</label></td>
                             <td>
-                                <input class="easyui-validatebox" type="text" name="UserName" /></td>
+                                <input class="easyui-validatebox textbox" style="width:200px;height:24px" type="text" name="UserName" /></td>
                         </tr>
                         <tr>
                             <td>
                                 <label>密码：</label></td>
                             <td>
-                                <input class="easyui-validatebox" type="text" name="Pwd" /></td><td></td>
+                                <input class="easyui-validatebox textbox" style="width:200px;height:24px" type="text" name="Pwd" /></td><td></td>
                         </tr>
                         <tr>
                             <td>
                                 <label>电话：</label></td>
                             <td>
-                                <input class="easyui-validatebox" type="text" name="Phone" /></td><td></td>
+                                <input class="easyui-validatebox textbox" style="width:200px;height:24px" type="text" name="Phone" /></td><td></td>
                         </tr>
                         <tr>
                             <td>
                                 <label>地址：</label></td>
                             <td>
-                                <textarea style="height: 50px; width: 406px;" name="Address"></textarea></td><td></td>
+                                <textarea class="areabox" style="height: 50px; width: 406px;" name="Address"></textarea></td><td></td>
                         </tr>
 
                         <tr>
