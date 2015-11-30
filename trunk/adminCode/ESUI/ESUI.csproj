@@ -490,7 +490,7 @@
     <Content Include="Content\JqueryEasyUI\themes\default\tree.css" />
     <Content Include="Content\JqueryEasyUI\themes\default\validatebox.css" />
     <Content Include="Content\JqueryEasyUI\themes\default\window.css" />
-    <Content Include="Content\demo.css" />
+    <Content Include="Content\Style.css" />
     <Content Include="Content\JqueryEasyUI\themes\gray\accordion.css" />
     <Content Include="Content\JqueryEasyUI\themes\gray\calendar.css" />
     <Content Include="Content\JqueryEasyUI\themes\gray\combo.css" />
