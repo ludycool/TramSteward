@@ -1,0 +1,62 @@
+* {
+    font-size: 12px;
+}
+
+body {
+    font-family: helvetica,tahoma,verdana,sans-serif;
+    padding: 20px;
+    font-size: 13px;
+    margin: 0;
+}
+
+h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+    margin-bottom: 15px;
+}
+
+.demo-info {
+    background: #FFFEE6;
+    color: #8F5700;
+    padding: 12px;
+}
+
+.demo-tip {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    float: left;
+}
+/*表单样式 start*/
+form table {
+    border: solid #E1E1E1;
+    border-width: 1px 0px 0px 1px;
+}
+
+    form table tr th {
+        height: 20px;
+        line-height: 20px;
+        background: #E1E1E1;
+    }
+
+    form table.stripes tr td {
+        height: 20px;
+        line-height: 20px;
+        background: #FFF;
+        vertical-align: middle;
+        border: solid #E1E1E1;
+        border-width: 0px 1px 1px 0px;
+        padding: 5px 10px;
+    }
+    /* css注释：默认css背景被白色 */
+    form table.stripes tr.alt td {
+        background: #F9F9F9;
+    }
+    /* css 注释：默认隔行背景颜色 */
+    form table.stripes tr.over td {
+        background: #EFF4F7;
+    }
+/* css注释：鼠标经过时候背景颜色 */
+
+/*表单样式 end*/

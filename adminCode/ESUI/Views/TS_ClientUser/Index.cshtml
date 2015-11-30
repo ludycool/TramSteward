@@ -17,6 +17,12 @@
 
     <script type="text/javascript" charset="utf-8" src="~/Content/js/ImgUp.js"></script>
     <script type="text/javascript" charset="utf-8" src="~/Content/js/DictionaryHelper.js"></script>
+    <script type="text/javascript" charset="utf-8" src="~/Content/js/CommonPage.js"></script>
+    <style type="text/css">
+        tr {
+            background-color: expression((this.sectionRowIndex%2==0)?"#E1F1F1":"#F0F0F0");
+        }
+    </style>
     @* ReSharper disable once NotAllPathsReturnValue *@
 
 
@@ -28,10 +34,10 @@
 
 
             jQuery(document).ready(function () {
-                AutoWH("#body", 40, 40);//自适应宽度
+                AutoWH("#body", 40, 42);//自适应宽度
                 var um = UM.getEditor('Details');
                 DataGridSet();
-
+                FormStripes();//表单样式
 
             })
             function DataGridSet() {
@@ -170,90 +176,85 @@
     }
 
 </head>
-<body>
+<body style="overflow-y: hidden">
     <div id="body">
         <table id="dg"></table>
 
     </div>
 
     <!------------------------弹出修改角色信息的弹出层---------------------------------->
-    <div id="DivEditor" class="easyui-dialog" style="width: 1000px; padding: 10px 20px;"
+    <div id="DivEditor" class="easyui-dialog" style="width: 1000px;"
         closed="true" resizable="true" modal="true" buttons="#dlg-buttons">
-        <form id="ff" method="post" enctype="multipart/form-data">
-            <fieldset>
-                <legend>信息填写栏</legend>
-               
-                <table>
-                    <input type="hidden" name="Id" />
-                    <input type="hidden" name="ImgeUrl" />
-                    <input type="hidden" name="Category" />
-                    <input type="hidden" name="Longitude" />
-                    <input type="hidden" name="Latitude" />
-                    <input type="hidden" name="LocationUpdateTime" />
-                    <input type="hidden" name="AddTime" />
-                    <input type="hidden" name="UpdateTime" />
-                    <tr>
-                        <td>
-                            <label>图片logo：</label></td>
-                        <td>
-                            <input type="file" name="file1" onchange="FileHeadSave()" /></td>
-                        <td rowspan="3">
-
-                            <img alt="" id="imgLogo" src="" style="width: 100px; height: 100px; margin-top: 10px;" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>姓名：</label></td>
-                        <td>
-                            <input class="easyui-validatebox" type="text" name="TrueName" /></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>用户名：</label></td>
-                        <td>
-                            <input class="easyui-validatebox" type="text" name="UserName" /></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>密码：</label></td>
-                        <td>
-                            <input class="easyui-validatebox" type="text" name="Pwd" /></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>电话：</label></td>
-                        <td>
-                            <input class="easyui-validatebox" type="text" name="Phone" /></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>地址：</label></td>
-                        <td>
-                            <textarea style="height: 50px; width: 406px;" name="Address"></textarea></td>
-                    </tr>
-
+        <div id="Div_form" class="easyui-panel" style="padding: 10px 20px" data-options=" height:600,width:980,border:false">
+            <form id="ff"  method="post" enctype="multipart/form-data">
+                <input type="hidden" name="Id" />
+                <input type="hidden" name="ImgeUrl" />
+                <input type="hidden" name="Category" />
+                <input type="hidden" name="Longitude" />
+                <input type="hidden" name="Latitude" />
+                <input type="hidden" name="LocationUpdateTime" />
+                <input type="hidden" name="AddTime" />
+                <input type="hidden" name="UpdateTime" />
+                    <table class="stripes" border="0" cellspacing="0" cellpadding="0">
                         <tr>
                             <td>
+                                <label>图片logo：</label></td>
+                            <td>
+                                <input type="file" name="file1" onchange="FileHeadSave()" /></td>
+                            <td rowspan="3">
+
+                                <img alt="" id="imgLogo" src="" style="width: 100px; height: 100px; margin-top: 10px;" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>姓名：</label></td>
+                            <td>
+                                <input class="easyui-validatebox" type="text" name="TrueName" /></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>用户名：</label></td>
+                            <td>
+                                <input class="easyui-validatebox" type="text" name="UserName" /></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>密码：</label></td>
+                            <td>
+                                <input class="easyui-validatebox" type="text" name="Pwd" /></td><td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>电话：</label></td>
+                            <td>
+                                <input class="easyui-validatebox" type="text" name="Phone" /></td><td></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label>地址：</label></td>
+                            <td>
+                                <textarea style="height: 50px; width: 406px;" name="Address"></textarea></td><td></td>
+                        </tr>
+
+                        <tr>
+                            <td colspan="3">
                                 <label>详情：</label></td>
-                            <td></td>
-                            <td></td>
                         </tr>
                         <tr>
                             <td colspan="3">
                                 <!--style给定宽度可以影响编辑器的最终宽度-->
-                                <script type="text/plain" id="Details" name="Details" style="width: 1000px; height: 200px;">
+                                <script type="text/plain" id="Details" name="Details" style="width: 900px; height: 200px;">
   
                                 </script>
 
                             </td>
                         </tr>
-                </table>
+                    </table>
+            </form>
+        </div>
 
-            </fieldset>
-
-        </form>
-        <div style="text-align: center; width: 100%">
+        <div style="text-align: center; width: 100%; margin-bottom: 5px;">
             <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-ok" onclick="SaveInfo();">确定</a>
             <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" onclick="$('#DivEditor').dialog('close')">关闭</a>
         </div>
