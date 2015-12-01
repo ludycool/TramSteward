@@ -193,7 +193,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 状态（已审核、开启1，未审核0，关闭2）
+        /// 状态（2已审核、开启1，未审核0，关闭-1）
         /// </summary>
         public Int32? States
         {
@@ -333,7 +333,7 @@ namespace e3net.Mode.TramStewardDB
         public static readonly FieldBase Latitude = new FieldBase(DbType.SqlServer, "[TS_Transaction]", FieldType.Common, "[Latitude]");
 
         /// <summary>
-        /// 状态（已审核、开启1，未审核0，关闭2）
+        /// 状态（2已审核、开启1，未审核0，关闭-1）
         /// </summary>
         public static readonly FieldBase States = new FieldBase(DbType.SqlServer, "[TS_Transaction]", FieldType.Common, "[States]");
 

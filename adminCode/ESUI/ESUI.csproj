@@ -241,6 +241,7 @@
     <Compile Include="Controllers\ManuController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\TramStewardDB\TS_ClientUserController.cs" />
+    <Compile Include="Controllers\TramStewardDB\TS_ShopUserController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ParameterController.cs" />
     <Compile Include="Controllers\AdvertisingController.cs" />
@@ -3475,6 +3476,7 @@
     <Content Include="Views\AppVersion\Index.cshtml" />
     <Content Include="Views\PushMessage\Index.cshtml" />
     <Content Include="Views\TS_ClientUser\Index.cshtml" />
+    <Content Include="Views\TS_ShopUser\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="upload\image\20150319\" />

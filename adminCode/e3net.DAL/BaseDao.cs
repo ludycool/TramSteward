@@ -103,6 +103,32 @@ namespace e3net.DAL
             }
         }
 
+        /// <summary>
+        /// 设置数据isDeleted 为0，
+        /// </summary>
+        /// <param name="Idfied">id或列名称</param>
+        /// <param name="IdSet">id集，","号隔开如："3","4"</param>
+        /// <returns></returns>
+        public int DelForSetDelete(string Idfied, string IdSet)
+        {
+            DbParameter[] parameters = {
+                                            new SqlParameter("@tableName", SqlDbType.NVarChar,200) ,     
+			           new SqlParameter("@Idfied", SqlDbType.NVarChar,200) ,            
+                        new SqlParameter("@IdSet", SqlDbType.NVarChar,1000)                      
+              
+            };
+            parameters[0].Value = typeof(T).Name; ;
+            parameters[1].Value = Idfied;
+            parameters[2].Value = IdSet;
+            using (var db = GetDb())
+            {
+                //  db.DebugEnabled = true;
+
+                int res = db.ExecuteProWithNonQuery("proc_DelForSetDelete", parameters);
+                return res;
+            }
+        }
+
 
         public List<T> GetEntities(MQLBase mql)
         {

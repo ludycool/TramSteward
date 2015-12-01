@@ -30,8 +30,13 @@ namespace e3net.IDAL
         /// <returns></returns>
         int Update(EntityBase entity);
 
- 
-
+        /// <summary>
+        /// 设置数据isDeleted 为0，
+        /// </summary>
+        /// <param name="Idfied">id或列名称</param>
+        /// <param name="IdSet">id集，","号隔开如："3","4"</param>
+        /// <returns></returns>
+        int DelForSetDelete(string Idfied, string IdSet);
        
 
         /// <summary>
