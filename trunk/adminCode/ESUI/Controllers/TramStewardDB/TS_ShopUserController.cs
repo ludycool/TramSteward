@@ -19,14 +19,14 @@ using e3net.Mode.HttpView;
 namespace ESUI.Controllers
 {
     //[Export]
-    public class TS_ClientUserController : BaseController
+    public class TS_ShopUserController : BaseController
     {
 
-        //[Import(typeof(ITS_ClientUserDao))]
-     //   public ITS_ClientUserDao OPBiz { get; set; }
-       // public TS_ClientUserBiz OPBiz = new TS_ClientUserBiz();
+        //[Import(typeof(ITS_ShopUserDao))]
+     //   public ITS_ShopUserDao OPBiz { get; set; }
+       // public TS_ShopUserBiz OPBiz = new TS_ShopUserBiz();
         [Dependency]
-        public TS_ClientUserBiz OPBiz { get; set; }
+        public TS_ShopUserBiz OPBiz { get; set; }
         public ActionResult Index()
         {
             ViewBag.RuteUrl = RuteUrl();
@@ -51,10 +51,10 @@ namespace ESUI.Controllers
             pc.sys_Key = "Id";
             pc.sys_PageIndex = pageIndex;
             pc.sys_PageSize = pageSize;
-            pc.sys_Table = "TS_ClientUser";
+            pc.sys_Table = "TS_ShopUser";
             pc.sys_Where = Where;
             pc.sys_Order = " " + sortField + " " + sortOrder;
-            List<TS_ClientUser> list2 = OPBiz.GetPagingData<TS_ClientUser>(pc);
+            List<TS_ShopUser> list2 = OPBiz.GetPagingData<TS_ShopUser>(pc);
 
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add("rows", list2);
@@ -62,37 +62,36 @@ namespace ESUI.Controllers
             return Json(dic, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult EditInfo(TS_ClientUser TS_ClientUserModle)
+        public JsonResult EditInfo(TS_ShopUser TS_ShopUserModle)
         {
             HttpReSultMode ReSultMode = new HttpReSultMode();
             bool IsAdd = false;
-            if (TS_ClientUserModle.Details != null)
+            if (TS_ShopUserModle.Details != null)
             {
-                TS_ClientUserModle.Details = TS_ClientUserModle.Details.Replace("&lt", "<").Replace("&gt", ">");
+                TS_ShopUserModle.Details = TS_ShopUserModle.Details.Replace("&lt", "<").Replace("&gt", ">");
             }
             else
             {
-                TS_ClientUserModle.Details = "";
+                TS_ShopUserModle.Details = "";
             }
-            TS_ClientUserModle.UpdateTime = DateTime.Now;
-            if (!(TS_ClientUserModle.Id != null && !TS_ClientUserModle.Id.ToString().Equals("00000000-0000-0000-0000-000000000000")))//id为空，是添加
+            TS_ShopUserModle.UpdateTime = DateTime.Now;
+            if (!(TS_ShopUserModle.Id != null && !TS_ShopUserModle.Id.ToString().Equals("00000000-0000-0000-0000-000000000000")))//id为空，是添加
             {
                 IsAdd = true;
             }
             if (IsAdd)
             {
-                TS_ClientUserModle.Category = "";
-                TS_ClientUserModle.isDeleted = false;
-                TS_ClientUserModle.isValid = true;
-                TS_ClientUserModle.Id = Guid.NewGuid();
-                TS_ClientUserModle.AddTime = DateTime.Now;
-                TS_ClientUserModle.LocationUpdateTime = DateTime.Now;
+                TS_ShopUserModle.Id = Guid.NewGuid();
+                TS_ShopUserModle.AddTime = DateTime.Now;
+                TS_ShopUserModle.LocationUpdateTime = DateTime.Now;
+                TS_ShopUserModle.isDeleted = false;
+                TS_ShopUserModle.isValid = true;
                 try
                 {
-                    OPBiz.Add(TS_ClientUserModle);
+                    OPBiz.Add(TS_ShopUserModle);
 
                     ReSultMode.Code = 11;
-                    ReSultMode.Data = TS_ClientUserModle.Id.ToString();
+                    ReSultMode.Data = TS_ShopUserModle.Id.ToString();
                     ReSultMode.Msg = "添加成功";
                 }
                 catch (Exception e) {
@@ -105,9 +104,9 @@ namespace ESUI.Controllers
             }
             else
             {
-                TS_ClientUserModle.WhereExpression = TS_ClientUserSet.Id.Equal(TS_ClientUserModle.Id);
-                //TS_ClientUserModle.ChangedMap.Remove("doctorid");//移除主键值
-                if (OPBiz.Update(TS_ClientUserModle) > 0)
+                TS_ShopUserModle.WhereExpression = TS_ShopUserSet.Id.Equal(TS_ShopUserModle.Id);
+                //TS_ShopUserModle.ChangedMap.Remove("doctorid");//移除主键值
+                if (OPBiz.Update(TS_ShopUserModle) > 0)
                 {
                     ReSultMode.Code = 11;
                     ReSultMode.Data = "";
@@ -129,8 +128,8 @@ namespace ESUI.Controllers
         }
         public JsonResult GetInfo(string ID)
         {
-            var mql2 = TS_ClientUserSet.SelectAll().Where(TS_ClientUserSet.Id.Equal(ID));
-            TS_ClientUser Rmodel = OPBiz.GetEntity(mql2);
+            var mql2 = TS_ShopUserSet.SelectAll().Where(TS_ShopUserSet.Id.Equal(ID));
+            TS_ShopUser Rmodel = OPBiz.GetEntity(mql2);
             //  groupsBiz.Add(rol);
             return Json(Rmodel, JsonRequestBehavior.AllowGet);
         }
@@ -139,8 +138,8 @@ namespace ESUI.Controllers
         public JsonResult Del(string IDSet)
         {
 
-            var mql2 = TS_ClientUserSet.Id.In(IDSet.Split(','));
-           // int f = OPBiz.Remove<TS_ClientUserSet>(mql2);
+            var mql2 = TS_ShopUserSet.Id.In(IDSet.Split(','));
+           // int f = OPBiz.Remove<TS_ShopUserSet>(mql2);
             int f = OPBiz.DelForSetDelete("Id", IDSet);
             HttpReSultMode ReSultMode = new HttpReSultMode();
             if (f > 0)

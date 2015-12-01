@@ -59,10 +59,6 @@ form table {
     }
 /* css注释：鼠标经过时候背景颜色 */
 
-form input {
-    border: 1px solid #95B8E7;
-}
-
 .textbox {
     width:200px;height:24px;
     position: relative;

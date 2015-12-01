@@ -16,11 +16,6 @@ namespace e3net.BLL
     {
 
 
-        public Sys_DictionaryBiz ()
-        {
-            SetDb(false, "HospitalBaseConnection");
-        }
-
         /// <summary>
         /// 词典树型数据生成json！！
         /// </summary>

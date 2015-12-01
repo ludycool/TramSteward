@@ -3,10 +3,6 @@
 
 var dataAll = new Array();//全部数据，包括子集
 function BindDictionary(combotreeId, ValueName) {//自己和子集
-    $('#' + combotreeId).combotree({
-        width: 150,
-        emptyText: '请选择'
-    });
     $.ajax({
         url: '/httpHandle/DictionaryHandler.ashx?action=GetSonDictionary&ValueName=' + ValueName,
         type: 'POST',
@@ -20,10 +16,6 @@ function BindDictionary(combotreeId, ValueName) {//自己和子集
     });
 }
 function GetSonDictionaryNo(combotreeId, ValueName) {//除掉本身只要子集
-    $('#' + combotreeId).combotree({
-        width: 150,
-        emptyText: '请选择'
-    });
     $.ajax({
         url: '/httpHandle/DictionaryHandler.ashx?action=GetSonDictionaryNo&ValueName=' + ValueName,
         type: 'POST',
@@ -31,6 +23,7 @@ function GetSonDictionaryNo(combotreeId, ValueName) {//除掉本身只要子集
         error: function () { alert('获取类别出错'); },
         success: function (result) {
             var Dictionarydata = eval(result);
+            pushAll(Dictionarydata);
             $('#' + combotreeId).combotree('loadData', ConvertToTreeData(Dictionarydata));
         }
     });

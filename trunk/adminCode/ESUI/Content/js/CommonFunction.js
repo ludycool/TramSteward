@@ -190,7 +190,7 @@ var DataBaseFunction = {
             var ids = "";   //1,2,3,4,5
             for (var i = 0; i < rows.length; i++) {
                 //异步将删除的ID发送到后台，后台删除之后，返回前台，前台刷洗表格
-                ids += rows[i][Idfield] + ",";
+                ids +="'"+ rows[i][Idfield] + "',";
             }
             //最后去掉最后的那一个,
             ids = ids.substring(0, ids.length - 1);

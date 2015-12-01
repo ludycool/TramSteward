@@ -137,6 +137,33 @@ namespace e3net.Mode.TramStewardDB
             get { return GetPropertyValue<DateTime?>("UpdateTime"); }
             set { SetPropertyValue("UpdateTime", value); }
         }
+
+        /// <summary>
+        /// 状态（2已审核、开启1，未审核0，关闭-1）
+        /// </summary>
+        public Int32? States
+        {
+            get { return GetPropertyValue<Int32?>("States"); }
+            set { SetPropertyValue("States", value); }
+        }
+
+        /// <summary>
+        /// 是否有效
+        /// </summary>
+        public Boolean? isValid
+        {
+            get { return GetPropertyValue<Boolean?>("isValid"); }
+            set { SetPropertyValue("isValid", value); }
+        }
+
+        /// <summary>
+        /// 是否删除
+        /// </summary>
+        public Boolean? isDeleted
+        {
+            get { return GetPropertyValue<Boolean?>("isDeleted"); }
+            set { SetPropertyValue("isDeleted", value); }
+        }
     }
 
     [Table("[TS_ShopUser]", DbType.SqlServer)]
@@ -220,6 +247,21 @@ namespace e3net.Mode.TramStewardDB
         /// 更新时间
         /// </summary>
         public static readonly FieldBase UpdateTime = new FieldBase(DbType.SqlServer, "[TS_ShopUser]", FieldType.Common, "[UpdateTime]");
+
+        /// <summary>
+        /// 状态（2已审核、开启1，未审核0，关闭-1）
+        /// </summary>
+        public static readonly FieldBase States = new FieldBase(DbType.SqlServer, "[TS_ShopUser]", FieldType.Common, "[States]");
+
+        /// <summary>
+        /// 是否有效
+        /// </summary>
+        public static readonly FieldBase isValid = new FieldBase(DbType.SqlServer, "[TS_ShopUser]", FieldType.Common, "[isValid]");
+
+        /// <summary>
+        /// 是否删除
+        /// </summary>
+        public static readonly FieldBase isDeleted = new FieldBase(DbType.SqlServer, "[TS_ShopUser]", FieldType.Common, "[isDeleted]");
     }
 
 }

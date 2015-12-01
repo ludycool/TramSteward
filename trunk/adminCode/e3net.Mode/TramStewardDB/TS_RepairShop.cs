@@ -7,9 +7,9 @@ using Moon.Orm;
 namespace e3net.Mode.TramStewardDB
 {
 
-    [Table("[TS_Service]", DbType.SqlServer)]
+    [Table("[TS_RepairShop]", DbType.SqlServer)]
     [TablesPrimaryKey(PrimaryKeyType.CustomerGUID, typeof(Guid), "Id")]
-    public partial class TS_Service : EntityBase
+    public partial class TS_RepairShop : EntityBase
     {
 
         /// <summary>
@@ -76,12 +76,12 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 类型（充电站，租车）
+        /// 是否提供抢修（1是，0否）
         /// </summary>
-        public String Types
+        public Int32? IsRepair
         {
-            get { return GetPropertyValue<String>("Types"); }
-            set { SetPropertyValue("Types", value); }
+            get { return GetPropertyValue<Int32?>("IsRepair"); }
+            set { SetPropertyValue("IsRepair", value); }
         }
 
         /// <summary>
@@ -220,132 +220,132 @@ namespace e3net.Mode.TramStewardDB
         }
     }
 
-    [Table("[TS_Service]", DbType.SqlServer)]
-    public  partial class TS_ServiceSet : MQLBase
+    [Table("[TS_RepairShop]", DbType.SqlServer)]
+    public  partial class TS_RepairShopSet : MQLBase
     {
         public static new MQLBase Select(params FieldBase[] fields)
         {
-            return MQLBase.Select(DbType.SqlServer,"[TS_Service]",fields);
+            return MQLBase.Select(DbType.SqlServer,"[TS_RepairShop]",fields);
         }
         public static new MQLBase SelectAll()
         {
-            return MQLBase.SelectAll(DbType.SqlServer,"[TS_Service]");
+            return MQLBase.SelectAll(DbType.SqlServer,"[TS_RepairShop]");
         }
 
         /// <summary>
         /// 主键
         /// </summary>
-        public static readonly FieldBase Id = new FieldBase(DbType.SqlServer, "[TS_Service]", FieldType.OnlyPrimaryKey, "[Id]");
+        public static readonly FieldBase Id = new FieldBase(DbType.SqlServer, "[TS_RepairShop]", FieldType.OnlyPrimaryKey, "[Id]");
 
         /// <summary>
         /// 名称
         /// </summary>
-        public static readonly FieldBase TName = new FieldBase(DbType.SqlServer, "[TS_Service]", FieldType.Common, "[TName]");
+        public static readonly FieldBase TName = new FieldBase(DbType.SqlServer, "[TS_RepairShop]", FieldType.Common, "[TName]");
 
         /// <summary>
         /// 大图片
         /// </summary>
-        public static readonly FieldBase ImageUrlMax = new FieldBase(DbType.SqlServer, "[TS_Service]", FieldType.Common, "[ImageUrlMax]");
+        public static readonly FieldBase ImageUrlMax = new FieldBase(DbType.SqlServer, "[TS_RepairShop]", FieldType.Common, "[ImageUrlMax]");
 
         /// <summary>
         /// 图像
         /// </summary>
-        public static readonly FieldBase ImageUrl = new FieldBase(DbType.SqlServer, "[TS_Service]", FieldType.Common, "[ImageUrl]");
+        public static readonly FieldBase ImageUrl = new FieldBase(DbType.SqlServer, "[TS_RepairShop]", FieldType.Common, "[ImageUrl]");
 
         /// <summary>
         /// 星级
         /// </summary>
-        public static readonly FieldBase Star = new FieldBase(DbType.SqlServer, "[TS_Service]", FieldType.Common, "[Star]");
+        public static readonly FieldBase Star = new FieldBase(DbType.SqlServer, "[TS_RepairShop]", FieldType.Common, "[Star]");
 
         /// <summary>
         /// 电话
         /// </summary>
-        public static readonly FieldBase Phone = new FieldBase(DbType.SqlServer, "[TS_Service]", FieldType.Common, "[Phone]");
+        public static readonly FieldBase Phone = new FieldBase(DbType.SqlServer, "[TS_RepairShop]", FieldType.Common, "[Phone]");
 
         /// <summary>
         /// 详情
         /// </summary>
-        public static readonly FieldBase Details = new FieldBase(DbType.SqlServer, "[TS_Service]", FieldType.Common, "[Details]");
+        public static readonly FieldBase Details = new FieldBase(DbType.SqlServer, "[TS_RepairShop]", FieldType.Common, "[Details]");
 
         /// <summary>
-        /// 类型（充电站，租车）
+        /// 是否提供抢修（1是，0否）
         /// </summary>
-        public static readonly FieldBase Types = new FieldBase(DbType.SqlServer, "[TS_Service]", FieldType.Common, "[Types]");
+        public static readonly FieldBase IsRepair = new FieldBase(DbType.SqlServer, "[TS_RepairShop]", FieldType.Common, "[IsRepair]");
 
         /// <summary>
         /// 类别
         /// </summary>
-        public static readonly FieldBase Category = new FieldBase(DbType.SqlServer, "[TS_Service]", FieldType.Common, "[Category]");
+        public static readonly FieldBase Category = new FieldBase(DbType.SqlServer, "[TS_RepairShop]", FieldType.Common, "[Category]");
 
         /// <summary>
         /// 创建人Id
         /// </summary>
-        public static readonly FieldBase CreateManId = new FieldBase(DbType.SqlServer, "[TS_Service]", FieldType.Common, "[CreateManId]");
+        public static readonly FieldBase CreateManId = new FieldBase(DbType.SqlServer, "[TS_RepairShop]", FieldType.Common, "[CreateManId]");
 
         /// <summary>
         /// 城市
         /// </summary>
-        public static readonly FieldBase CityCode = new FieldBase(DbType.SqlServer, "[TS_Service]", FieldType.Common, "[CityCode]");
+        public static readonly FieldBase CityCode = new FieldBase(DbType.SqlServer, "[TS_RepairShop]", FieldType.Common, "[CityCode]");
 
         /// <summary>
         /// 区
         /// </summary>
-        public static readonly FieldBase AreaCode = new FieldBase(DbType.SqlServer, "[TS_Service]", FieldType.Common, "[AreaCode]");
+        public static readonly FieldBase AreaCode = new FieldBase(DbType.SqlServer, "[TS_RepairShop]", FieldType.Common, "[AreaCode]");
 
         /// <summary>
         /// 地址
         /// </summary>
-        public static readonly FieldBase Address = new FieldBase(DbType.SqlServer, "[TS_Service]", FieldType.Common, "[Address]");
+        public static readonly FieldBase Address = new FieldBase(DbType.SqlServer, "[TS_RepairShop]", FieldType.Common, "[Address]");
 
         /// <summary>
         /// 呼叫量
         /// </summary>
-        public static readonly FieldBase CallCount = new FieldBase(DbType.SqlServer, "[TS_Service]", FieldType.Common, "[CallCount]");
+        public static readonly FieldBase CallCount = new FieldBase(DbType.SqlServer, "[TS_RepairShop]", FieldType.Common, "[CallCount]");
 
         /// <summary>
         /// 赞
         /// </summary>
-        public static readonly FieldBase Praises = new FieldBase(DbType.SqlServer, "[TS_Service]", FieldType.Common, "[Praises]");
+        public static readonly FieldBase Praises = new FieldBase(DbType.SqlServer, "[TS_RepairShop]", FieldType.Common, "[Praises]");
 
         /// <summary>
         /// 点击数
         /// </summary>
-        public static readonly FieldBase Clicks = new FieldBase(DbType.SqlServer, "[TS_Service]", FieldType.Common, "[Clicks]");
+        public static readonly FieldBase Clicks = new FieldBase(DbType.SqlServer, "[TS_RepairShop]", FieldType.Common, "[Clicks]");
 
         /// <summary>
         /// 添加时间
         /// </summary>
-        public static readonly FieldBase CreateTime = new FieldBase(DbType.SqlServer, "[TS_Service]", FieldType.Common, "[CreateTime]");
+        public static readonly FieldBase CreateTime = new FieldBase(DbType.SqlServer, "[TS_RepairShop]", FieldType.Common, "[CreateTime]");
 
         /// <summary>
         /// 修改时间
         /// </summary>
-        public static readonly FieldBase UpdateTime = new FieldBase(DbType.SqlServer, "[TS_Service]", FieldType.Common, "[UpdateTime]");
+        public static readonly FieldBase UpdateTime = new FieldBase(DbType.SqlServer, "[TS_RepairShop]", FieldType.Common, "[UpdateTime]");
 
         /// <summary>
         /// 经度
         /// </summary>
-        public static readonly FieldBase Longitude = new FieldBase(DbType.SqlServer, "[TS_Service]", FieldType.Common, "[Longitude]");
+        public static readonly FieldBase Longitude = new FieldBase(DbType.SqlServer, "[TS_RepairShop]", FieldType.Common, "[Longitude]");
 
         /// <summary>
         /// 纬度
         /// </summary>
-        public static readonly FieldBase Latitude = new FieldBase(DbType.SqlServer, "[TS_Service]", FieldType.Common, "[Latitude]");
+        public static readonly FieldBase Latitude = new FieldBase(DbType.SqlServer, "[TS_RepairShop]", FieldType.Common, "[Latitude]");
 
         /// <summary>
         /// 状态（2已审核、开启1，未审核0，关闭-1）
         /// </summary>
-        public static readonly FieldBase States = new FieldBase(DbType.SqlServer, "[TS_Service]", FieldType.Common, "[States]");
+        public static readonly FieldBase States = new FieldBase(DbType.SqlServer, "[TS_RepairShop]", FieldType.Common, "[States]");
 
         /// <summary>
         /// 是否有效
         /// </summary>
-        public static readonly FieldBase isValid = new FieldBase(DbType.SqlServer, "[TS_Service]", FieldType.Common, "[isValid]");
+        public static readonly FieldBase isValid = new FieldBase(DbType.SqlServer, "[TS_RepairShop]", FieldType.Common, "[isValid]");
 
         /// <summary>
         /// 是否删除
         /// </summary>
-        public static readonly FieldBase isDeleted = new FieldBase(DbType.SqlServer, "[TS_Service]", FieldType.Common, "[isDeleted]");
+        public static readonly FieldBase isDeleted = new FieldBase(DbType.SqlServer, "[TS_RepairShop]", FieldType.Common, "[isDeleted]");
     }
 
 }
