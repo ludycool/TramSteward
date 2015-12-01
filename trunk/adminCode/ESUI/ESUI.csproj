@@ -3033,6 +3033,7 @@
     <Content Include="Content\Login\images\user_top_l.gif" />
     <Content Include="Content\Login\images\user_top_r.gif" />
     <Content Include="Content\Login\images\xtree.css" />
+    <Content Include="Content\Style.js" />
     <Content Include="Content\ueditor\dialogs\anchor\anchor.html" />
     <Content Include="Content\ueditor\dialogs\attachment\attachment.css" />
     <Content Include="Content\ueditor\dialogs\attachment\attachment.html" />
