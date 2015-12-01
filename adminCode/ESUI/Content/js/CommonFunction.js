@@ -155,9 +155,16 @@ var DataBaseFunction = {
             if (dd != null) {
                 var ty = dd.attr("type");
                 if (ty != null && ty == "radio") {
-                    dd.removeAttr("CHECKED");
-                    $("[name=" + items + "][value=" + data[items] + "]").attr("checked", true);
-
+                    //dd.removeAttr("CHECKED");
+                    //$("[name=" + items + "][value=" + data[items] + "]").attr("checked", true); ie9以上失效
+                    var _o = document.getElementsByName(items);
+                    for (i = 0; i < _o.length; i++) {
+                        if (_o[i].value == data[items])
+                        { _o[i].checked = true; }
+                        else {
+                            _o[i].checked = false;
+                        }
+                    }
                 } else if (ty != null && ty == "checkbox") {
                     dd.removeAttr("CHECKED");
                     var strdata = data[items].split("%&");
@@ -166,7 +173,7 @@ var DataBaseFunction = {
 
                     }
 
-                } else if (dd.get(0)!=undefined&&dd.get(0).tagName == "SPAN" ) {
+                } else if (dd.get(0) != undefined && dd.get(0).tagName == "SPAN") {
                     dd.html(data[items]);
                 } else {
                     dd.val(data[items]);
@@ -296,7 +303,7 @@ function PanelAutoResizeWH(PanelSelect, w, h) //设置宽高自适应w  h 宽高
 
 }
 
-function AutoWH(PanelSelect,w,h) //设置宽高自适应w  h 宽高偏移量
+function AutoWH(PanelSelect, w, h) //设置宽高自适应w  h 宽高偏移量
 {
     var winWidth = 0;
     var winHeight = 0;
@@ -329,7 +336,7 @@ function AutoW(PanelSelect, w) //设置宽自适应w宽高偏移量
         winWidth = window.innerWidth;
     else if ((document.body) && (document.body.clientWidth))
         winWidth = document.body.clientWidth;
-   
+
     //通过深入Document内部对body进行检测，获取窗口大小
     if (document.documentElement && document.documentElement.clientWidth) {
         winWidth = document.documentElement.clientWidth;
@@ -339,7 +346,7 @@ function AutoW(PanelSelect, w) //设置宽自适应w宽高偏移量
 }
 function AutoH(PanelSelect, h) //设置高自适应 h 宽高偏移量
 {
- 
+
     var winHeight = 0;
     //获取窗口高度
     if (window.innerHeight)
