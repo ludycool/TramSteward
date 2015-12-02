@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using TZHSWEET.Common;
 
 namespace ESUI.httpHandle
 {
@@ -35,7 +36,22 @@ namespace ESUI.httpHandle
                     context.Response.End();
 
                     break;
+                case "GetSysItem"://除掉本身只要子集
+
+                    string ItemType = context.Request["ItemType"];
+                    context.Response.Write(GetSysItem(ItemType));
+                    context.Response.End();
+
+                    break;
             }
+        }
+
+        public string GetSysItem(string ItemType)
+        {
+            var sql = SysItemSet.SelectAll().Where(SysItemSet.ItemType.Equal(ItemType)).OrderByASC(SysItemSet.OrderID);
+            List<SysItem> AllList = OPBiz.GetOwnList<SysItem>(sql);
+            return JsonHelper.ToJson(AllList, true);
+        
         }
         public string GetSonDictionary(string ValueName)
         {

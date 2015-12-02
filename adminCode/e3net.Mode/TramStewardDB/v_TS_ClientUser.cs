@@ -7,10 +7,28 @@ using Moon.Orm;
 namespace e3net.Mode.TramStewardDB
 {
 
-    [Table("[TS_ShopUser]", DbType.SqlServer)]
-    [TablesPrimaryKey(PrimaryKeyType.CustomerGUID, typeof(Guid), "Id")]
-    public partial class TS_ShopUser : EntityBase
+    [Table("[v_TS_ClientUser]", DbType.SqlServer)]
+
+    public partial class v_TS_ClientUser : EntityBase
     {
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String CategoryName
+        {
+            get { return GetPropertyValue<String>("CategoryName"); }
+            set { SetPropertyValue("CategoryName", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String StatesName
+        {
+            get { return GetPropertyValue<String>("StatesName"); }
+            set { SetPropertyValue("StatesName", value); }
+        }
 
         /// <summary>
         /// 
@@ -22,7 +40,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 图片
+        /// 
         /// </summary>
         public String ImgeUrl
         {
@@ -31,7 +49,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 姓名
+        /// 
         /// </summary>
         public String TrueName
         {
@@ -40,7 +58,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 用户名
+        /// 
         /// </summary>
         public String UserName
         {
@@ -49,7 +67,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 密码
+        /// 
         /// </summary>
         public String Pwd
         {
@@ -58,7 +76,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 电话
+        /// 
         /// </summary>
         public String Phone
         {
@@ -67,7 +85,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 省
+        /// 
         /// </summary>
         public String ProvinceCode
         {
@@ -76,7 +94,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 城市
+        /// 
         /// </summary>
         public String CityCode
         {
@@ -85,7 +103,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 区
+        /// 
         /// </summary>
         public String AreaCode
         {
@@ -94,7 +112,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 地址
+        /// 
         /// </summary>
         public String Address
         {
@@ -103,7 +121,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 类别
+        /// 
         /// </summary>
         public String Category
         {
@@ -112,7 +130,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 详情
+        /// 
         /// </summary>
         public String Details
         {
@@ -121,7 +139,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 经度
+        /// 
         /// </summary>
         public Double? Longitude
         {
@@ -130,7 +148,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 纬度
+        /// 
         /// </summary>
         public Double? Latitude
         {
@@ -139,7 +157,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 位置更新时间
+        /// 
         /// </summary>
         public DateTime? LocationUpdateTime
         {
@@ -148,7 +166,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 添加时间
+        /// 
         /// </summary>
         public DateTime? AddTime
         {
@@ -157,7 +175,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 更新时间
+        /// 
         /// </summary>
         public DateTime? UpdateTime
         {
@@ -166,7 +184,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 状态（2已审核、开启1，未审核0，关闭-1）
+        /// 
         /// </summary>
         public Int32? States
         {
@@ -175,7 +193,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 是否有效
+        /// 
         /// </summary>
         public Int32? isValid
         {
@@ -184,7 +202,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 是否删除
+        /// 
         /// </summary>
         public Boolean? isDeleted
         {
@@ -193,117 +211,127 @@ namespace e3net.Mode.TramStewardDB
         }
     }
 
-    [Table("[TS_ShopUser]", DbType.SqlServer)]
-    public  partial class TS_ShopUserSet : MQLBase
+    [Table("[v_TS_ClientUser]", DbType.SqlServer)]
+    public  partial class v_TS_ClientUserSet : MQLBase
     {
         public static new MQLBase Select(params FieldBase[] fields)
         {
-            return MQLBase.Select(DbType.SqlServer,"[TS_ShopUser]",fields);
+            return MQLBase.Select(DbType.SqlServer,"[v_TS_ClientUser]",fields);
         }
         public static new MQLBase SelectAll()
         {
-            return MQLBase.SelectAll(DbType.SqlServer,"[TS_ShopUser]");
+            return MQLBase.SelectAll(DbType.SqlServer,"[v_TS_ClientUser]");
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly FieldBase Id = new FieldBase(DbType.SqlServer, "[TS_ShopUser]", FieldType.OnlyPrimaryKey, "[Id]");
+        public static readonly FieldBase CategoryName = new FieldBase(DbType.SqlServer, "[v_TS_ClientUser]", FieldType.Common, "[CategoryName]");
 
         /// <summary>
-        /// 图片
+        /// 
         /// </summary>
-        public static readonly FieldBase ImgeUrl = new FieldBase(DbType.SqlServer, "[TS_ShopUser]", FieldType.Common, "[ImgeUrl]");
+        public static readonly FieldBase StatesName = new FieldBase(DbType.SqlServer, "[v_TS_ClientUser]", FieldType.Common, "[StatesName]");
 
         /// <summary>
-        /// 姓名
+        /// 
         /// </summary>
-        public static readonly FieldBase TrueName = new FieldBase(DbType.SqlServer, "[TS_ShopUser]", FieldType.Common, "[TrueName]");
+        public static readonly FieldBase Id = new FieldBase(DbType.SqlServer, "[v_TS_ClientUser]", FieldType.Common, "[Id]");
 
         /// <summary>
-        /// 用户名
+        /// 
         /// </summary>
-        public static readonly FieldBase UserName = new FieldBase(DbType.SqlServer, "[TS_ShopUser]", FieldType.Common, "[UserName]");
+        public static readonly FieldBase ImgeUrl = new FieldBase(DbType.SqlServer, "[v_TS_ClientUser]", FieldType.Common, "[ImgeUrl]");
 
         /// <summary>
-        /// 密码
+        /// 
         /// </summary>
-        public static readonly FieldBase Pwd = new FieldBase(DbType.SqlServer, "[TS_ShopUser]", FieldType.Common, "[Pwd]");
+        public static readonly FieldBase TrueName = new FieldBase(DbType.SqlServer, "[v_TS_ClientUser]", FieldType.Common, "[TrueName]");
 
         /// <summary>
-        /// 电话
+        /// 
         /// </summary>
-        public static readonly FieldBase Phone = new FieldBase(DbType.SqlServer, "[TS_ShopUser]", FieldType.Common, "[Phone]");
+        public static readonly FieldBase UserName = new FieldBase(DbType.SqlServer, "[v_TS_ClientUser]", FieldType.Common, "[UserName]");
 
         /// <summary>
-        /// 省
+        /// 
         /// </summary>
-        public static readonly FieldBase ProvinceCode = new FieldBase(DbType.SqlServer, "[TS_ShopUser]", FieldType.Common, "[ProvinceCode]");
+        public static readonly FieldBase Pwd = new FieldBase(DbType.SqlServer, "[v_TS_ClientUser]", FieldType.Common, "[Pwd]");
 
         /// <summary>
-        /// 城市
+        /// 
         /// </summary>
-        public static readonly FieldBase CityCode = new FieldBase(DbType.SqlServer, "[TS_ShopUser]", FieldType.Common, "[CityCode]");
+        public static readonly FieldBase Phone = new FieldBase(DbType.SqlServer, "[v_TS_ClientUser]", FieldType.Common, "[Phone]");
 
         /// <summary>
-        /// 区
+        /// 
         /// </summary>
-        public static readonly FieldBase AreaCode = new FieldBase(DbType.SqlServer, "[TS_ShopUser]", FieldType.Common, "[AreaCode]");
+        public static readonly FieldBase ProvinceCode = new FieldBase(DbType.SqlServer, "[v_TS_ClientUser]", FieldType.Common, "[ProvinceCode]");
 
         /// <summary>
-        /// 地址
+        /// 
         /// </summary>
-        public static readonly FieldBase Address = new FieldBase(DbType.SqlServer, "[TS_ShopUser]", FieldType.Common, "[Address]");
+        public static readonly FieldBase CityCode = new FieldBase(DbType.SqlServer, "[v_TS_ClientUser]", FieldType.Common, "[CityCode]");
 
         /// <summary>
-        /// 类别
+        /// 
         /// </summary>
-        public static readonly FieldBase Category = new FieldBase(DbType.SqlServer, "[TS_ShopUser]", FieldType.Common, "[Category]");
+        public static readonly FieldBase AreaCode = new FieldBase(DbType.SqlServer, "[v_TS_ClientUser]", FieldType.Common, "[AreaCode]");
 
         /// <summary>
-        /// 详情
+        /// 
         /// </summary>
-        public static readonly FieldBase Details = new FieldBase(DbType.SqlServer, "[TS_ShopUser]", FieldType.Common, "[Details]");
+        public static readonly FieldBase Address = new FieldBase(DbType.SqlServer, "[v_TS_ClientUser]", FieldType.Common, "[Address]");
 
         /// <summary>
-        /// 经度
+        /// 
         /// </summary>
-        public static readonly FieldBase Longitude = new FieldBase(DbType.SqlServer, "[TS_ShopUser]", FieldType.Common, "[Longitude]");
+        public static readonly FieldBase Category = new FieldBase(DbType.SqlServer, "[v_TS_ClientUser]", FieldType.Common, "[Category]");
 
         /// <summary>
-        /// 纬度
+        /// 
         /// </summary>
-        public static readonly FieldBase Latitude = new FieldBase(DbType.SqlServer, "[TS_ShopUser]", FieldType.Common, "[Latitude]");
+        public static readonly FieldBase Details = new FieldBase(DbType.SqlServer, "[v_TS_ClientUser]", FieldType.Common, "[Details]");
 
         /// <summary>
-        /// 位置更新时间
+        /// 
         /// </summary>
-        public static readonly FieldBase LocationUpdateTime = new FieldBase(DbType.SqlServer, "[TS_ShopUser]", FieldType.Common, "[LocationUpdateTime]");
+        public static readonly FieldBase Longitude = new FieldBase(DbType.SqlServer, "[v_TS_ClientUser]", FieldType.Common, "[Longitude]");
 
         /// <summary>
-        /// 添加时间
+        /// 
         /// </summary>
-        public static readonly FieldBase AddTime = new FieldBase(DbType.SqlServer, "[TS_ShopUser]", FieldType.Common, "[AddTime]");
+        public static readonly FieldBase Latitude = new FieldBase(DbType.SqlServer, "[v_TS_ClientUser]", FieldType.Common, "[Latitude]");
 
         /// <summary>
-        /// 更新时间
+        /// 
         /// </summary>
-        public static readonly FieldBase UpdateTime = new FieldBase(DbType.SqlServer, "[TS_ShopUser]", FieldType.Common, "[UpdateTime]");
+        public static readonly FieldBase LocationUpdateTime = new FieldBase(DbType.SqlServer, "[v_TS_ClientUser]", FieldType.Common, "[LocationUpdateTime]");
 
         /// <summary>
-        /// 状态（2已审核、开启1，未审核0，关闭-1）
+        /// 
         /// </summary>
-        public static readonly FieldBase States = new FieldBase(DbType.SqlServer, "[TS_ShopUser]", FieldType.Common, "[States]");
+        public static readonly FieldBase AddTime = new FieldBase(DbType.SqlServer, "[v_TS_ClientUser]", FieldType.Common, "[AddTime]");
 
         /// <summary>
-        /// 是否有效
+        /// 
         /// </summary>
-        public static readonly FieldBase isValid = new FieldBase(DbType.SqlServer, "[TS_ShopUser]", FieldType.Common, "[isValid]");
+        public static readonly FieldBase UpdateTime = new FieldBase(DbType.SqlServer, "[v_TS_ClientUser]", FieldType.Common, "[UpdateTime]");
 
         /// <summary>
-        /// 是否删除
+        /// 
         /// </summary>
-        public static readonly FieldBase isDeleted = new FieldBase(DbType.SqlServer, "[TS_ShopUser]", FieldType.Common, "[isDeleted]");
+        public static readonly FieldBase States = new FieldBase(DbType.SqlServer, "[v_TS_ClientUser]", FieldType.Common, "[States]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase isValid = new FieldBase(DbType.SqlServer, "[v_TS_ClientUser]", FieldType.Common, "[isValid]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase isDeleted = new FieldBase(DbType.SqlServer, "[v_TS_ClientUser]", FieldType.Common, "[isDeleted]");
     }
 
 }

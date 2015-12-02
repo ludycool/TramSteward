@@ -17,9 +17,6 @@
 
     <script type="text/javascript" charset="utf-8" src="~/Content/js/ImgUp.js"></script>
     <script type="text/javascript" charset="utf-8" src="~/Content/js/DictionaryHelper.js"></script>
-
-    <!--省 市 区 联动-->
-    <script src="~/Content/js/area.js"></script>
     @* ReSharper disable once NotAllPathsReturnValue *@
 
 
@@ -36,9 +33,6 @@
                 AutoWH("#body", 40, 42);//自适应宽度
                 DataGridSet();
                 GetSonDictionaryNo("Category", "04");
-                $('#States').combobox('reload', '/httpHandle/DictionaryHandler.ashx?action=GetSysItem&ItemType=States');  // 使用新的URL重新载入列表数据
-                _init_area();//初始化省市区联动
-
 
             })
             function DataGridSet() {
@@ -46,13 +40,18 @@
                     url: BaseUrl + 'Search',
                     columns: [[
                         { field: 'ck', checkbox: true },
-                        { field: 'UserName', title: '用户名', width: 100 },
-                        { field: 'TrueName', title: '姓名', width: 100 },
+                        { field: 'TName', title: '名称', width: 100 },
+                        { field: 'Star', title: '星级', width: 100 },
                         { field: 'Phone', title: '电话', width: 100 },
-                         { field: 'CategoryName', title: '类型', width: 100 },
-                         { field: 'ProvinceCode', title: '省', width: 100 },
-                         { field: 'CityCode', title: '市', width: 100 },
-                         { field: 'AreaCode', title: '区', width: 100 },
+                         { field: 'CallCount', title: '呼叫量', width: 100 },
+                        { field: 'Praises', title: '赞', width: 100 },
+                        { field: 'States', title: '状态', width: 100 },
+                        { field: 'CreateTime', title: '添加时间', width: 100 },
+                         {
+                             field: 'Category', title: '类型', width: 100, formatter: function (value, row, index) {
+                                 return GetNameByValue(value);
+                             }
+                         },
                         { field: 'Address', title: '地址', width: 300, align: 'right' }
                     ]],
                     iconCls: 'icon-save',
@@ -90,7 +89,6 @@
                 });
                 $(".validatebox-tip").remove();//清除验证样式
                 DataBaseFunction.ClearForm("ff");
-
                 $("#imgLogo").attr('src', "");
                 UM.getEditor('Details').setContent("", false);
             }
@@ -123,11 +121,6 @@
                         $("#imgLogo").attr('src', result.ImgeUrl);
                         $('#Category').combotree('setValue', result['Category']);
                         $('#States').combobox('select', result.States);
-
-                        change(1);
-                        $('#CityCode').val(result.CityCode);
-                        change(2);
-                        $('#AreaCode').val(result.AreaCode);
                     }
                 });
 
@@ -145,7 +138,7 @@
                 var data = DataBaseFunction.GetFormData("ff")
                 var Details = UM.getEditor('Details').getContent();
                 Details = htmlEncode(Details);
-                data[19].value = Details;
+                data[16].value = Details;
                 //发送异步请求到后台保存数据
                 $.post(BaseUrl + 'EditInfo', data, function (data) {
                     alerts(data.Msg, 2);
@@ -247,19 +240,6 @@
                     </tr>
                     <tr>
                         <td>
-                            <label>省/市/区：</label></td>
-                        <td>
-                            <select id="ProvinceCode" name="ProvinceCode" >
-                            </select>
-                            <select id="CityCode" name="CityCode" >
-                            </select>
-                            <select id="AreaCode" name="AreaCode" >
-                            </select>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
                             <label>地址：</label></td>
                         <td>
                             <textarea class="areabox" name="Address"></textarea></td>
@@ -271,16 +251,18 @@
                             <select id="Category" name="Category" class="easyui-combotree" style="width: 200px;"
                                 data-options="required:true">
                             </select>
-
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <label>状态：</label></td>
                         <td>
-                            <input id="States" class="easyui-combobox" name="States"
-                                data-options="valueField:'ItemValue',textField:'ItemName'" />
-
+                            <select class="easyui-combobox" id="States" data-options="required:true" name="States" style="width: 200px;">
+                                <option value="0">未审核</option>
+                                <option value="2">已审核</option>
+                                <option value="1">开启</option>
+                                <option value="-1">关闭</option>
+                            </select>
                         </td>
                     </tr>
                     <tr>

@@ -96,9 +96,9 @@ namespace e3net.Mode.TramStewardDB
         /// <summary>
         /// 属店铺Id
         /// </summary>
-        public String ShopId
+        public Guid? ShopId
         {
-            get { return GetPropertyValue<String>("ShopId"); }
+            get { return GetPropertyValue<Guid?>("ShopId"); }
             set { SetPropertyValue("ShopId", value); }
         }
 
@@ -150,9 +150,9 @@ namespace e3net.Mode.TramStewardDB
         /// <summary>
         /// 是否有效
         /// </summary>
-        public Boolean? isValid
+        public Int32? isValid
         {
-            get { return GetPropertyValue<Boolean?>("isValid"); }
+            get { return GetPropertyValue<Int32?>("isValid"); }
             set { SetPropertyValue("isValid", value); }
         }
 

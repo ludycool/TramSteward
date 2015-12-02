@@ -78,10 +78,12 @@
     <Compile Include="TramStewardDB\ITS_ShopDao.cs" />
     <Compile Include="TramStewardDB\ITS_ShopUserDao.cs" />
     <Compile Include="TramStewardDB\ITS_TransactionDao.cs" />
+    <Compile Include="TramStewardDB\ITS_RepairManDao.cs" />
     <Compile Include="V_IDAL\IV_DoctorDao.cs" />
     <Compile Include="ISystemLogsDao.cs" />
     <Compile Include="YhSys\IPushMessageDao.cs" />
     <Compile Include="IAppVersionDao.cs" />
+    <Compile Include="ISysItemDao.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\e3net.common\e3net.common.csproj">

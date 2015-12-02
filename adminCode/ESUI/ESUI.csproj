@@ -242,6 +242,7 @@
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\TramStewardDB\TS_ClientUserController.cs" />
     <Compile Include="Controllers\TramStewardDB\TS_ShopUserController.cs" />
+    <Compile Include="Controllers\TramStewardDB\TS_ShopController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ParameterController.cs" />
     <Compile Include="Controllers\AdvertisingController.cs" />
@@ -491,6 +492,7 @@
     <Content Include="Content\JqueryEasyUI\themes\default\tree.css" />
     <Content Include="Content\JqueryEasyUI\themes\default\validatebox.css" />
     <Content Include="Content\JqueryEasyUI\themes\default\window.css" />
+    <Content Include="Content\js\area.js" />
     <Content Include="Content\PIE\PIE.htc" />
     <Content Include="Content\PIE\PIE.js" />
     <Content Include="Content\Style.css" />
@@ -3477,6 +3479,7 @@
     <Content Include="Views\PushMessage\Index.cshtml" />
     <Content Include="Views\TS_ClientUser\Index.cshtml" />
     <Content Include="Views\TS_ShopUser\Index.cshtml" />
+    <Content Include="Views\TS_Shop\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="upload\image\20150319\" />
