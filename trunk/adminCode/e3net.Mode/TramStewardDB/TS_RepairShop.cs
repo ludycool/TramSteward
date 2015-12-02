@@ -96,10 +96,19 @@ namespace e3net.Mode.TramStewardDB
         /// <summary>
         /// 创建人Id
         /// </summary>
-        public String CreateManId
+        public Guid? CreateManId
         {
-            get { return GetPropertyValue<String>("CreateManId"); }
+            get { return GetPropertyValue<Guid?>("CreateManId"); }
             set { SetPropertyValue("CreateManId", value); }
+        }
+
+        /// <summary>
+        /// 省
+        /// </summary>
+        public String ProvinceCode
+        {
+            get { return GetPropertyValue<String>("ProvinceCode"); }
+            set { SetPropertyValue("ProvinceCode", value); }
         }
 
         /// <summary>
@@ -204,9 +213,9 @@ namespace e3net.Mode.TramStewardDB
         /// <summary>
         /// 是否有效
         /// </summary>
-        public Boolean? isValid
+        public Int32? isValid
         {
-            get { return GetPropertyValue<Boolean?>("isValid"); }
+            get { return GetPropertyValue<Int32?>("isValid"); }
             set { SetPropertyValue("isValid", value); }
         }
 
@@ -281,6 +290,11 @@ namespace e3net.Mode.TramStewardDB
         /// 创建人Id
         /// </summary>
         public static readonly FieldBase CreateManId = new FieldBase(DbType.SqlServer, "[TS_RepairShop]", FieldType.Common, "[CreateManId]");
+
+        /// <summary>
+        /// 省
+        /// </summary>
+        public static readonly FieldBase ProvinceCode = new FieldBase(DbType.SqlServer, "[TS_RepairShop]", FieldType.Common, "[ProvinceCode]");
 
         /// <summary>
         /// 城市

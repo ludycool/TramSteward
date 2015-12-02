@@ -67,6 +67,15 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
+        /// 省
+        /// </summary>
+        public String ProvinceCode
+        {
+            get { return GetPropertyValue<String>("ProvinceCode"); }
+            set { SetPropertyValue("ProvinceCode", value); }
+        }
+
+        /// <summary>
         /// 城市
         /// </summary>
         public String CityCode
@@ -132,9 +141,9 @@ namespace e3net.Mode.TramStewardDB
         /// <summary>
         /// 创建人Id
         /// </summary>
-        public String CreateManId
+        public Guid? CreateManId
         {
-            get { return GetPropertyValue<String>("CreateManId"); }
+            get { return GetPropertyValue<Guid?>("CreateManId"); }
             set { SetPropertyValue("CreateManId", value); }
         }
 
@@ -186,9 +195,9 @@ namespace e3net.Mode.TramStewardDB
         /// <summary>
         /// 是否有效
         /// </summary>
-        public Boolean? isValid
+        public Int32? isValid
         {
-            get { return GetPropertyValue<Boolean?>("isValid"); }
+            get { return GetPropertyValue<Int32?>("isValid"); }
             set { SetPropertyValue("isValid", value); }
         }
 
@@ -243,6 +252,11 @@ namespace e3net.Mode.TramStewardDB
         /// 类别
         /// </summary>
         public static readonly FieldBase Category = new FieldBase(DbType.SqlServer, "[TS_RepairMan]", FieldType.Common, "[Category]");
+
+        /// <summary>
+        /// 省
+        /// </summary>
+        public static readonly FieldBase ProvinceCode = new FieldBase(DbType.SqlServer, "[TS_RepairMan]", FieldType.Common, "[ProvinceCode]");
 
         /// <summary>
         /// 城市

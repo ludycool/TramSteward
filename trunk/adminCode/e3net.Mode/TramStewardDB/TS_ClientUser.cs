@@ -67,6 +67,33 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
+        /// 省
+        /// </summary>
+        public String ProvinceCode
+        {
+            get { return GetPropertyValue<String>("ProvinceCode"); }
+            set { SetPropertyValue("ProvinceCode", value); }
+        }
+
+        /// <summary>
+        /// 城市
+        /// </summary>
+        public String CityCode
+        {
+            get { return GetPropertyValue<String>("CityCode"); }
+            set { SetPropertyValue("CityCode", value); }
+        }
+
+        /// <summary>
+        /// 区
+        /// </summary>
+        public String AreaCode
+        {
+            get { return GetPropertyValue<String>("AreaCode"); }
+            set { SetPropertyValue("AreaCode", value); }
+        }
+
+        /// <summary>
         /// 地址
         /// </summary>
         public String Address
@@ -150,9 +177,9 @@ namespace e3net.Mode.TramStewardDB
         /// <summary>
         /// 是否有效
         /// </summary>
-        public Boolean? isValid
+        public Int32? isValid
         {
-            get { return GetPropertyValue<Boolean?>("isValid"); }
+            get { return GetPropertyValue<Int32?>("isValid"); }
             set { SetPropertyValue("isValid", value); }
         }
 
@@ -207,6 +234,21 @@ namespace e3net.Mode.TramStewardDB
         /// 电话
         /// </summary>
         public static readonly FieldBase Phone = new FieldBase(DbType.SqlServer, "[TS_ClientUser]", FieldType.Common, "[Phone]");
+
+        /// <summary>
+        /// 省
+        /// </summary>
+        public static readonly FieldBase ProvinceCode = new FieldBase(DbType.SqlServer, "[TS_ClientUser]", FieldType.Common, "[ProvinceCode]");
+
+        /// <summary>
+        /// 城市
+        /// </summary>
+        public static readonly FieldBase CityCode = new FieldBase(DbType.SqlServer, "[TS_ClientUser]", FieldType.Common, "[CityCode]");
+
+        /// <summary>
+        /// 区
+        /// </summary>
+        public static readonly FieldBase AreaCode = new FieldBase(DbType.SqlServer, "[TS_ClientUser]", FieldType.Common, "[AreaCode]");
 
         /// <summary>
         /// 地址

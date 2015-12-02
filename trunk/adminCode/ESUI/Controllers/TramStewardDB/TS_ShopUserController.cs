@@ -51,10 +51,10 @@ namespace ESUI.Controllers
             pc.sys_Key = "Id";
             pc.sys_PageIndex = pageIndex;
             pc.sys_PageSize = pageSize;
-            pc.sys_Table = "TS_ShopUser";
+            pc.sys_Table = "v_TS_ShopUser";
             pc.sys_Where = Where;
             pc.sys_Order = " " + sortField + " " + sortOrder;
-            List<TS_ShopUser> list2 = OPBiz.GetPagingData<TS_ShopUser>(pc);
+            List<v_TS_ShopUser> list2 = OPBiz.GetPagingData<v_TS_ShopUser>(pc);
 
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add("rows", list2);
@@ -85,7 +85,7 @@ namespace ESUI.Controllers
                 TS_ShopUserModle.AddTime = DateTime.Now;
                 TS_ShopUserModle.LocationUpdateTime = DateTime.Now;
                 TS_ShopUserModle.isDeleted = false;
-                TS_ShopUserModle.isValid = true;
+                TS_ShopUserModle.isValid = 1;
                 try
                 {
                     OPBiz.Add(TS_ShopUserModle);
