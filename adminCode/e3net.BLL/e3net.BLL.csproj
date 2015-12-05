@@ -79,6 +79,7 @@
     <Compile Include="TramStewardDB\TS_ShopUserBiz.cs" />
     <Compile Include="TramStewardDB\TS_TransactionBiz.cs" />
     <Compile Include="TramStewardDB\TS_RepairManBiz.cs" />
+    <Compile Include="TramStewardDB\TS_RepairShopBiz.cs" />
     <Compile Include="V_BLL\V_DoctorBiz.cs" />
     <Compile Include="AdvertisingXmlHelper.cs" />
     <Compile Include="SystemLogsBiz.cs" />

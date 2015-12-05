@@ -50,6 +50,15 @@
                         { field: 'ProvinceCode', title: '省', width: 100 },
                          { field: 'CityCode', title: '市', width: 100 },
                          { field: 'AreaCode', title: '区', width: 100 },
+                          {
+                              field: 'IsRepair', title: '是否提供抢修', width: 100, formatter: function (value, row, index) {
+                                  if (value=='1') {
+                                      return '是';
+                                  } else {
+                                      return '否';
+                                  }
+                              }
+                          },
                          { field: 'CallCount', title: '呼叫量', width: 100 },
                         { field: 'Praises', title: '赞', width: 100 },
                         { field: 'StatesName', title: '状态', width: 100 },
@@ -147,7 +156,7 @@
                 var data = DataBaseFunction.GetFormData("ff")
                 var Details = UM.getEditor('Details').getContent();
                 Details = htmlEncode(Details);
-                data[24].value = Details;
+                data[25].value = Details;
                 //发送异步请求到后台保存数据
                 $.post(BaseUrl + 'EditInfo', data, function (data) {
                     alerts(data.Msg, 2);
@@ -361,6 +370,13 @@
                             <label>点击数：</label></td>
                         <td>
                             <input class="easyui-validatebox textbox" type="text" name="Clicks" /></td>
+                    </tr>
+                     <td>
+                            <label>是否提供抢修：</label></td>
+                        <td>
+                            <input type="radio" value="1" name="IsRepair" />是
+                             <input type="radio" value="0" name="IsRepair" />否</td>
+
                     </tr>
                     <tr>
                         <td>
