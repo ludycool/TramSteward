@@ -123,10 +123,10 @@ function clearNoNum(obj) {
 }
 var DataBaseFunction = {
     ClearForm: function (formId) {
-
-        $("#" + formId + " :hidden").val("");
-        $("#" + formId + " :text").val("");
-        $("#" + formId + " textarea").val("");
+        $("#" + formId).form("clear");
+        //$("#" + formId + " :hidden").val("");
+        //$("#" + formId + " :text").val("");
+        //$("#" + formId + " textarea").val("");
 
     },
     GetFormData: function (formId) {
@@ -151,7 +151,7 @@ var DataBaseFunction = {
     },
     BindForm: function (formId, data) {//绑定数据给表单
         for (items in data) {
-            var dd = $("#" + formId + " [name^='" + items + "']");
+            var dd = $("#" + formId + " [name='" + items + "']");
             if (dd != null) {
                 var ty = dd.attr("type");
                 if (ty != null && ty == "radio") {

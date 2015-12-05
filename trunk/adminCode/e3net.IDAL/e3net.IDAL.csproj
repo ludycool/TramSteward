@@ -79,6 +79,7 @@
     <Compile Include="TramStewardDB\ITS_ShopUserDao.cs" />
     <Compile Include="TramStewardDB\ITS_TransactionDao.cs" />
     <Compile Include="TramStewardDB\ITS_RepairManDao.cs" />
+    <Compile Include="TramStewardDB\ITS_RepairShopDao.cs" />
     <Compile Include="V_IDAL\IV_DoctorDao.cs" />
     <Compile Include="ISystemLogsDao.cs" />
     <Compile Include="YhSys\IPushMessageDao.cs" />

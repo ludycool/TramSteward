@@ -42,32 +42,19 @@ namespace ESUI.Controllers
             string tool = " var toolbars =[";
             string search = "";
             Manu ManuItem = UserData.ListManus.Find(p => p.manuInfo.URL.Equals(controller));
-            bool NoSearh = true;
             if (ManuItem != null)//
             {
                 for (int i = 0; i < ManuItem.ListButtons.Count; i++)
                 {
-                    if (ManuItem.ListButtons[i].FunctionName.Equals("Search"))//搜索是一个div
-                    {
-                        NoSearh = false;
-                    }
-                    else
-                    {
-                        tool += "{";
-                        tool += string.Format("id: '{0}',", ManuItem.ListButtons[i].ValueName);
-                        tool += string.Format("text: '{0}',", ManuItem.ListButtons[i].ButtonName);
-                        tool += string.Format("iconCls: '{0}',", ManuItem.ListButtons[i].Icon);
-                        tool += "handler: function () { " + ManuItem.ListButtons[i].FunctionName + "(); }}";
-                        tool += ",'-',";
-                    }
+
+                    tool += "{";
+                    tool += string.Format("id: '{0}',", ManuItem.ListButtons[i].ValueName);
+                    tool += string.Format("text: '{0}',", ManuItem.ListButtons[i].ButtonName);
+                    tool += string.Format("iconCls: '{0}',", ManuItem.ListButtons[i].Icon);
+                    tool += "handler: function () { " + ManuItem.ListButtons[i].FunctionName + "(); }}";
+                    tool += ",'-',";
                 }
                 tool = tool.Substring(0, tool.Length - 5);
-                if (NoSearh)
-                {
-                    search = "  $(\"#DivSearh\").attr(\"style\", \"display:none;\");"
-                        ;
-                }
-
             }
             tool += "];";
             return tool + search;
