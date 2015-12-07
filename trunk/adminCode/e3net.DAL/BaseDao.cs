@@ -399,6 +399,92 @@ namespace e3net.DAL
             }
         }
 
+        /// <summary>
+        ///  分页 根据坐标排序从近到运 并添加距离字段distance
+        /// </summary>
+        /// <param name="WhereStr">where后面的语句</param>
+        /// <param name="pageIndex">页index</param>
+        /// <param name="pageSize">一页的数量</param>
+        /// <param name="Longitude">经度</param>
+        /// <param name="Latitude">纬度</param>
+        /// <returns></returns>
+        public DataSet GetPagingOrderByLL(string WhereStr, int pageIndex, int pageSize, string Longitude, string Latitude)
+        {
+
+            string Fields = "*,dbo.fnGetDistance(" + Latitude + "," + Longitude + ",[Latitude],[Longitude]) as distance";
+
+            string Table = GetTableName();
+            string sql = GetPageString(Fields, Table, pageIndex, pageSize, WhereStr, " dbo.fnGetDistance(" + Latitude + "," + Longitude + ",[Latitude],[Longitude]) asc ");
+            DataSet ds = ExecuteSqlToDataSet(sql);
+            return ds;
+        }
+        /// <summary>
+        /// 指定范围内 根据坐标排序从近到运 并添加距离字段distance 
+        /// </summary>
+        /// <param name="WhereStr">where后面的语句</param>
+        /// <param name="minKM">至少距离</param>
+        /// <param name="MaxKM">最多距离</param>
+        /// <param name="Longitude">经度</param>
+        /// <param name="Latitude">纬度</param>
+        /// <returns></returns>
+        public DataSet GetByDistancesOrderByLL(string WhereStr, float minKM, float MaxKM, string Longitude, string Latitude)
+        {
+            StringBuilder sql = new StringBuilder();
+            sql.AppendFormat(" select *,dbo.fnGetDistance({0},{1},[Latitude],[Longitude]) as distance from {2} where ", Latitude, Longitude, GetTableName());
+
+            if (string.IsNullOrEmpty(WhereStr))
+            {
+                sql.Append(WhereStr + " and  ");
+            }
+            sql.AppendFormat("{0} < dbo.fnGetDistance({1},{2},[Latitude],[Longitude]) ", minKM, Latitude, Longitude);
+            if (MaxKM > 0)
+            {
+                sql.AppendFormat(" and {0} > dbo.fnGetDistance({1},{2},[Latitude],[Longitude]) ", MaxKM, Latitude, Longitude);
+            }
+            DataSet ds = ExecuteSqlToDataSet(sql.ToString());
+            return ds;
+        }
+        private string GetTableName()
+        {
+            string name = typeof(T).Name;
+            return name;
+        }
+        /// <summary>
+        /// 生成分页语句
+        /// </summary>
+        /// <param name="tableName">数据表名</param>
+        /// <param name="whereString">Where后面的条件</param>
+        /// <returns></returns>
+        public String GetPageString(string felds, string tableName, int _pagerIndex, int _pagerSize, string WhereString, string _orderString)
+        {
+            StringBuilder sql = new StringBuilder();
+            if (string.IsNullOrEmpty(_orderString))//排序不能为空
+            {
+
+                _orderString = " ID desc";
+            }
+            sql.Append("(select row_number() over (order by " + _orderString + ") as rowId," + felds + " from " + tableName);//查询语句
+            if (!string.IsNullOrEmpty(WhereString))
+            {
+                sql.Append(" where " + WhereString);
+            }
+            if (_pagerIndex > 0)
+            {
+                _pagerIndex = _pagerIndex - 1;
+            }
+            int StartRecord = (_pagerIndex) * _pagerSize + 1;
+            int EndRecord = StartRecord + _pagerSize - 1;
+            string dd = sql.ToString();
+            sql.Clear();
+            sql.Append(" select *  from " + dd + ") as t where rowId between " + StartRecord + " and " + EndRecord);
+            //if (!string.IsNullOrEmpty(_orderString))
+            //{
+            //    sql.Append(" ORDER BY " + _orderString);
+            //}
+            return sql.ToString();
+        }
+
+
         public int GetCountSQL(string sqltable, string sqlwhere)
         {
             using (var db = GetDb())
