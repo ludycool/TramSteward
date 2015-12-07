@@ -281,6 +281,15 @@
     <Compile Include="httpSever\PushMessageHandler.ashx.cs">
       <DependentUpon>PushMessageHandler.ashx</DependentUpon>
     </Compile>
+    <Compile Include="httpSever\TS_ClientUserHandler.ashx.cs">
+      <DependentUpon>TS_ClientUserHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="httpSever\TS_RepairShopHandler.ashx.cs">
+      <DependentUpon>TS_RepairShopHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="httpSever\TS_ShopHandler.ashx.cs">
+      <DependentUpon>TS_ShopHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Models\ViewModes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Login.aspx.cs">
@@ -3435,6 +3444,9 @@
     <Content Include="httpHandle\loginHandler.ashx" />
     <Content Include="Login.aspx" />
     <Content Include="httpSever\File_tbHandler.ashx" />
+    <Content Include="httpSever\TS_ClientUserHandler.ashx" />
+    <Content Include="httpSever\TS_RepairShopHandler.ashx" />
+    <Content Include="httpSever\TS_ShopHandler.ashx" />
     <None Include="Properties\PublishProfiles\ESUIConfig.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
