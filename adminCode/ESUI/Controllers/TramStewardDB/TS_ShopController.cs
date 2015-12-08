@@ -81,7 +81,7 @@ namespace ESUI.Controllers
             }
             if (IsAdd)
             {
-                TS_ShopModle.Category = "";
+               
                 TS_ShopModle.isDeleted = false;
                 TS_ShopModle.isValid = 1;
                 TS_ShopModle.Id = Guid.NewGuid();

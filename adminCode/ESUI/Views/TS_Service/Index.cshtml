@@ -34,7 +34,7 @@
                 FormStripes();//表单样式
                 AutoWH("#body", 40, 42);//自适应宽度
                 DataGridSet();
-                GetSonDictionaryNo("Category", "05");
+                GetSonDictionaryNo("Category", "07");
                 $('#States').combobox('reload', '/httpHandle/DictionaryHandler.ashx?action=GetSysItem&ItemType=States');  // 使用新的URL重新载入列表数据
                 _init_area();//初始化省市区联动
 
@@ -148,7 +148,7 @@
                 var data = DataBaseFunction.GetFormData("ff")
                 var Details = UM.getEditor('Details').getContent();
                 Details = htmlEncode(Details);
-                data[24].value = Details;
+                data[25].value = Details;
                 //发送异步请求到后台保存数据
                 $.post(BaseUrl + 'EditInfo', data, function (data) {
                     alerts(data.Msg, 2);
@@ -280,6 +280,7 @@
                 <input type="hidden" name="Id" />
                 <input type="hidden" name="ImageUrlMax" />
                 <input type="hidden" name="ImageUrl" />
+                 <input type="hidden" name="Types" />
                 <input type="hidden" name="CreateManId" />
                 <input type="hidden" name="CreateTime" />
                 <input type="hidden" name="UpdateTime" />
@@ -361,7 +362,7 @@
                         <td>
                             <label>点击数：</label></td>
                         <td>
-                            <input class="easyui-validatebox textbox" onKeyUp="clearNoNumberContainDot(this);" type="text" name="Clicks" /></td>
+                            <input class="easyui-validatebox textbox" onKeyUp="clearNoNumberContainDot(this);"  type="text" name="Clicks" /></td>
                     </tr>
                     <tr>
                         <td>

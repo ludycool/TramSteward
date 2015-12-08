@@ -34,7 +34,7 @@
                 FormStripes();//表单样式
                 AutoWH("#body", 40, 42);//自适应宽度
                 DataGridSet();
-                GetSonDictionaryNo("Category", "05");
+                GetSonDictionaryNo("Category", "09");
                 $('#States').combobox('reload', '/httpHandle/DictionaryHandler.ashx?action=GetSysItem&ItemType=States');  // 使用新的URL重新载入列表数据
                 _init_area();//初始化省市区联动
 
@@ -44,21 +44,23 @@
                     url: BaseUrl + 'Search',
                     columns: [[
                         { field: 'ck', checkbox: true },
-                        { field: 'TName', title: '名称', width: 100 },
-                        { field: 'Star', title: '星级', width: 100 },
+                        { field: 'Title', title: '名称', width: 100 },
+                          { field: 'Brand', title: '品牌', width: 100 },
+                             { field: 'Price', title: '价格', width: 100 },
+                        { field: 'TrueName', title: '联系人', width: 100 },
                         { field: 'Phone', title: '电话', width: 100 },
-                        { field: 'ProvinceCode', title: '省', width: 100 },
-                         { field: 'CityCode', title: '市', width: 100 },
-                         { field: 'AreaCode', title: '区', width: 100 },
                          { field: 'CallCount', title: '呼叫量', width: 100 },
                         { field: 'Praises', title: '赞', width: 100 },
                         { field: 'StatesName', title: '状态', width: 100 },
                         { field: 'CreateTime', title: '添加时间', width: 100 },
                          { field: 'CategoryName', title: '类型', width: 100 },
+                          { field: 'ProvinceCode', title: '省', width: 100 },
+                         { field: 'CityCode', title: '市', width: 100 },
+                         { field: 'AreaCode', title: '区', width: 100 },
                         { field: 'Address', title: '地址', width: 300, align: 'right' }
                     ]],
                     iconCls: 'icon-save',
-                    title: '用户管理',
+                    title: '交易信息',
                     nowrap: true,
                     fit: true,
                     fitColumns: true,
@@ -68,7 +70,7 @@
                     pageSize: 20,
                     pagination: true,
                     rownumbers: true,
-                    sortName: 'CreateTime,TName',
+                    sortName: 'CreateTime',
                     sortOrder: 'desc',
                     toolbar: toolbars
                 });
@@ -148,7 +150,7 @@
                 var data = DataBaseFunction.GetFormData("ff")
                 var Details = UM.getEditor('Details').getContent();
                 Details = htmlEncode(Details);
-                data[24].value = Details;
+                data[25].value = Details;
                 //发送异步请求到后台保存数据
                 $.post(BaseUrl + 'EditInfo', data, function (data) {
                     alerts(data.Msg, 2);
@@ -189,11 +191,10 @@
                         if (d.Success) {
                             var imgList = eval('(' + d.Data + ')');
                             $("#imgLogo").attr('src', imgList[0].FullRoute);
-                            $("input[name='ImageUrl']").val(imgList[0].FullRoute)
-
-                            var file = $("input[name='file1']");//清空文件
-                            file.after(file.clone().val(""));
-                            file.remove();
+                            $("input[name='ImageUrl']").val(imgList[0].FullRoute);
+                            //var file = $("input[name='file1']");//清空文件
+                            //file.after(file.clone().val(""));
+                            //file.remove();
                         }
                         else {
                             alerts(d.Message, 5);
@@ -202,37 +203,6 @@
                     }
                 })
             }
-
-            function FileHeadSaveM() {
-                //----上传头像
-                var FileId = "";
-                $("input[name='Details']").val("");//html带有非法字符
-                $("#ff").form('submit', {
-                    url: "/httpHandle/UploadHandler.ashx?action=addImg&SourceTable=TS_ShopUser",
-                    onSubmit: function () {
-
-                    },
-                    success: function (data) {
-                        var d = eval('(' + data + ')');
-                        if (d.Success) {
-                            var imgList = eval('(' + d.Data + ')');
-                            $("#imgLogoM").attr('src', imgList[0].FullRoute);
-                            $("input[name='ImageUrlMax']").val(imgList[0].FullRoute);
-
-                            var file = $("input[name='fileM']");//清空文件
-                            file.after(file.clone().val(""));
-                            file.remove();
-                        }
-                        else {
-                            alerts(d.Message, 5);
-                        }
-
-                    }
-                })
-            }
-
-
-
         </script>
     }
 
@@ -242,12 +212,12 @@
         <table id="dg"></table>
 
     </div>
-      <!------------------------搜索弹出层---------------------------------->
+    <!------------------------搜索弹出层---------------------------------->
     <div id="Div_Searh" class="easyui-dialog" style="width: 380px; padding: 10px 20px;"
         closed="true" resizable="true" modal="true" buttons="#dlg-buttons">
         <form id="fSearh">
 
-            <table class="stripes" style="table-layout: fixed; margin: 0 auto; width:320px;" border="0" cellspacing="0" cellpadding="0">
+            <table class="stripes" style="table-layout: fixed; margin: 0 auto; width: 320px;" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td style="width: 60px;">
                         <label>名称：</label></td>
@@ -266,10 +236,10 @@
             </table>
 
         </form>
-        <div style="text-align: center; width: 100%; margin: 5px 0px; display:block;">
-             <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-undo" style="float:left;" onclick=" DataBaseFunction.ClearForm('fSearh');">清除</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" style="float:right;" iconcls="icon-search" onclick="SearchGo();">搜索</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" style="float:right;" iconcls="icon-cancel" onclick="$('#Div_Searh').dialog('close')">关闭</a>
+        <div style="text-align: center; width: 100%; margin: 5px 0px; display: block;">
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-undo" style="float: left;" onclick=" DataBaseFunction.ClearForm('fSearh');">清除</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" style="float: right;" iconcls="icon-search" onclick="SearchGo();">搜索</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" style="float: right;" iconcls="icon-cancel" onclick="$('#Div_Searh').dialog('close')">关闭</a>
         </div>
     </div>
     <!------------------------弹出修改角色信息的弹出层---------------------------------->
@@ -278,7 +248,7 @@
         <div id="Div_form" class="easyui-panel" style="padding: 10px 20px; overflow-x: hidden;" data-options=" height:600,width:980,border:false">
             <form id="ff" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="Id" />
-                <input type="hidden" name="ImageUrlMax" />
+                <input type="hidden" name="Types" />
                 <input type="hidden" name="ImageUrl" />
                 <input type="hidden" name="CreateManId" />
                 <input type="hidden" name="CreateTime" />
@@ -299,32 +269,34 @@
 
                     </tr>
                     <tr>
-                        <td>
-                            <label>大图片：</label></td>
-                        <td>
-
-                            <img alt="" id="imgLogoM" src="" style="width: 100px; height: 100px; margin-top: 10px;" />
-                            <input type="file" name="fileM" style="width: 50px;" onchange="FileHeadSaveM()" />
-                        </td>
-
-                    </tr>
-                    <tr>
                         <td style="width: 120px;">
                             <label>名称：</label></td>
                         <td>
-                            <input class="easyui-validatebox textbox" type="text" data-options="required:true" name="TName" /></td>
+                            <input class="easyui-validatebox textbox" type="text" data-options="required:true" name="Title" /></td>
                     </tr>
                     <tr>
+                        <td style="width: 120px;">
+                            <label>联系人：</label></td>
                         <td>
-                            <label>星级：</label></td>
-                        <td>
-                            <input class="easyui-validatebox textbox" onKeyUp="clearNoNumberContainDot(this);" type="text" name="Star" /></td>
+                            <input class="easyui-validatebox textbox" type="text" data-options="required:true" name="TrueName" /></td>
                     </tr>
                     <tr>
                         <td>
                             <label>电话：</label></td>
                         <td>
                             <input class="easyui-validatebox textbox" data-options="required:true" type="text" name="Phone" /></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>品牌：</label></td>
+                        <td>
+                            <input class="easyui-validatebox textbox" type="text" name="Brand" /></td>
+                    </tr>
+                      <tr>
+                        <td>
+                            <label>价格：</label></td>
+                        <td>
+                            <input class="easyui-validatebox textbox" onKeyUp="clearNoNum(this);" type="text" name="Price" /></td>
                     </tr>
                     <tr>
                         <td>
