@@ -74,7 +74,14 @@ namespace e3net.Mode.TramStewardDB
             get { return GetPropertyValue<String>("Brand"); }
             set { SetPropertyValue("Brand", value); }
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        public String Phone
+        {
+            get { return GetPropertyValue<String>("Phone"); }
+            set { SetPropertyValue("Phone", value); }
+        }
         /// <summary>
         /// 
         /// </summary>
@@ -293,6 +300,11 @@ namespace e3net.Mode.TramStewardDB
         /// 
         /// </summary>
         public static readonly FieldBase Brand = new FieldBase(DbType.SqlServer, "[v_TS_Transaction]", FieldType.Common, "[Brand]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase Phone = new FieldBase(DbType.SqlServer, "[v_TS_Transaction]", FieldType.Common, "[Phone]");
 
         /// <summary>
         /// 

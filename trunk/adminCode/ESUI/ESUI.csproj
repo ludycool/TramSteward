@@ -3496,6 +3496,8 @@
     <Content Include="Views\TS_ShopUser\Index.cshtml" />
     <Content Include="Views\TS_Shop\Index.cshtml" />
     <Content Include="Views\TS_RepairShop\Index.cshtml" />
+    <Content Include="Views\TS_Service\Index.cshtml" />
+    <Content Include="Views\TS_Transaction\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="upload\image\20150319\" />

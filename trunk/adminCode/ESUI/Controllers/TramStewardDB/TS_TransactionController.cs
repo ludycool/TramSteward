@@ -85,6 +85,7 @@ namespace ESUI.Controllers
                 TS_TransactionModle.CreateTime = DateTime.Now;
                 TS_TransactionModle.isDeleted = false;
                 TS_TransactionModle.isValid = 1;
+                TS_TransactionModle.CreateManId = UserData.UserInfo.Id;
                 try
                 {
                     OPBiz.Add(TS_TransactionModle);

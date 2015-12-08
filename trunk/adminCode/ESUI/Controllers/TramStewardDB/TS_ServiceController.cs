@@ -85,6 +85,7 @@ namespace ESUI.Controllers
                 TS_ServiceModle.CreateTime = DateTime.Now;
                 TS_ServiceModle.isDeleted = false;
                 TS_ServiceModle.isValid = 1;
+                TS_ServiceModle.CreateManId = UserData.UserInfo.Id;
                 try
                 {
                     OPBiz.Add(TS_ServiceModle);

@@ -34,7 +34,7 @@
                 FormStripes();//表单样式
                 AutoWH("#body", 40, 42);//自适应宽度
                 DataGridSet();
-                GetSonDictionaryNo("Category", "05");
+                GetSonDictionaryNo("Category", "06");
                 $('#States').combobox('reload', '/httpHandle/DictionaryHandler.ashx?action=GetSysItem&ItemType=States');  // 使用新的URL重新载入列表数据
                 _init_area();//初始化省市区联动
 
@@ -328,7 +328,7 @@
                         <td>
                             <label>星级：</label></td>
                         <td>
-                            <input class="easyui-validatebox textbox" type="text" name="Star" /></td>
+                            <input class="easyui-validatebox textbox" onKeyUp="clearNoNumberContainDot(this);" type="text" name="Star" /></td>
                     </tr>
                     <tr>
                         <td>
@@ -359,19 +359,19 @@
                         <td>
                             <label>呼叫量：</label></td>
                         <td>
-                            <input class="easyui-validatebox textbox" type="text" name="CallCount" /></td>
+                            <input class="easyui-validatebox textbox" onKeyUp="clearNoNumberContainDot(this);" type="text" name="CallCount" /></td>
                     </tr>
                     <tr>
                         <td>
                             <label>赞：</label></td>
                         <td>
-                            <input class="easyui-validatebox textbox" type="text" name="Praises" /></td>
+                            <input class="easyui-validatebox textbox" onKeyUp="clearNoNumberContainDot(this);" type="text" name="Praises" /></td>
                     </tr>
                     <tr>
                         <td>
                             <label>点击数：</label></td>
                         <td>
-                            <input class="easyui-validatebox textbox" type="text" name="Clicks" /></td>
+                            <input class="easyui-validatebox textbox" onKeyUp="clearNoNumberContainDot(this);" type="text" name="Clicks" /></td>
                     </tr>
                      <td>
                             <label>是否提供抢修：</label></td>
