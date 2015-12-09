@@ -97,6 +97,30 @@
                 $("#imgLogo").attr('src', "");
                 $("#imgLogoM").attr('src', "");
                 UM.getEditor('Details').setContent("", false);
+                change(0);//省城市默认选择第一个
+                var map = new BMap.Map("Mapcontainer");          // 创建地图实例  
+                var opts = { type: BMAP_NAVIGATION_CONTROL_LARGE }
+                map.addControl(new BMap.NavigationControl(opts));
+                var point = new BMap.Point(108.321465, 22.832497);  // 创建点坐标 默认
+                $("input[name='Longitude']").val(108.321465);//默认
+                $("input[name='Latitude']").val(22.832497)//默认
+                map.centerAndZoom(point, 12);                 // 初始化地图，设置中心点坐标和地图级别 
+                var marker = new BMap.Marker(point);
+                map.addOverlay(marker);                     // 将标注添加到地图中
+                marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画  
+
+                map.addEventListener("click", function (e) {//点击事件
+                    map.clearOverlays();//清除
+                    $("input[name='Longitude']").val(e.point.lng);
+                    $("input[name='Latitude']").val(e.point.lat);
+                    var point = new BMap.Point(e.point.lng, e.point.lat);  // 创建点坐标   
+                    var marker = new BMap.Marker(point);
+                    map.addOverlay(marker);                     // 将标注添加到地图中
+                    marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画  
+
+                });
+
+                GetFileList();
             }
 
 
@@ -133,6 +157,27 @@
                         $('#CityCode').val(result.CityCode);
                         change(2);
                         $('#AreaCode').val(result.AreaCode);
+
+                        var map = new BMap.Map("Mapcontainer");          // 创建地图实例  
+                        var opts = { type: BMAP_NAVIGATION_CONTROL_LARGE }
+                        map.addControl(new BMap.NavigationControl(opts));
+                        var point = new BMap.Point(result["Longitude"], result["Latitude"]);  // 创建点坐标  
+                        map.centerAndZoom(point, 12);                 // 初始化地图，设置中心点坐标和地图级别  
+                        var marker = new BMap.Marker(point);        // 创建标注    
+                        map.addOverlay(marker);                     // 将标注添加到地图中
+                        marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+
+                        map.addEventListener("click", function (e) {//点击事件
+                            map.clearOverlays();//清除
+                            $("input[name='Longitude']").val(e.point.lng)
+                            $("input[name='Latitude']").val(e.point.lat)
+                            var point = new BMap.Point(e.point.lng, e.point.lat);  // 创建点坐标   
+                            var marker = new BMap.Marker(point);
+                            map.addOverlay(marker);                     // 将标注添加到地图中
+                            marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画  
+
+                        });
+                        GetFileList(result.Id);//图片
                     }
                 });
 
@@ -158,6 +203,15 @@
                         $('#DivEditor').dialog('close');
                         $(".validatebox-tip").remove();
                         $("#dg").datagrid("reload");
+
+
+                        var id=$("input[name='Id']").val();
+                        if (id == "")
+                        {
+                            id = data.Data;//id
+                        }
+                        Delfile();//删除移除的图片
+                        SaveToid(id);//保存添加的图片
 
                     }
                 });
@@ -202,6 +256,10 @@
 
                     }
                 })
+            }
+
+            function AddImg() {
+                    FileUp("TS_Transaction")
             }
         </script>
     }
@@ -257,23 +315,33 @@
                 <input type="hidden" name="Latitude" />
                 <input type="hidden" name="isValid" />
                 <input type="hidden" name="isDeleted" />
+
                 <table class="stripes" border="0" cellspacing="0" cellpadding="0">
-                    <tr>
-                        <td>
-                            <label>图片logo：</label></td>
-                        <td>
-
-                            <img alt="" id="imgLogo" src="" style="width: 100px; height: 100px; margin-top: 10px;" />
-                            <input type="file" name="file1" style="width: 50px;" onchange="FileHeadSave()" />
-                        </td>
-
-                    </tr>
                     <tr>
                         <td style="width: 120px;">
                             <label>名称：</label></td>
                         <td>
                             <input class="easyui-validatebox textbox" type="text" data-options="required:true" name="Title" /></td>
                     </tr>
+                    <tr>
+                        <td>
+                            <label>图片集：</label></td>
+                        <td>
+
+
+                            <input type="file" id="fileimg" name="file" style="width: 50px;" onchange="AddImg()" />
+                            <div style="display: none">
+                                <div id="content" style="display: block; width: 100px; float: left; text-align: center;">
+                                    <input id="fileId" type="hidden" />
+                                    <img alt="" id="imgShow" src="ss" style="width: 100px; height: 100px; margin-top: 10px;" />
+                                    <a id="jian" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-delete'">移除</a>
+                                </div>
+                            </div>
+                            <div id="zhi" style="display: block; width: 600px;">
+                            </div>
+                        </td>
+                    </tr>
+
                     <tr>
                         <td style="width: 120px;">
                             <label>联系人：</label></td>
@@ -292,17 +360,17 @@
                         <td>
                             <input class="easyui-validatebox textbox" type="text" name="Brand" /></td>
                     </tr>
-                      <tr>
+                    <tr>
                         <td>
                             <label>价格：</label></td>
                         <td>
-                            <input class="easyui-validatebox textbox" onKeyUp="clearNoNum(this);" type="text" name="Price" /></td>
+                            <input class="easyui-validatebox textbox" onkeyup="clearNoNum(this);" type="text" name="Price" /></td>
                     </tr>
                     <tr>
                         <td>
                             <label>省/市/区：</label></td>
                         <td>
-                            <select id="ProvinceCode" name="ProvinceCode">
+                            <select id="ProvinceCode" class="easyui-validatebox" data-options="required:true" name="ProvinceCode">
                             </select>
                             <select id="CityCode" name="CityCode">
                             </select>
@@ -321,19 +389,19 @@
                         <td>
                             <label>呼叫量：</label></td>
                         <td>
-                            <input class="easyui-validatebox textbox" onKeyUp="clearNoNumberContainDot(this);" type="text" name="CallCount" /></td>
+                            <input class="easyui-validatebox textbox" onkeyup="clearNoNumberContainDot(this);" type="text" name="CallCount" /></td>
                     </tr>
                     <tr>
                         <td>
                             <label>赞：</label></td>
                         <td>
-                            <input class="easyui-validatebox textbox" onKeyUp="clearNoNumberContainDot(this);" type="text" name="Praises" /></td>
+                            <input class="easyui-validatebox textbox" onkeyup="clearNoNumberContainDot(this);" type="text" name="Praises" /></td>
                     </tr>
                     <tr>
                         <td>
                             <label>点击数：</label></td>
                         <td>
-                            <input class="easyui-validatebox textbox" onKeyUp="clearNoNumberContainDot(this);" type="text" name="Clicks" /></td>
+                            <input class="easyui-validatebox textbox" onkeyup="clearNoNumberContainDot(this);" type="text" name="Clicks" /></td>
                     </tr>
                     <tr>
                         <td>
@@ -364,6 +432,12 @@
                             <script type="text/plain" id="Details" name="Details" style="width: 900px; height: 200px;">
   
                             </script>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div id="Mapcontainer" style="height: 460px; width: 100%"></div>
 
                         </td>
                     </tr>

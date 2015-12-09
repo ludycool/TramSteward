@@ -95,6 +95,30 @@
                 $("#imgLogo").attr('src', "");
                 $("#imgLogoM").attr('src', "");
                 UM.getEditor('Details').setContent("", false);
+                change(0);//省城市默认选择第一个
+
+                var map = new BMap.Map("Mapcontainer");          // 创建地图实例  
+                var opts = { type: BMAP_NAVIGATION_CONTROL_LARGE }
+                map.addControl(new BMap.NavigationControl(opts));
+                var point = new BMap.Point(108.321465, 22.832497);  // 创建点坐标 默认
+                $("input[name='Longitude']").val(108.321465);//默认
+                $("input[name='Latitude']").val(22.832497)//默认
+                map.centerAndZoom(point, 12);                 // 初始化地图，设置中心点坐标和地图级别 
+                var marker = new BMap.Marker(point);
+                map.addOverlay(marker);                     // 将标注添加到地图中
+                marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画  
+
+                map.addEventListener("click", function (e) {//点击事件
+                    map.clearOverlays();//清除
+                    $("input[name='Longitude']").val(e.point.lng);
+                    $("input[name='Latitude']").val(e.point.lat);
+                    var point = new BMap.Point(e.point.lng, e.point.lat);  // 创建点坐标   
+                    var marker = new BMap.Marker(point);
+                    map.addOverlay(marker);                     // 将标注添加到地图中
+                    marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画  
+
+                });
+                GetFileList();
             }
 
 
@@ -131,6 +155,28 @@
                         $('#CityCode').val(result.CityCode);
                         change(2);
                         $('#AreaCode').val(result.AreaCode);
+
+                        var map = new BMap.Map("Mapcontainer");          // 创建地图实例  
+                        var opts = { type: BMAP_NAVIGATION_CONTROL_LARGE }
+                        map.addControl(new BMap.NavigationControl(opts));
+                        var point = new BMap.Point(result["Longitude"], result["Latitude"]);  // 创建点坐标  
+                        map.centerAndZoom(point, 12);                 // 初始化地图，设置中心点坐标和地图级别  
+                        var marker = new BMap.Marker(point);        // 创建标注    
+                        map.addOverlay(marker);                     // 将标注添加到地图中
+                        marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+
+                        map.addEventListener("click", function (e) {//点击事件
+                            map.clearOverlays();//清除
+                            $("input[name='Longitude']").val(e.point.lng)
+                            $("input[name='Latitude']").val(e.point.lat)
+                            var point = new BMap.Point(e.point.lng, e.point.lat);  // 创建点坐标   
+                            var marker = new BMap.Marker(point);
+                            map.addOverlay(marker);                     // 将标注添加到地图中
+                            marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画  
+
+                        });
+
+                        GetFileList(result.Id);//图片
                     }
                 });
 
@@ -148,7 +194,7 @@
                 var data = DataBaseFunction.GetFormData("ff")
                 var Details = UM.getEditor('Details').getContent();
                 Details = htmlEncode(Details);
-                data[25].value = Details;
+                data[26].value = Details;
                 //发送异步请求到后台保存数据
                 $.post(BaseUrl + 'EditInfo', data, function (data) {
                     alerts(data.Msg, 2);
@@ -157,6 +203,12 @@
                         $(".validatebox-tip").remove();
                         $("#dg").datagrid("reload");
 
+                        var id = $("input[name='Id']").val();
+                        if (id == "") {
+                            id = data.Data;//id
+                        }
+                        Delfile();//删除移除的图片
+                        SaveToid(id);//保存添加的图片
                     }
                 });
 
@@ -231,7 +283,9 @@
                 })
             }
 
-
+            function AddImg() {
+                FileUp("TS_Service")
+            }
 
         </script>
     }
@@ -242,12 +296,12 @@
         <table id="dg"></table>
 
     </div>
-      <!------------------------搜索弹出层---------------------------------->
+    <!------------------------搜索弹出层---------------------------------->
     <div id="Div_Searh" class="easyui-dialog" style="width: 380px; padding: 10px 20px;"
         closed="true" resizable="true" modal="true" buttons="#dlg-buttons">
         <form id="fSearh">
 
-            <table class="stripes" style="table-layout: fixed; margin: 0 auto; width:320px;" border="0" cellspacing="0" cellpadding="0">
+            <table class="stripes" style="table-layout: fixed; margin: 0 auto; width: 320px;" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td style="width: 60px;">
                         <label>名称：</label></td>
@@ -266,10 +320,10 @@
             </table>
 
         </form>
-        <div style="text-align: center; width: 100%; margin: 5px 0px; display:block;">
-             <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-undo" style="float:left;" onclick=" DataBaseFunction.ClearForm('fSearh');">清除</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" style="float:right;" iconcls="icon-search" onclick="SearchGo();">搜索</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" style="float:right;" iconcls="icon-cancel" onclick="$('#Div_Searh').dialog('close')">关闭</a>
+        <div style="text-align: center; width: 100%; margin: 5px 0px; display: block;">
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-undo" style="float: left;" onclick=" DataBaseFunction.ClearForm('fSearh');">清除</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" style="float: right;" iconcls="icon-search" onclick="SearchGo();">搜索</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" style="float: right;" iconcls="icon-cancel" onclick="$('#Div_Searh').dialog('close')">关闭</a>
         </div>
     </div>
     <!------------------------弹出修改角色信息的弹出层---------------------------------->
@@ -280,7 +334,7 @@
                 <input type="hidden" name="Id" />
                 <input type="hidden" name="ImageUrlMax" />
                 <input type="hidden" name="ImageUrl" />
-                 <input type="hidden" name="Types" />
+                <input type="hidden" name="Types" />
                 <input type="hidden" name="CreateManId" />
                 <input type="hidden" name="CreateTime" />
                 <input type="hidden" name="UpdateTime" />
@@ -289,9 +343,17 @@
                 <input type="hidden" name="isValid" />
                 <input type="hidden" name="isDeleted" />
                 <table class="stripes" border="0" cellspacing="0" cellpadding="0">
+
+
+                    <tr>
+                        <td style="width: 120px;">
+                            <label>名称：</label></td>
+                        <td>
+                            <input class="easyui-validatebox textbox" type="text" data-options="required:true" name="TName" /></td>
+                    </tr>
                     <tr>
                         <td>
-                            <label>图片logo：</label></td>
+                            <label>logo：</label></td>
                         <td>
 
                             <img alt="" id="imgLogo" src="" style="width: 100px; height: 100px; margin-top: 10px;" />
@@ -301,7 +363,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <label>大图片：</label></td>
+                            <label>展示大图片：</label></td>
                         <td>
 
                             <img alt="" id="imgLogoM" src="" style="width: 100px; height: 100px; margin-top: 10px;" />
@@ -309,17 +371,29 @@
                         </td>
 
                     </tr>
+
+
                     <tr>
-                        <td style="width: 120px;">
-                            <label>名称：</label></td>
                         <td>
-                            <input class="easyui-validatebox textbox" type="text" data-options="required:true" name="TName" /></td>
+                            <label>图片集：</label></td>
+                        <td>
+                            <input type="file" id="fileimg" name="file" style="width: 50px;" onchange="AddImg()" />
+                            <div style="display: none">
+                                <div id="content" style="display: block; width: 100px; float: left; text-align: center;">
+                                    <input id="fileId" type="hidden" />
+                                    <img alt="" id="imgShow" src="ss" style="width: 100px; height: 100px; margin-top: 10px;" />
+                                    <a id="jian" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-delete'">移除</a>
+                                </div>
+                            </div>
+                            <div id="zhi" style="display: block; width: 600px;">
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <td>
                             <label>星级：</label></td>
                         <td>
-                            <input class="easyui-validatebox textbox" onKeyUp="clearNoNumberContainDot(this);" type="text" name="Star" /></td>
+                            <input class="easyui-validatebox textbox" onkeyup="clearNoNumberContainDot(this);" type="text" name="Star" /></td>
                     </tr>
                     <tr>
                         <td>
@@ -350,19 +424,19 @@
                         <td>
                             <label>呼叫量：</label></td>
                         <td>
-                            <input class="easyui-validatebox textbox" onKeyUp="clearNoNumberContainDot(this);" type="text" name="CallCount" /></td>
+                            <input class="easyui-validatebox textbox" onkeyup="clearNoNumberContainDot(this);" type="text" name="CallCount" /></td>
                     </tr>
                     <tr>
                         <td>
                             <label>赞：</label></td>
                         <td>
-                            <input class="easyui-validatebox textbox" onKeyUp="clearNoNumberContainDot(this);" type="text" name="Praises" /></td>
+                            <input class="easyui-validatebox textbox" onkeyup="clearNoNumberContainDot(this);" type="text" name="Praises" /></td>
                     </tr>
                     <tr>
                         <td>
                             <label>点击数：</label></td>
                         <td>
-                            <input class="easyui-validatebox textbox" onKeyUp="clearNoNumberContainDot(this);"  type="text" name="Clicks" /></td>
+                            <input class="easyui-validatebox textbox" onkeyup="clearNoNumberContainDot(this);" type="text" name="Clicks" /></td>
                     </tr>
                     <tr>
                         <td>
@@ -393,6 +467,12 @@
                             <script type="text/plain" id="Details" name="Details" style="width: 900px; height: 200px;">
   
                             </script>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div id="Mapcontainer" style="height: 460px; width: 100%"></div>
 
                         </td>
                     </tr>

@@ -121,6 +121,10 @@ function clearNoNum(obj) {
     //保证.只出现一次，而不能出现两次以上
     obj.value = obj.value.replace(".", "$#$").replace(/\./g, "").replace("$#$", ".");
 }
+function clearNoNumberContainDot(obj) {
+    //先把非数字的都替换掉
+    obj.value = obj.value.replace(/[^\d]/g, "");
+}
 var DataBaseFunction = {
     ClearForm: function (formId) {
         $("#" + formId).form("clear");

@@ -61,6 +61,7 @@
     <Compile Include="AgSys\Comment.cs" />
     <Compile Include="AgSys\File_tb.cs" />
     <Compile Include="AppVersion.cs" />
+    <Compile Include="File_Image.cs" />
     <Compile Include="SysItem.cs" />
     <Compile Include="TramStewardDB\TS_Car.cs" />
     <Compile Include="TramStewardDB\TS_ClientUser.cs" />

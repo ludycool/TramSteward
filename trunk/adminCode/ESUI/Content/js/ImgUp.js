@@ -27,7 +27,7 @@ function FileUp2(tid, table) {//带所属id
     //----上传文件
 
     $("#img_Form").form('submit', {
-        url: "/httpHandle/UploadHandler.ashx?action=addImg&SourceTable=" + table + "&ToId=" + tid,
+        url: "/httpHandle/ImageHandler.ashx?action=addImg&SourceTable=" + table + "&ToId=" + tid,
         onSubmit: function () {
 
         },
@@ -50,8 +50,8 @@ function FileUp2(tid, table) {//带所属id
 function FileUp(table) {
     //----上传文件
 
-    $("#img_Form").form('submit', {
-        url: "/httpHandle/UploadHandler.ashx?action=addImg&SourceTable=" + table,
+    $("#ff").form('submit', {
+        url: "/httpHandle/ImageHandler.ashx?action=addImg&SourceTable=" + table,
         onSubmit: function () {
 
         },
@@ -63,6 +63,10 @@ function FileUp(table) {
                 $("#zhi").children("div:last").children("#fileId").val(imgList[0].Id);
                 $("#zhi").children("div:last").children("#imgShow").attr('src', imgList[0].FullRoute);
                 imgAddIdSet.push(imgList[0].Id)
+
+                var file = $("#fileimg");//清空文件
+                file.after(file.clone().val(""));
+                file.remove();
 
             }
             else {
@@ -94,7 +98,7 @@ function SaveToid(Tid) {
     }
     postData.push({ name: "IdSet", value: idSet });
     //发送异步请求到后台保存按钮数据
-    $.post("/httpHandle/UploadHandler.ashx?action=SaveToid", postData, function (data) {
+    $.post("/httpHandle/ImageHandler.ashx?action=SaveToid", postData, function (data) {
         var d = eval('(' + data + ')');
         if (d.Success) {
 
@@ -102,6 +106,7 @@ function SaveToid(Tid) {
         else {
             // alerts(d.Message, 5)
         }
+        imgAddIdSet = new Array();//清空
     });
 
 }
@@ -118,7 +123,7 @@ function Delfile() {
     }
     postData.push({ name: "IdSet", value: idSet });
     //发送异步请求到后台保存按钮数据
-    $.post("/httpHandle/UploadHandler.ashx?action=Delfile", postData, function (data) {
+    $.post("/httpHandle/ImageHandler.ashx?action=Delfile", postData, function (data) {
         var d = eval('(' + data + ')');
         if (d.Success) {
 
@@ -126,20 +131,21 @@ function Delfile() {
         else {
             //  alerts(d.Message, 5)
         }
+        imgDelIdSet = new Array();//清空
     });
 
 }
 function GetFileList(ToId) {
     $("#zhi").children().remove();//清空
-    var imgAddIdSet = new Array();//添加的ID集
-    var imgDelIdSet = new Array();//删除的文件Id集
+     imgAddIdSet = new Array();//添加的ID集
+     imgDelIdSet = new Array();//删除的文件Id集
     var file = $("#fileimg");//清空file内容的方法
     file.after(file.clone().val(""));
     file.remove();
 
     if (ToId !== null && ToId !== undefined && ToId !== "") {
         //发送异步请求到后台保存按钮数据
-        $.post("/httpHandle/UploadHandler.ashx?action=GetFileList&ToId=" + ToId, function (resultData) {
+        $.post("/httpHandle/ImageHandler.ashx?action=GetFileList&ToId=" + ToId, function (resultData) {
             var data = eval('(' + resultData + ')');
             if (data != null) {
                 $.each(data, function (i, n) {
@@ -158,7 +164,7 @@ function GetFileList(ToId) {
 function fileDown(Url,fileName) {
 
     if (Url != "") {
-        $.post("/httpHandle/UploadHandler.ashx?action=Download&Url=" + Url + "&fileName=" + fileName, function (resultData) {
+        $.post("/httpHandle/ImageHandler.ashx?action=Download&Url=" + Url + "&fileName=" + fileName, function (resultData) {
 
         });
     }

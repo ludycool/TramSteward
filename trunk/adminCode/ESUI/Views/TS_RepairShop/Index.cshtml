@@ -52,7 +52,7 @@
                          { field: 'AreaCode', title: '区', width: 100 },
                           {
                               field: 'IsRepair', title: '是否提供抢修', width: 100, formatter: function (value, row, index) {
-                                  if (value=='1') {
+                                  if (value == '1') {
                                       return '是';
                                   } else {
                                       return '否';
@@ -105,6 +105,30 @@
                 $("#imgLogoM").attr('src', "");
                 var _o = document.getElementsByName("IsRepair")[1].checked = true;;//radio默认选中
                 UM.getEditor('Details').setContent("", false);
+                change(0);//省城市默认选择第一个
+                var map = new BMap.Map("Mapcontainer");          // 创建地图实例  
+                var opts = { type: BMAP_NAVIGATION_CONTROL_LARGE }
+                map.addControl(new BMap.NavigationControl(opts));
+                var point = new BMap.Point(108.321465, 22.832497);  // 创建点坐标 默认
+                $("input[name='Longitude']").val(108.321465);//默认
+                $("input[name='Latitude']").val(22.832497)//默认
+                map.centerAndZoom(point, 12);                 // 初始化地图，设置中心点坐标和地图级别 
+                var marker = new BMap.Marker(point);
+                map.addOverlay(marker);                     // 将标注添加到地图中
+                marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画  
+
+                map.addEventListener("click", function (e) {//点击事件
+                    map.clearOverlays();//清除
+                    $("input[name='Longitude']").val(e.point.lng);
+                    $("input[name='Latitude']").val(e.point.lat);
+                    var point = new BMap.Point(e.point.lng, e.point.lat);  // 创建点坐标   
+                    var marker = new BMap.Marker(point);
+                    map.addOverlay(marker);                     // 将标注添加到地图中
+                    marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画  
+
+                });
+
+
             }
 
 
@@ -141,6 +165,34 @@
                         $('#CityCode').val(result.CityCode);
                         change(2);
                         $('#AreaCode').val(result.AreaCode);
+
+                        var map = new BMap.Map("Mapcontainer");          // 创建地图实例  
+                        var opts = { type: BMAP_NAVIGATION_CONTROL_LARGE }
+                        map.addControl(new BMap.NavigationControl(opts));
+                        var point = new BMap.Point(result["Longitude"], result["Latitude"]);  // 创建点坐标  
+                        map.centerAndZoom(point, 12);                 // 初始化地图，设置中心点坐标和地图级别  
+                        var marker = new BMap.Marker(point);        // 创建标注    
+                        map.addOverlay(marker);                     // 将标注添加到地图中
+                        marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+
+                        map.addEventListener("click", function (e) {//点击事件
+                            map.clearOverlays();//清除
+                            $("input[name='Longitude']").val(e.point.lng)
+                            $("input[name='Latitude']").val(e.point.lat)
+                            var point = new BMap.Point(e.point.lng, e.point.lat);  // 创建点坐标   
+                            var marker = new BMap.Marker(point);
+                            map.addOverlay(marker);                     // 将标注添加到地图中
+                            marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画  
+
+                        });
+                        //var Wopts = {
+                        //    width: 250,     // 信息窗口宽度    
+                        //    height: 100,     // 信息窗口高度    
+                        //    title: "地址信息"  // 信息窗口标题   
+                        //}
+                        //var infoWindow = new BMap.InfoWindow(result["Address"], Wopts);  // 创建信息窗口对象    
+                        //map.openInfoWindow(infoWindow, map.getCenter());      // 打开信息窗口
+
                     }
                 });
 
@@ -252,12 +304,12 @@
         <table id="dg"></table>
 
     </div>
-      <!------------------------搜索弹出层---------------------------------->
+    <!------------------------搜索弹出层---------------------------------->
     <div id="Div_Searh" class="easyui-dialog" style="width: 380px; padding: 10px 20px;"
         closed="true" resizable="true" modal="true" buttons="#dlg-buttons">
         <form id="fSearh">
 
-            <table class="stripes" style="table-layout: fixed; margin: 0 auto; width:320px;" border="0" cellspacing="0" cellpadding="0">
+            <table class="stripes" style="table-layout: fixed; margin: 0 auto; width: 320px;" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td style="width: 60px;">
                         <label>名称：</label></td>
@@ -276,10 +328,10 @@
             </table>
 
         </form>
-        <div style="text-align: center; width: 100%; margin: 5px 0px; display:block;">
-             <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-undo" style="float:left;" onclick=" DataBaseFunction.ClearForm('fSearh');">清除</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" style="float:right;" iconcls="icon-search" onclick="SearchGo();">搜索</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" style="float:right;" iconcls="icon-cancel" onclick="$('#Div_Searh').dialog('close')">关闭</a>
+        <div style="text-align: center; width: 100%; margin: 5px 0px; display: block;">
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-undo" style="float: left;" onclick=" DataBaseFunction.ClearForm('fSearh');">清除</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" style="float: right;" iconcls="icon-search" onclick="SearchGo();">搜索</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" style="float: right;" iconcls="icon-cancel" onclick="$('#Div_Searh').dialog('close')">关闭</a>
         </div>
     </div>
     <!------------------------弹出修改角色信息的弹出层---------------------------------->
@@ -300,7 +352,7 @@
                 <table class="stripes" border="0" cellspacing="0" cellpadding="0">
                     <tr>
                         <td>
-                            <label>图片logo：</label></td>
+                            <label>logo：</label></td>
                         <td>
 
                             <img alt="" id="imgLogo" src="" style="width: 100px; height: 100px; margin-top: 10px;" />
@@ -310,7 +362,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <label>大图片：</label></td>
+                            <label>展示大图片：</label></td>
                         <td>
 
                             <img alt="" id="imgLogoM" src="" style="width: 100px; height: 100px; margin-top: 10px;" />
@@ -328,7 +380,7 @@
                         <td>
                             <label>星级：</label></td>
                         <td>
-                            <input class="easyui-validatebox textbox" onKeyUp="clearNoNumberContainDot(this);" type="text" name="Star" /></td>
+                            <input class="easyui-validatebox textbox" onkeyup="clearNoNumberContainDot(this);" type="text" name="Star" /></td>
                     </tr>
                     <tr>
                         <td>
@@ -359,24 +411,24 @@
                         <td>
                             <label>呼叫量：</label></td>
                         <td>
-                            <input class="easyui-validatebox textbox" onKeyUp="clearNoNumberContainDot(this);" type="text" name="CallCount" /></td>
+                            <input class="easyui-validatebox textbox" onkeyup="clearNoNumberContainDot(this);" type="text" name="CallCount" /></td>
                     </tr>
                     <tr>
                         <td>
                             <label>赞：</label></td>
                         <td>
-                            <input class="easyui-validatebox textbox" onKeyUp="clearNoNumberContainDot(this);" type="text" name="Praises" /></td>
+                            <input class="easyui-validatebox textbox" onkeyup="clearNoNumberContainDot(this);" type="text" name="Praises" /></td>
                     </tr>
                     <tr>
                         <td>
                             <label>点击数：</label></td>
                         <td>
-                            <input class="easyui-validatebox textbox" onKeyUp="clearNoNumberContainDot(this);" type="text" name="Clicks" /></td>
+                            <input class="easyui-validatebox textbox" onkeyup="clearNoNumberContainDot(this);" type="text" name="Clicks" /></td>
                     </tr>
-                     <td>
-                            <label>是否提供抢修：</label></td>
-                        <td>
-                            <input type="radio" value="1"   name="IsRepair" />是
+                    <td>
+                        <label>是否提供抢修：</label></td>
+                    <td>
+                        <input type="radio" value="1" name="IsRepair" />是
                              <input type="radio" value="0" name="IsRepair" />否</td>
 
                     </tr>
@@ -412,8 +464,15 @@
 
                         </td>
                     </tr>
+                    <tr>
+                        <td colspan="2">
+                            <div id="Mapcontainer" style="height: 460px; width: 100%"></div>
+
+                        </td>
+                    </tr>
                 </table>
             </form>
+
         </div>
 
         <div style="text-align: center; width: 100%; margin-bottom: 5px;">
