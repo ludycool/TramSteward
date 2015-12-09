@@ -61,6 +61,7 @@
     <Compile Include="AgSys\ICommentDao.cs" />
     <Compile Include="AgSys\IFile_tbDao.cs" />
     <Compile Include="IBaseDao.cs" />
+    <Compile Include="IFile_ImageDao.cs" />
     <Compile Include="ISys_DictionaryDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RMS\IRMS_ButtonsDao.cs" />

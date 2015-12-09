@@ -57,6 +57,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="File_ImageBiz.cs" />
     <Compile Include="ParameterXmlHelper.cs" />
     <Compile Include="AgSys\ClientUserBiz.cs" />
     <Compile Include="AgSys\CommentBiz.cs" />
