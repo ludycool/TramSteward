@@ -36,14 +36,14 @@ namespace e3net.DAL
         {
             if (IsDefultConnection)
             {
-             //  Db db=Db.CreateDefaultDb();
-               // db.TransactionEnabled=true;//开启事务
+                //  Db db=Db.CreateDefaultDb();
+                // db.TransactionEnabled=true;//开启事务
                 return Db.CreateDefaultDb();
             }
             else
             {
-               // Db db =Db.CreateDbByConfigName(DbConnectionName);
-               // db.TransactionEnabled = true;//开启事务
+                // Db db =Db.CreateDbByConfigName(DbConnectionName);
+                // db.TransactionEnabled = true;//开启事务
                 return Db.CreateDbByConfigName(DbConnectionName); ;
             }
         }
@@ -398,7 +398,23 @@ namespace e3net.DAL
                 }
             }
         }
+        /// <summary>
+        /// 简单的分页
+        /// </summary>
+        /// <param name="WhereStr"></param>
+        /// <param name="pageIndex"></param>
+        /// <param name="pageSize"></param>
+        /// <param name="OrderStr"></param>
+        /// <returns></returns>
+        public DataSet GetPagingDataSet(string WhereStr, int pageIndex, int pageSize, string OrderStr)
+        {
 
+            string Fields = "*";
+            string Table = GetTableName();
+            string sql = GetPageString(Fields, Table, pageIndex, pageSize, WhereStr, OrderStr);
+            DataSet ds = ExecuteSqlToDataSet(sql);
+            return ds;
+        }
         /// <summary>
         ///  分页 根据坐标排序从近到运 并添加距离字段distance
         /// </summary>
