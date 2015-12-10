@@ -168,9 +168,9 @@ namespace e3net.Mode.TramStewardDB
         /// <summary>
         /// 
         /// </summary>
-        public String CreateManId
+        public Guid? CreateManId
         {
-            get { return GetPropertyValue<String>("CreateManId"); }
+            get { return GetPropertyValue<Guid?>("CreateManId"); }
             set { SetPropertyValue("CreateManId", value); }
         }
 
@@ -226,6 +226,15 @@ namespace e3net.Mode.TramStewardDB
         {
             get { return GetPropertyValue<Boolean?>("isDeleted"); }
             set { SetPropertyValue("isDeleted", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String ShopName
+        {
+            get { return GetPropertyValue<String>("ShopName"); }
+            set { SetPropertyValue("ShopName", value); }
         }
     }
 
@@ -360,6 +369,11 @@ namespace e3net.Mode.TramStewardDB
         /// 
         /// </summary>
         public static readonly FieldBase isDeleted = new FieldBase(DbType.SqlServer, "[v_TS_Car]", FieldType.Common, "[isDeleted]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase ShopName = new FieldBase(DbType.SqlServer, "[v_TS_Car]", FieldType.Common, "[ShopName]");
     }
 
 }

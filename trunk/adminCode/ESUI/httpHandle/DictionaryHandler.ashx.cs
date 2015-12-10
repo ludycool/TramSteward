@@ -1,5 +1,7 @@
 ﻿using e3net.BLL;
 using e3net.Mode;
+using e3net.Mode.TramStewardDB;
+using e3net.Mode.V_mode;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +13,7 @@ namespace ESUI.httpHandle
     /// <summary>
     /// DictionaryHandler 的摘要说明
     /// </summary>
-    public class DictionaryHandler : IHttpHandler
+    public class DictionaryHandler : IHttpHandler, System.Web.SessionState.IRequiresSessionState 
     {
         public Sys_DictionaryBiz OPBiz = new Sys_DictionaryBiz();
         public void ProcessRequest(HttpContext context)
@@ -36,16 +38,38 @@ namespace ESUI.httpHandle
                     context.Response.End();
 
                     break;
-                case "GetSysItem"://除掉本身只要子集
+                case "GetSysItem"://获取自定义词典
 
                     string ItemType = context.Request["ItemType"];
                     context.Response.Write(GetSysItem(ItemType));
                     context.Response.End();
 
                     break;
+                case "GetShop"://自己添加的店铺
+
+                    context.Response.Write(GetShop(context));
+                    context.Response.End();
+
+                    break;
             }
         }
 
+        /// <summary>
+        /// 返回店铺给下拉控件
+        /// </summary>
+        /// <returns></returns>
+        public string GetShop(HttpContext context)
+        {
+            List<TS_Shop> AllList = new List<TS_Shop>();
+            if (context.Session["UserData"] != null)
+            {
+                AdminUserInfo UserData = context.Session["UserData"] as AdminUserInfo;
+                var sql = TS_ShopSet.SelectAll().Where(TS_ShopSet.CreateManId.Equal(UserData.UserInfo.Id));
+                 AllList = OPBiz.GetOwnList<TS_Shop>(sql);
+            }
+            return JsonHelper.ToJson(AllList, true);
+        
+        }
         public string GetSysItem(string ItemType)
         {
             var sql = SysItemSet.SelectAll().Where(SysItemSet.ItemType.Equal(ItemType)).OrderByASC(SysItemSet.OrderID);

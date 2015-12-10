@@ -246,6 +246,7 @@
     <Compile Include="Controllers\TramStewardDB\TS_RepairShopController.cs" />
     <Compile Include="Controllers\TramStewardDB\TS_ServiceController.cs" />
     <Compile Include="Controllers\TramStewardDB\TS_TransactionController.cs" />
+    <Compile Include="Controllers\TramStewardDB\TS_CarController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ParameterController.cs" />
     <Compile Include="Controllers\AdvertisingController.cs" />
@@ -3502,6 +3503,7 @@
     <Content Include="Views\TS_RepairShop\Index.cshtml" />
     <Content Include="Views\TS_Service\Index.cshtml" />
     <Content Include="Views\TS_Transaction\Index.cshtml" />
+    <Content Include="Views\TS_Car\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="upload\image\20150319\" />
