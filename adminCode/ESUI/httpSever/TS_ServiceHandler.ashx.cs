@@ -13,14 +13,13 @@ using TZHSWEET.Common;
 namespace ESUI.httpSever
 {
     /// <summary>
-    /// TS_RepairShopHandler 的摘要说明
+    /// TS_ServiceHandler 的摘要说明
     /// </summary>
-    public class TS_RepairShopHandler : IHttpHandler
+    public class TS_ServiceHandler : IHttpHandler
     {
 
-
-        TS_RepairShopBiz VOPBiz = new TS_RepairShopBiz();
-        // 请求例子  /httpSever/TS_RepairShopHandler.ashx?json={"jsonEntity":{"Category":"05","Longitude":"110.22587","Latitude":"25.272585"},"pageIndex":"1","pageSize":"20","action":"GetByCategory"}
+        TS_ServiceBiz VOPBiz = new TS_ServiceBiz();
+        // 请求例子  /httpSever/TS_ServiceHandler.ashx?json={"jsonEntity":{"Category":"05","Longitude":"110.22587","Latitude":"25.272585"},"pageIndex":"1","pageSize":"20","action":"GetByCategory"}
         public void ProcessRequest(HttpContext context)
         {
             context.Response.ContentType = "text/plain";
@@ -68,8 +67,8 @@ namespace ESUI.httpSever
                     case "GetById":
                         #region
                         string IdG = httpObject["jsonEntity"]["Id"].ToString();
-                        var mqlG = TS_RepairShopSet.SelectAll().Where(TS_RepairShopSet.Id.Equal(IdG));
-                        TS_RepairShop modelG = VOPBiz.GetEntity(mqlG);
+                        var mqlG = TS_ServiceSet.SelectAll().Where(TS_ServiceSet.Id.Equal(IdG));
+                        TS_Service modelG = VOPBiz.GetEntity(mqlG);
                         if (modelG != null)
                         {
                             resultMode.Code = 11;
@@ -103,14 +102,14 @@ namespace ESUI.httpSever
                         pc.sys_Key = "Id";
                         pc.sys_PageIndex = pageIndex;
                         pc.sys_PageSize = pageSize;
-                        pc.sys_Table = "v_TS_RepairShop";
+                        pc.sys_Table = "v_TS_Service";
                         pc.sys_Where = "  TName like '%" + KeyWords + "%'";
                         pc.sys_Where += " or  ProvinceCode like '%" + KeyWords + "%'";
                         pc.sys_Where += " or  CityCode like '%" + KeyWords + "%'";
                         pc.sys_Where += " or  AreaCode like '%" + KeyWords + "%'";
                         pc.sys_Where += " or  Address like '%" + KeyWords + "%'";
                         pc.sys_Order = "Id";
-                        List<v_TS_RepairShop> listAll = VOPBiz.GetPagingData<v_TS_RepairShop>(pc);
+                        List<v_TS_Service> listAll = VOPBiz.GetPagingData<v_TS_Service>(pc);
                         if (listAll.Count > 0)
                         {
                             resultMode.Code = 11;
@@ -158,6 +157,7 @@ namespace ESUI.httpSever
             context.Response.Write(JsonHelper.ToJson(resultMode, true));
             context.Response.End();
         }
+
 
         public bool IsReusable
         {

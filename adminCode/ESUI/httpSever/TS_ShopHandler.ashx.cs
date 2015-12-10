@@ -129,11 +129,11 @@ namespace ESUI.httpSever
                         #region
 
                         float minKM = float.Parse(httpObject["jsonEntity"]["minKM"].ToString());
-                        float MaxKM = float.Parse(httpObject["jsonEntity"]["MaxKM"].ToString());
+                        float maxKM = float.Parse(httpObject["jsonEntity"]["maxKM"].ToString());
                         string Longitude2 = httpObject["jsonEntity"]["Longitude"].ToString();
                         string Latitude2 = httpObject["jsonEntity"]["Latitude"].ToString();
                         string Category2 = httpObject["jsonEntity"]["Category"].ToString();
-                        DataSet ds2 = VOPBiz.GetByDistancesOrderByLL(" Category like '" + Category2 + "%' ", minKM, MaxKM, Longitude2, Latitude2);
+                        DataSet ds2 = VOPBiz.GetByDistancesOrderByLL(" Category like '" + Category2 + "%' ", minKM, maxKM, Longitude2, Latitude2);
                         if (ds2 != null && ds2.Tables[0].Rows.Count > 0)
                         {
                             resultMode.Code = 11;

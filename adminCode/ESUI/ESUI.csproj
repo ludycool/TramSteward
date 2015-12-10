@@ -285,14 +285,23 @@
     <Compile Include="httpSever\PushMessageHandler.ashx.cs">
       <DependentUpon>PushMessageHandler.ashx</DependentUpon>
     </Compile>
+    <Compile Include="httpSever\TS_CarHandler.ashx.cs">
+      <DependentUpon>TS_CarHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="httpSever\TS_ClientUserHandler.ashx.cs">
       <DependentUpon>TS_ClientUserHandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="httpSever\TS_RepairShopHandler.ashx.cs">
       <DependentUpon>TS_RepairShopHandler.ashx</DependentUpon>
     </Compile>
+    <Compile Include="httpSever\TS_ServiceHandler.ashx.cs">
+      <DependentUpon>TS_ServiceHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="httpSever\TS_ShopHandler.ashx.cs">
       <DependentUpon>TS_ShopHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="httpSever\TS_TransactionHandler.ashx.cs">
+      <DependentUpon>TS_TransactionHandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -3452,6 +3461,9 @@
     <Content Include="httpSever\TS_RepairShopHandler.ashx" />
     <Content Include="httpSever\TS_ShopHandler.ashx" />
     <Content Include="httpHandle\ImageHandler.ashx" />
+    <Content Include="httpSever\TS_ServiceHandler.ashx" />
+    <Content Include="httpSever\TS_TransactionHandler.ashx" />
+    <Content Include="httpSever\TS_CarHandler.ashx" />
     <None Include="Properties\PublishProfiles\ESUIConfig.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
