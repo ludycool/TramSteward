@@ -105,9 +105,9 @@ namespace e3net.Mode.TramStewardDB
         /// <summary>
         /// 创建人Id
         /// </summary>
-        public String CreateManId
+        public Guid? CreateManId
         {
-            get { return GetPropertyValue<String>("CreateManId"); }
+            get { return GetPropertyValue<Guid?>("CreateManId"); }
             set { SetPropertyValue("CreateManId", value); }
         }
 
