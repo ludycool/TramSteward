@@ -276,6 +276,9 @@
     <Compile Include="httpSever\AppVersionHandler.ashx.cs">
       <DependentUpon>AppVersionHandler.ashx</DependentUpon>
     </Compile>
+    <Compile Include="httpSever\DictionaryHandler.ashx.cs">
+      <DependentUpon>DictionaryHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="httpSever\File_ImageHandler.ashx.cs">
       <DependentUpon>File_ImageHandler.ashx</DependentUpon>
     </Compile>
@@ -3416,6 +3419,7 @@
     <Content Include="moon.license">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="test.html" />
     <Content Include="upload\file\20150319022047_psb.jpg" />
     <Content Include="Content\ueditor\net\config.json" />
     <Content Include="Content\ueditor\net\controller.ashx" />
@@ -3456,6 +3460,7 @@
     <Content Include="httpSever\TS_TransactionHandler.ashx" />
     <Content Include="httpSever\TS_CarHandler.ashx" />
     <Content Include="httpSever\File_ImageHandler.ashx" />
+    <Content Include="httpSever\DictionaryHandler.ashx" />
     <None Include="Properties\PublishProfiles\ESUIConfig.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
