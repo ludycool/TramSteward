@@ -11,11 +11,44 @@ using System.Text;
 
 namespace e3net.BLL
 {
-  //  [Export(typeof(ISys_DictionaryDao))]
+    //  [Export(typeof(ISys_DictionaryDao))]
     public class Sys_DictionaryBiz : BaseDao<Sys_Dictionary>, ISys_DictionaryDao
     {
 
+        /// <summary>
+        /// 根据值取下 一级所有的数据 
+        /// </summary>
+        /// <param name="ValueName"></param>
+        /// <returns></returns>
+        public List<Sys_Dictionary> GetSonbyParentId(string ParentId)
+        {
+            var sql = Sys_DictionarySet.SelectAll().Where(Sys_DictionarySet.ParentId.Equal(ParentId));
+            List<Sys_Dictionary> listAll = GetOwnList<Sys_Dictionary>(sql);
+            return listAll;
+        }
+        /// <summary>
+        /// 根据值 取所有的子集数据 
+        /// </summary>
+        /// <param name="ValueName"></param>
+        /// <returns></returns>
+        public List<Sys_Dictionary> GetAllSonbyValueName(string ValueName)
+        {
+            var sql = Sys_DictionarySet.SelectAll().Where(Sys_DictionarySet.ValueName.StartWith(ValueName));
+            List<Sys_Dictionary> listAll = GetOwnList<Sys_Dictionary>(sql);
+            if (listAll != null && listAll.Count > 0)
+            {
+                for (int i = 0; i < listAll.Count; i++)
+                {
+                    if (listAll[i].ValueName.Equals(ValueName))//去除父级
+                    {
+                        listAll.Remove(listAll[i]);
+                        break;
+                    }
+                }
 
+            }
+            return listAll;
+        }
         /// <summary>
         /// 词典树型数据生成json！！
         /// </summary>
