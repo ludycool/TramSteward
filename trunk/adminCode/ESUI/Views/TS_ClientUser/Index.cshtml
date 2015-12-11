@@ -28,12 +28,12 @@
 
 
             jQuery(document).ready(function () {
-              
+
                 FormStripes();//表单样式
                 AutoWH("#body", 40, 42);//自适应宽度
                 var um = UM.getEditor('Details');
                 DataGridSet();
-                
+
 
             })
             function DataGridSet() {
@@ -43,6 +43,7 @@
                         { field: 'ck', checkbox: true },
                         { field: 'UserName', title: '用户名', width: 100 },
                         { field: 'TrueName', title: '姓名', width: 100 },
+                         { field: 'NickName', title: '昵称', width: 100 },
                         { field: 'Address', title: '地址', width: 300, align: 'right' }
                     ]],
                     iconCls: 'icon-save',
@@ -128,7 +129,7 @@
                 var data = DataBaseFunction.GetFormData("ff")
                 var Details = UM.getEditor('Details').getContent();
                 Details = htmlEncode(Details);
-                data[16].value = Details;
+                data[17].value = Details;
                 //发送异步请求到后台保存数据
                 $.post(BaseUrl + 'EditInfo', data, function (data) {
                     alerts(data.Msg, 2);
@@ -182,8 +183,8 @@
     <!------------------------弹出修改角色信息的弹出层---------------------------------->
     <div id="DivEditor" class="easyui-dialog" style="width: 1000px;"
         closed="true" resizable="true" modal="true" buttons="#dlg-buttons">
-        <div id="Div_form" class="easyui-panel" style="padding: 10px 20px; overflow-x:hidden;" data-options=" height:600,width:980,border:false">
-            <form id="ff"  method="post" enctype="multipart/form-data">
+        <div id="Div_form" class="easyui-panel" style="padding: 10px 20px; overflow-x: hidden;" data-options=" height:600,width:980,border:false">
+            <form id="ff" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="Id" />
                 <input type="hidden" name="ImgeUrl" />
                 <input type="hidden" name="Category" />
@@ -192,53 +193,60 @@
                 <input type="hidden" name="LocationUpdateTime" />
                 <input type="hidden" name="AddTime" />
                 <input type="hidden" name="UpdateTime" />
-                   <input type="hidden" name="isValid" />
-                    <table class="stripes" border="0" cellspacing="0" cellpadding="0">
-                        <tr>
-                            <td>
-                                <label>图片logo：</label></td>
-                            <td>
-                              
-                                <img alt="" id="imgLogo" src="" style="width: 100px; height: 100px; margin-top: 10px;" />
-                                  <input type="file" name="file1" style="width:50px;" onchange="FileHeadSave()" />
-                            </td>
-                      
-                        </tr>
-                        <tr>
-                            <td>
-                                <label>姓名：</label></td>
-                            <td>
-                                <input class="easyui-validatebox textbox"  type="text" data-options="required:true" name="TrueName" /></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label>用户名：</label></td>
-                            <td>
-                                <input class="easyui-validatebox textbox"  type="text" name="UserName" /></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label>密码：</label></td>
-                            <td>
-                                <input class="easyui-validatebox textbox"  type="text" name="Pwd" /></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label>电话：</label></td>
-                            <td>
-                                <input class="easyui-validatebox textbox" type="text" name="Phone" /></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <label>地址：</label></td>
-                            <td>
-                                <textarea class="areabox"  name="Address"></textarea></td>
-                        </tr>
-                           <tr>
+                <input type="hidden" name="isValid" />
+                <table class="stripes" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                        <td>
+                            <label>图片logo：</label></td>
+                        <td>
+
+                            <img alt="" id="imgLogo" src="" style="width: 100px; height: 100px; margin-top: 10px;" />
+                            <input type="file" name="file1" style="width: 50px;" onchange="FileHeadSave()" />
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>用户名：</label></td>
+                        <td>
+                            <input class="easyui-validatebox textbox" data-options="required:true" type="text" name="UserName" /></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>姓名：</label></td>
+                        <td>
+                            <input class="easyui-validatebox textbox" type="text" name="TrueName" /></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>昵称：</label></td>
+                        <td>
+                            <input class="easyui-validatebox textbox" type="text" name="NickName" /></td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label>密码：</label></td>
+                        <td>
+                            <input class="easyui-validatebox textbox" type="text" name="Pwd" /></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>电话：</label></td>
+                        <td>
+                            <input class="easyui-validatebox textbox" type="text" name="Phone" /></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>地址：</label></td>
+                        <td>
+                            <textarea class="areabox" name="Address"></textarea></td>
+                    </tr>
+                    <tr>
                         <td>
                             <label>状态：</label></td>
                         <td>
-                            <select  class="easyui-combobox" id="States"  data-options="required:true" name="States" style="width: 200px;">
+                            <select class="easyui-combobox" id="States" data-options="required:true" name="States" style="width: 200px;">
                                 <option value="0">未审核</option>
                                 <option value="2">已审核</option>
                                 <option value="1">开启</option>
@@ -246,20 +254,20 @@
                             </select>
                         </td>
                     </tr>
-                        <tr>
-                            <td colspan="2">
-                                <label>详情：</label></td>
-                        </tr>
-                        <tr>
-                            <td colspan="2">
-                                <!--style给定宽度可以影响编辑器的最终宽度-->
-                                <script type="text/plain" id="Details" name="Details" style="width: 900px; height: 200px;">
+                    <tr>
+                        <td colspan="2">
+                            <label>详情：</label></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <!--style给定宽度可以影响编辑器的最终宽度-->
+                            <script type="text/plain" id="Details" name="Details" style="width: 900px; height: 200px;">
   
-                                </script>
+                            </script>
 
-                            </td>
-                        </tr>
-                    </table>
+                        </td>
+                    </tr>
+                </table>
             </form>
         </div>
 

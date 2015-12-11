@@ -209,6 +209,15 @@ namespace e3net.Mode.TramStewardDB
             get { return GetPropertyValue<Boolean?>("isDeleted"); }
             set { SetPropertyValue("isDeleted", value); }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String NickName
+        {
+            get { return GetPropertyValue<String>("NickName"); }
+            set { SetPropertyValue("NickName", value); }
+        }
     }
 
     [Table("[v_TS_ClientUser]", DbType.SqlServer)]
@@ -332,6 +341,11 @@ namespace e3net.Mode.TramStewardDB
         /// 
         /// </summary>
         public static readonly FieldBase isDeleted = new FieldBase(DbType.SqlServer, "[v_TS_ClientUser]", FieldType.Common, "[isDeleted]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase NickName = new FieldBase(DbType.SqlServer, "[v_TS_ClientUser]", FieldType.Common, "[NickName]");
     }
 
 }

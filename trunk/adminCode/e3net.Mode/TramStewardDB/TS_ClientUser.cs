@@ -40,7 +40,16 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 用户名
+        /// 昵称 昵称
+        /// </summary>
+        public String NickName
+        {
+            get { return GetPropertyValue<String>("NickName"); }
+            set { SetPropertyValue("NickName", value); }
+        }
+
+        /// <summary>
+        ///  用户名
         /// </summary>
         public String UserName
         {
@@ -222,6 +231,11 @@ namespace e3net.Mode.TramStewardDB
 
         /// <summary>
         /// 用户名
+        /// </summary>
+        public static readonly FieldBase NickName = new FieldBase(DbType.SqlServer, "[TS_ClientUser]", FieldType.Common, "[NickName]");
+
+        /// <summary>
+        /// 昵称
         /// </summary>
         public static readonly FieldBase UserName = new FieldBase(DbType.SqlServer, "[TS_ClientUser]", FieldType.Common, "[UserName]");
 

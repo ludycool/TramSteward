@@ -20,7 +20,7 @@ namespace ESUI.httpSever
     {
 
         TS_TransactionBiz VOPBiz = new TS_TransactionBiz();
-        // 请求例子  /httpSever/TS_TransactionHandler.ashx?json={"jsonEntity":{"Category":"05","Longitude":"110.22587","Latitude":"25.272585"},"pageIndex":"1","pageSize":"20","action":"GetByCategory"}
+        // 请求例子  /httpSever/TS_TransactionHandler.ashx?json={"jsonEntity":{"Category":"09","Longitude":"110.22587","Latitude":"25.272585"},"pageIndex":"1","pageSize":"20","action":"GetByCategory"}
         public void ProcessRequest(HttpContext context)
         {
             context.Response.ContentType = "text/plain";
