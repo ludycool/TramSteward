@@ -50,7 +50,8 @@ namespace ESUI.httpSever
                             Rmodel.AddTime = DateTime.Now;
                             Rmodel.UpdateTime = DateTime.Now;
                             Rmodel.LocationUpdateTime = DateTime.Now;
-                            Rmodel.Category = "";
+                            Rmodel.isDeleted = false;
+                            Rmodel.States = 0;
                             OPBiz.Add(Rmodel);
 
                             resultMode.Code = 1;
@@ -86,6 +87,7 @@ namespace ESUI.httpSever
                         if (modelG != null)
                         {
                             modelG.Pwd = CPwd;
+                            modelG.UpdateTime = DateTime.Now;
                             modelG.WhereExpression = TS_ClientUserSet.Id.Equal(modelG.Id);
                             if (OPBiz.Update(modelG) > 0)
                             {

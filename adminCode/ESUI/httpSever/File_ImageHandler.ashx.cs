@@ -1,5 +1,5 @@
-﻿using e3net.BLL.AgSys;
-using e3net.Mode.AgSys;
+﻿using e3net.BLL;
+using e3net.Mode;
 using e3net.Mode.HttpView;
 using Newtonsoft.Json.Linq;
 using System;
@@ -11,12 +11,13 @@ using TZHSWEET.Common;
 namespace ESUI.httpSever
 {
     /// <summary>
-    /// File_tbHandler 的摘要说明
+    /// File_ImageHandler 的摘要说明
     /// </summary>
-    public class File_tbHandler : IHttpHandler
+    public class File_ImageHandler : IHttpHandler
     {
-        // 请求例子  /httpSever/File_tbHandler.ashx?json={"jsonEntity":{"Id":"f1ad47b7-0c2d-4732-8503-5ef07dcb5759"},"action":"GetFileById"}
-        File_tbBiz OPBiz = new File_tbBiz();
+
+        // 请求例子  /httpSever/File_ImageHandler.ashx?json={"jsonEntity":{"Id":"f1ad47b7-0c2d-4732-8503-5ef07dcb5759"},"action":"GetFileById"}
+        File_ImageBiz OPBiz = new File_ImageBiz();
         public void ProcessRequest(HttpContext context)
         {
             context.Response.ContentType = "text/plain";
@@ -28,8 +29,8 @@ namespace ESUI.httpSever
                 {
                     case "GetFileById":
                         string Id = httpObject["jsonEntity"]["Id"].ToString();
-                        var Where = File_tbSet.SelectAll().Where(File_tbSet.ToId.Equal(Id));
-                        List<File_tb> listf = OPBiz.GetEntities(Where);
+                        var Where = File_ImageSet.SelectAll().Where(File_ImageSet.ToId.Equal(Id));
+                        List<File_Image> listf = OPBiz.GetEntities(Where);
                         if (listf != null && listf.Count > 0)
                         {
                             resultMode.Code = 11;
@@ -52,7 +53,7 @@ namespace ESUI.httpSever
                         string ShowName = httpObject["jsonEntity"]["ShowName"].ToString();
                         Guid ToId = new Guid();
                         ToId = Guid.Parse(httpObject["jsonEntity"]["ToId"].ToString());
-                        File_tb file = new File_tb();
+                        File_Image file = new File_Image();
                         file.Id = Guid.NewGuid();
                         file.ToId = ToId;
                         file.AddTime = DateTime.Now;
@@ -79,7 +80,7 @@ namespace ESUI.httpSever
                         break;
                     case "HttpUploadFile":
                         #region  http上传文件
-                        File_tb Rmodel = JsonHelper.FromJson<File_tb>(httpObject["jsonEntity"].ToString());
+                        File_Image Rmodel = JsonHelper.FromJson<File_Image>(httpObject["jsonEntity"].ToString());
                         Rmodel.AddTime = DateTime.Now;
                         Rmodel.UpdateTime = DateTime.Now;
                         Rmodel.Route = "/upload/image";
@@ -106,8 +107,8 @@ namespace ESUI.httpSever
 
                                     //提示上传成功 
                                     OPBiz.Add(Rmodel);
-                                    idSet += Rmodel.Id+"|";
-                                  
+                                    idSet += Rmodel.Id + "|";
+
                                 }
 
                             }
@@ -116,11 +117,12 @@ namespace ESUI.httpSever
                             resultMode.Msg = "成功添加";
                             resultMode.Data = idSet;
                         }
-                        else {
+                        else
+                        {
                             resultMode.Code = 0;
                             resultMode.Msg = "没有文件";
                             resultMode.Data = Rmodel.Id.ToString();
-                        
+
                         }
                         #endregion
 
@@ -136,6 +138,7 @@ namespace ESUI.httpSever
             context.Response.Write(JsonHelper.ToJson(resultMode, true));
             context.Response.End();
         }
+
         public bool IsReusable
         {
             get

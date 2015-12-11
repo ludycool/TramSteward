@@ -276,14 +276,8 @@
     <Compile Include="httpSever\AppVersionHandler.ashx.cs">
       <DependentUpon>AppVersionHandler.ashx</DependentUpon>
     </Compile>
-    <Compile Include="httpSever\File_tbHandler.ashx.cs">
-      <DependentUpon>File_tbHandler.ashx</DependentUpon>
-    </Compile>
-    <Compile Include="httpSever\ParameterHandler.ashx.cs">
-      <DependentUpon>ParameterHandler.ashx</DependentUpon>
-    </Compile>
-    <Compile Include="httpSever\PushMessageHandler.ashx.cs">
-      <DependentUpon>PushMessageHandler.ashx</DependentUpon>
+    <Compile Include="httpSever\File_ImageHandler.ashx.cs">
+      <DependentUpon>File_ImageHandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="httpSever\TS_CarHandler.ashx.cs">
       <DependentUpon>TS_CarHandler.ashx</DependentUpon>
@@ -3450,13 +3444,10 @@
     <Content Include="Content\umditor\third-party\mathquill\font\Symbola.woff" />
     <Content Include="httpHandle\SystemSetHandler.ashx" />
     <Content Include="httpHandle\DictionaryHandler.ashx" />
-    <Content Include="httpSever\ParameterHandler.ashx" />
     <Content Include="httpSever\AdvertisingHandler.ashx" />
     <Content Include="httpSever\AppVersionHandler.ashx" />
-    <Content Include="httpSever\PushMessageHandler.ashx" />
     <Content Include="httpHandle\loginHandler.ashx" />
     <Content Include="Login.aspx" />
-    <Content Include="httpSever\File_tbHandler.ashx" />
     <Content Include="httpSever\TS_ClientUserHandler.ashx" />
     <Content Include="httpSever\TS_RepairShopHandler.ashx" />
     <Content Include="httpSever\TS_ShopHandler.ashx" />
@@ -3464,6 +3455,7 @@
     <Content Include="httpSever\TS_ServiceHandler.ashx" />
     <Content Include="httpSever\TS_TransactionHandler.ashx" />
     <Content Include="httpSever\TS_CarHandler.ashx" />
+    <Content Include="httpSever\File_ImageHandler.ashx" />
     <None Include="Properties\PublishProfiles\ESUIConfig.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />

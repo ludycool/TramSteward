@@ -20,7 +20,8 @@ namespace ESUI.httpSever
 
 
         TS_RepairShopBiz VOPBiz = new TS_RepairShopBiz();
-        // 请求例子  /httpSever/TS_RepairShopHandler.ashx?json={"jsonEntity":{"Category":"05","Longitude":"110.22587","Latitude":"25.272585"},"pageIndex":"1","pageSize":"20","action":"GetByCategory"}
+        // 请求例子  /httpSever/TS_RepairShopHandler.ashx?json={"jsonEntity":{"Category":"06","Longitude":"110.22587","Latitude":"25.272585"},"pageIndex":"1","pageSize":"20","action":"GetByCategory"}
+        // 请求例子  /httpSever/TS_RepairShopHandler.ashx?json={"jsonEntity":{"Category":"06","KeyWords":"电车","Longitude":"110.22587","Latitude":"25.272585"},"pageIndex":"1","pageSize":"20","action":"SearhByKeyWords"}
         public void ProcessRequest(HttpContext context)
         {
             context.Response.ContentType = "text/plain";
