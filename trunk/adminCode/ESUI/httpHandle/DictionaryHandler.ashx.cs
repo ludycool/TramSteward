@@ -13,14 +13,14 @@ namespace ESUI.httpHandle
     /// <summary>
     /// DictionaryHandler 的摘要说明
     /// </summary>
-    public class DictionaryHandler : IHttpHandler, System.Web.SessionState.IRequiresSessionState 
+    public class DictionaryHandler : IHttpHandler, System.Web.SessionState.IRequiresSessionState
     {
         public Sys_DictionaryBiz OPBiz = new Sys_DictionaryBiz();
         public void ProcessRequest(HttpContext context)
         {
             string action = context.Request["action"];
             context.Response.ContentType = "text/plain";
-          //  context.Response.Write("Hello World");
+            //  context.Response.Write("Hello World");
             switch (action)
             {
 
@@ -51,9 +51,26 @@ namespace ESUI.httpHandle
                     context.Response.End();
 
                     break;
+                case "GetSys_CityArea"://自己添加的店铺
+
+                    context.Response.Write(GetSys_CityArea(context));
+                    context.Response.End();
+
+                    break;
             }
         }
 
+
+
+        public string GetSys_CityArea(HttpContext context)
+        {
+            List<Sys_CityArea> AllList = new List<Sys_CityArea>();
+            var sql = Sys_CityAreaSet.SelectAll();
+            AllList = OPBiz.GetOwnList<Sys_CityArea>(sql);
+           
+            return JsonHelper.ToJson(AllList, true);
+
+        }
         /// <summary>
         /// 返回店铺给下拉控件
         /// </summary>
@@ -65,27 +82,27 @@ namespace ESUI.httpHandle
             {
                 AdminUserInfo UserData = context.Session["UserData"] as AdminUserInfo;
                 var sql = TS_ShopSet.SelectAll().Where(TS_ShopSet.CreateManId.Equal(UserData.UserInfo.Id));
-                 AllList = OPBiz.GetOwnList<TS_Shop>(sql);
+                AllList = OPBiz.GetOwnList<TS_Shop>(sql);
             }
             return JsonHelper.ToJson(AllList, true);
-        
+
         }
         public string GetSysItem(string ItemType)
         {
             var sql = SysItemSet.SelectAll().Where(SysItemSet.ItemType.Equal(ItemType)).OrderByASC(SysItemSet.OrderID);
             List<SysItem> AllList = OPBiz.GetOwnList<SysItem>(sql);
             return JsonHelper.ToJson(AllList, true);
-        
+
         }
         public string GetSonDictionary(string ValueName)
         {
-             string jsonstring="[]";
+            string jsonstring = "[]";
             var sql = Sys_DictionarySet.SelectAll().Where(Sys_DictionarySet.ValueName.StartWith(ValueName));
             List<Sys_Dictionary> listAll = OPBiz.GetOwnList<Sys_Dictionary>(sql);
             jsonstring = OPBiz.GetCombotree(listAll);
-            
 
-         return   jsonstring;
+
+            return jsonstring;
         }
         public string GetSonDictionaryNo(string ValueName)
         {
@@ -107,7 +124,7 @@ namespace ESUI.httpHandle
 
             return jsonstring;
         }
-    
+
         public bool IsReusable
         {
             get
