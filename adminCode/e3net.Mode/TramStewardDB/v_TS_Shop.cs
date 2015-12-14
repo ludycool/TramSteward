@@ -236,6 +236,33 @@ namespace e3net.Mode.TramStewardDB
             get { return GetPropertyValue<String>("StatesName"); }
             set { SetPropertyValue("StatesName", value); }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String ProvinceName
+        {
+            get { return GetPropertyValue<String>("ProvinceName"); }
+            set { SetPropertyValue("ProvinceName", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String CityName
+        {
+            get { return GetPropertyValue<String>("CityName"); }
+            set { SetPropertyValue("CityName", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String AreaName
+        {
+            get { return GetPropertyValue<String>("AreaName"); }
+            set { SetPropertyValue("AreaName", value); }
+        }
     }
 
     [Table("[v_TS_Shop]", DbType.SqlServer)]
@@ -374,6 +401,21 @@ namespace e3net.Mode.TramStewardDB
         /// 
         /// </summary>
         public static readonly FieldBase StatesName = new FieldBase(DbType.SqlServer, "[v_TS_Shop]", FieldType.Common, "[StatesName]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase ProvinceName = new FieldBase(DbType.SqlServer, "[v_TS_Shop]", FieldType.Common, "[ProvinceName]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase CityName = new FieldBase(DbType.SqlServer, "[v_TS_Shop]", FieldType.Common, "[CityName]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase AreaName = new FieldBase(DbType.SqlServer, "[v_TS_Shop]", FieldType.Common, "[AreaName]");
     }
 
 }

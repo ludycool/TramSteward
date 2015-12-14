@@ -81,12 +81,12 @@
     <Compile Include="TramStewardDB\TS_TransactionBiz.cs" />
     <Compile Include="TramStewardDB\TS_RepairManBiz.cs" />
     <Compile Include="TramStewardDB\TS_RepairShopBiz.cs" />
-    <Compile Include="V_BLL\V_DoctorBiz.cs" />
     <Compile Include="AdvertisingXmlHelper.cs" />
     <Compile Include="SystemLogsBiz.cs" />
     <Compile Include="YhSys\PushMessageBiz.cs" />
     <Compile Include="AppVersionBiz.cs" />
     <Compile Include="SysItemBiz.cs" />
+    <Compile Include="Sys_CityAreaBiz.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\e3net.common\e3net.common.csproj">

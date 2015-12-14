@@ -74,14 +74,7 @@ namespace e3net.Mode.TramStewardDB
             get { return GetPropertyValue<String>("Brand"); }
             set { SetPropertyValue("Brand", value); }
         }
-        /// <summary>
-        /// 
-        /// </summary>
-        public String Phone
-        {
-            get { return GetPropertyValue<String>("Phone"); }
-            set { SetPropertyValue("Phone", value); }
-        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -252,6 +245,42 @@ namespace e3net.Mode.TramStewardDB
             get { return GetPropertyValue<Boolean?>("isDeleted"); }
             set { SetPropertyValue("isDeleted", value); }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String Phone
+        {
+            get { return GetPropertyValue<String>("Phone"); }
+            set { SetPropertyValue("Phone", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String ProvinceName
+        {
+            get { return GetPropertyValue<String>("ProvinceName"); }
+            set { SetPropertyValue("ProvinceName", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String CityName
+        {
+            get { return GetPropertyValue<String>("CityName"); }
+            set { SetPropertyValue("CityName", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String AreaName
+        {
+            get { return GetPropertyValue<String>("AreaName"); }
+            set { SetPropertyValue("AreaName", value); }
+        }
     }
 
     [Table("[v_TS_Transaction]", DbType.SqlServer)]
@@ -300,11 +329,6 @@ namespace e3net.Mode.TramStewardDB
         /// 
         /// </summary>
         public static readonly FieldBase Brand = new FieldBase(DbType.SqlServer, "[v_TS_Transaction]", FieldType.Common, "[Brand]");
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public static readonly FieldBase Phone = new FieldBase(DbType.SqlServer, "[v_TS_Transaction]", FieldType.Common, "[Phone]");
 
         /// <summary>
         /// 
@@ -400,6 +424,26 @@ namespace e3net.Mode.TramStewardDB
         /// 
         /// </summary>
         public static readonly FieldBase isDeleted = new FieldBase(DbType.SqlServer, "[v_TS_Transaction]", FieldType.Common, "[isDeleted]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase Phone = new FieldBase(DbType.SqlServer, "[v_TS_Transaction]", FieldType.Common, "[Phone]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase ProvinceName = new FieldBase(DbType.SqlServer, "[v_TS_Transaction]", FieldType.Common, "[ProvinceName]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase CityName = new FieldBase(DbType.SqlServer, "[v_TS_Transaction]", FieldType.Common, "[CityName]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase AreaName = new FieldBase(DbType.SqlServer, "[v_TS_Transaction]", FieldType.Common, "[AreaName]");
     }
 
 }

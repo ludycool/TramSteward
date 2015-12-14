@@ -52,9 +52,9 @@
                          { field: 'CategoryName', title: '类型', width: 100 },
                           { field: 'StatesName', title: '状态', width: 100 },
                          
-                         { field: 'ProvinceCode', title: '省', width: 100 },
-                         { field: 'CityCode', title: '市', width: 100 },
-                         { field: 'AreaCode', title: '区', width: 100 },
+                         { field: 'ProvinceName', title: '省', width: 100 },
+                         { field: 'CityName', title: '市', width: 100 },
+                         { field: 'AreaName', title: '区', width: 100 },
                         { field: 'Address', title: '地址', width: 300, align: 'right' }
                     ]],
                     iconCls: 'icon-save',
@@ -147,7 +147,7 @@
                 var data = DataBaseFunction.GetFormData("ff")
                 var Details = UM.getEditor('Details').getContent();
                 Details = htmlEncode(Details);
-                data[19].value = Details;
+                data[data.length - 1].value = Details;
                 //发送异步请求到后台保存数据
                 $.post(BaseUrl + 'EditInfo', data, function (data) {
                     alerts(data.Msg, 2);
