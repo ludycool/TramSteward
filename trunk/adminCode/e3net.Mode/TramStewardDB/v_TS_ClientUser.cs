@@ -213,6 +213,33 @@ namespace e3net.Mode.TramStewardDB
         /// <summary>
         /// 
         /// </summary>
+        public String ProvinceName
+        {
+            get { return GetPropertyValue<String>("ProvinceName"); }
+            set { SetPropertyValue("ProvinceName", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String CityName
+        {
+            get { return GetPropertyValue<String>("CityName"); }
+            set { SetPropertyValue("CityName", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String AreaName
+        {
+            get { return GetPropertyValue<String>("AreaName"); }
+            set { SetPropertyValue("AreaName", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public String NickName
         {
             get { return GetPropertyValue<String>("NickName"); }
@@ -341,6 +368,21 @@ namespace e3net.Mode.TramStewardDB
         /// 
         /// </summary>
         public static readonly FieldBase isDeleted = new FieldBase(DbType.SqlServer, "[v_TS_ClientUser]", FieldType.Common, "[isDeleted]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase ProvinceName = new FieldBase(DbType.SqlServer, "[v_TS_ClientUser]", FieldType.Common, "[ProvinceName]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase CityName = new FieldBase(DbType.SqlServer, "[v_TS_ClientUser]", FieldType.Common, "[CityName]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase AreaName = new FieldBase(DbType.SqlServer, "[v_TS_ClientUser]", FieldType.Common, "[AreaName]");
 
         /// <summary>
         /// 
