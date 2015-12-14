@@ -114,24 +114,7 @@ namespace ESUI.httpSever
                         break;
 
                     case "update":
-                        #region
-                        TS_ClientUser Rmodel2 = JsonHelper.FromJson<TS_ClientUser>(httpObject["jsonEntity"].ToString());
-                        Rmodel2.WhereExpression = TS_ClientUserSet.Id.Equal(Rmodel2.Id);
-                        Rmodel2.UpdateTime = DateTime.Now;
-                        Rmodel2.LocationUpdateTime = DateTime.Now;
-                        if (OPBiz.Update(Rmodel2) > 0)
-                        {
-                            resultMode.Code = 11;
-                            resultMode.Msg = "更新成功";
-                            resultMode.Data = "";
-                        }
-                        else
-                        {
-                            resultMode.Code = -13;
-                            resultMode.Msg = "更新失败";
-                            resultMode.Data = "";
-                        }
-                        #endregion
+                        this.update(context, httpObject);
                         break;
                 }
             }
@@ -142,6 +125,39 @@ namespace ESUI.httpSever
             }
             context.Response.Write(JsonHelper.ToJson(resultMode, true));
             context.Response.End();
+        }
+
+        private void update(HttpContext context, JObject httpObject)
+        {
+            #region
+            HttpReSultMode resultMode = new HttpReSultMode();
+            TS_ClientUser Rmodel2 = JsonHelper.FromJson<TS_ClientUser>(httpObject["jsonEntity"].ToString());
+
+              var Loginmql = TS_ClientUserSet.SelectAll().Where(TS_ClientUserSet.Id.Equal(Rmodel2.Id));
+                        TS_ClientUser Loginmodel = OPBiz.GetEntity(Loginmql);
+            
+            Rmodel2.WhereExpression = TS_ClientUserSet.Id.Equal(Rmodel2.Id);
+            Rmodel2.UpdateTime = DateTime.Now;
+            Rmodel2.LocationUpdateTime = DateTime.Now;
+            Rmodel2.isDeleted = Loginmodel.isDeleted;;
+            Rmodel2.isValid = Loginmodel.isValid;
+            Rmodel2.States = Loginmodel.States;
+            if (OPBiz.Update(Rmodel2) > 0)
+            {
+                resultMode.Code = 11;
+                resultMode.Msg = "更新成功";
+                resultMode.Data = "";
+            }
+            else
+            {
+                resultMode.Code = -13;
+                resultMode.Msg = "更新失败";
+                resultMode.Data = "";
+            }
+            #endregion
+            context.Response.Write(JsonHelper.ToJson(resultMode, true));
+            context.Response.End();
+        
         }
         public bool IsReusable
         {
