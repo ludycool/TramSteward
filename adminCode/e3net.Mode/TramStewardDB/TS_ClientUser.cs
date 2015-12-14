@@ -40,7 +40,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 昵称 昵称
+        /// 用户名
         /// </summary>
         public String NickName
         {
@@ -49,7 +49,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        ///  用户名
+        /// 昵称
         /// </summary>
         public String UserName
         {
