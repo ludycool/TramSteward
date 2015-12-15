@@ -32,6 +32,7 @@ namespace ESUI.Controllers
         public RMS_UserRoleBiz URBiz { get; set; }
         public ActionResult Index()
         {
+            ViewData["UserType"] = GenerateList();
             return View();
         }
         [HttpPost]
@@ -112,6 +113,19 @@ namespace ESUI.Controllers
             byte[] bytes = vCode.CreateValidateGraphic(code);
 
             return File(bytes, @"image/jpeg");
+        }
+
+        public static SelectList GenerateList()
+        {
+            List<SelectListItem> items = new List<SelectListItem>()
+            {
+                new SelectListItem(){Text="商家", Value="1"},
+                new SelectListItem(){Text="管理员", Value="0"}
+            };
+
+            SelectList generateList = new SelectList(items, "Value", "Text");
+
+            return generateList;
         }
         
     }
