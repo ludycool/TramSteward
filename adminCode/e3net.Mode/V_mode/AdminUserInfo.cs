@@ -24,6 +24,20 @@ namespace e3net.Mode.V_mode
             get;
             set;
         }
+        public int UserType
+        {
+            get;
+            set;
+
+        }
+    }
+    /// <summary>
+    /// 用户类型
+    /// </summary>
+    public enum UserType
+    {
+        admin = 0,//管理员
+        ShopUser = 1,//商家
     }
     /// <summary>
     ///菜单

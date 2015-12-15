@@ -5,14 +5,14 @@
     {
 
         Response.Write(" <script>alert('" + ViewData["Alert"] + "'); </script>");
-   
+
     }
 }
 
 <!DOCTYPE html>
 <html>
 <head>
-    <title>医院后台管理登录</title>
+    <title>电车e管家登录</title>
     <link href="~/Content/Login/images/Default.css" rel="stylesheet" />
     <link href="~/Content/Login/images/xtree.css" rel="stylesheet" />
     <link href="~/Content/Login/images/User_Login.css" rel="stylesheet" />
@@ -22,15 +22,11 @@
     <meta content="MSHTML 6.00.6000.16674" name="GENERATOR">
 
     <style type="text/css">
-
-
-.img {
-
- /*设置图片垂直居中*/
-
- vertical-align:middle;
-  margin-left: 0px;
-}
+        .img {
+            /*设置图片垂直居中*/
+            vertical-align: middle;
+            margin-left: 0px;
+        }
     </style>
 
 
@@ -102,6 +98,13 @@
                                         <li class="user_main_input">
                                             @Html.TextBoxFor(m => m.VCode, new { @class = "TxtValidateCodeCssClass" })
                                             <img id="valiCode" style="cursor: pointer;" class="img" src="/Common/GetValidateCode" alt="看不清？请点我" />
+
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li class="user_main_text">类型： </li>
+                                        <li class="user_main_input">
+                                             @Html.DropDownListFor(model => model.UserType, ViewData["UserType"] as SelectList)
 
                                         </li>
                                     </ul>

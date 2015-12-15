@@ -20,5 +20,7 @@ namespace ESUI.Models
          [Required]
         [Display(Name = "验证码")]
         public string VCode { get; set; }
+
+         public string UserType { get; set; }
     }
 }
