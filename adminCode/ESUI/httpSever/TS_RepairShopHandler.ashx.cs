@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Text;
 using System.Web;
 using TZHSWEET.Common;
 
@@ -20,7 +21,7 @@ namespace ESUI.httpSever
 
 
         TS_RepairShopBiz VOPBiz = new TS_RepairShopBiz();
-        // 请求例子  /httpSever/TS_RepairShopHandler.ashx?json={"jsonEntity":{"Category":"06","Longitude":"110.22587","Latitude":"25.272585"},"pageIndex":"1","pageSize":"20","action":"GetByCategory"}
+        // 请求例子  /httpSever/TS_RepairShopHandler.ashx?json={"jsonEntity":{"Category":"06","CityCode":"4502","Longitude":"110.22587","Latitude":"25.272585"},"pageIndex":"1","pageSize":"20","action":"GetByCategory"}
         // 请求例子  /httpSever/TS_RepairShopHandler.ashx?json={"jsonEntity":{"Category":"06","KeyWords":"电车","Longitude":"110.22587","Latitude":"25.272585"},"pageIndex":"1","pageSize":"20","action":"SearhByKeyWords"}
         public void ProcessRequest(HttpContext context)
         {
@@ -30,42 +31,13 @@ namespace ESUI.httpSever
             try
             {
                 JObject httpObject = JsonHelper.FromJson(context.Request["json"]);
-                int pageIndex = 1;
-                int pageSize = 10000;
+
                 switch (httpObject["action"].ToString())
                 {
 
                     case "GetByCategory":
-                        #region
-                        if (httpObject["pageIndex"] != null)
-                        {
-                            pageIndex = int.Parse(httpObject["pageIndex"].ToString());
-                        }
-
-                        if (httpObject["pageSize"] != null)
-                        {
-                            pageSize = int.Parse(httpObject["pageSize"].ToString());
-                        }
-                        string Longitude = httpObject["jsonEntity"]["Longitude"].ToString();
-                        string Latitude = httpObject["jsonEntity"]["Latitude"].ToString();
-                        string Category = httpObject["jsonEntity"]["Category"].ToString();
-                        DataSet ds = VOPBiz.GetPagingOrderByLL(" Category like '" + Category + "%'", pageIndex, pageSize, Longitude, Latitude);
-                        if (ds != null && ds.Tables[0].Rows.Count > 0)
-                        {
-                            resultMode.Code = 11;
-                            resultMode.Msg = "获取成功";
-                            resultMode.Data = JsonHelper.ToJson(ds.Tables[0], true);
-                        }
-                        else
-                        {
-                            resultMode.Code = 0;
-                            resultMode.Msg = "没有数据";
-                            resultMode.Data = "[]";
-                        }
-                        #endregion
+                        this.GetByCategory(context, httpObject, resultMode);
                         break;
-
-
                     case "GetById":
                         #region
                         string IdG = httpObject["jsonEntity"]["Id"].ToString();
@@ -87,68 +59,6 @@ namespace ESUI.httpSever
 
                         break;
 
-                    case "SearhByKeyWords":
-                        #region
-                        string KeyWords = httpObject["jsonEntity"]["KeyWords"].ToString();
-                        if (httpObject["pageIndex"] != null)
-                        {
-                            pageIndex = int.Parse(httpObject["pageIndex"].ToString());
-                        }
-
-                        if (httpObject["pageSize"] != null)
-                        {
-                            pageSize = int.Parse(httpObject["pageSize"].ToString());
-                        }
-                        PageClass pc = new PageClass();
-                        pc.sys_Fields = "*";
-                        pc.sys_Key = "Id";
-                        pc.sys_PageIndex = pageIndex;
-                        pc.sys_PageSize = pageSize;
-                        pc.sys_Table = "v_TS_RepairShop";
-                        pc.sys_Where = "  TName like '%" + KeyWords + "%'";
-                        pc.sys_Where += " or  ProvinceCode like '%" + KeyWords + "%'";
-                        pc.sys_Where += " or  CityCode like '%" + KeyWords + "%'";
-                        pc.sys_Where += " or  AreaCode like '%" + KeyWords + "%'";
-                        pc.sys_Where += " or  Address like '%" + KeyWords + "%'";
-                        pc.sys_Order = "Id";
-                        List<v_TS_RepairShop> listAll = VOPBiz.GetPagingData<v_TS_RepairShop>(pc);
-                        if (listAll.Count > 0)
-                        {
-                            resultMode.Code = 11;
-                            resultMode.Msg = "获取成功";
-                            resultMode.Data = JsonHelper.ToJson(listAll, true);
-                        }
-                        else
-                        {
-                            resultMode.Code = 0;
-                            resultMode.Msg = "没有数据";
-                            resultMode.Data = "[]";
-                        }
-                        #endregion
-                        break;
-                    case "GetByDistances":
-                        #region
-
-                        float minKM = float.Parse(httpObject["jsonEntity"]["minKM"].ToString());
-                        float maxKM = float.Parse(httpObject["jsonEntity"]["maxKM"].ToString());
-                        string Longitude2 = httpObject["jsonEntity"]["Longitude"].ToString();
-                        string Latitude2 = httpObject["jsonEntity"]["Latitude"].ToString();
-                        string Category2 = httpObject["jsonEntity"]["Category"].ToString();
-                        DataSet ds2 = VOPBiz.GetByDistancesOrderByLL(" Category like '" + Category2 + "%' ", minKM, maxKM, Longitude2, Latitude2);
-                        if (ds2 != null && ds2.Tables[0].Rows.Count > 0)
-                        {
-                            resultMode.Code = 11;
-                            resultMode.Msg = "获取成功";
-                            resultMode.Data = JsonHelper.ToJson(ds2.Tables[0], true);
-                        }
-                        else
-                        {
-                            resultMode.Code = 0;
-                            resultMode.Msg = "没有数据";
-                            resultMode.Data = "[]";
-                        }
-                        #endregion
-                        break;
                 }
             }
             catch (Exception ex)
@@ -160,6 +70,94 @@ namespace ESUI.httpSever
             context.Response.End();
         }
 
+        /// <summary>
+        /// 分类分页获取
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="httpObject"></param>
+        /// <param name="resultMode"></param>
+        private void GetByCategory(HttpContext context, JObject httpObject, HttpReSultMode resultMode)
+        {
+            int pageIndex = 1;
+            int pageSize = 10000;
+            DataSet ds;
+            #region
+            if (httpObject["pageIndex"] != null)
+            {
+                pageIndex = int.Parse(httpObject["pageIndex"].ToString());
+            }
+
+            if (httpObject["pageSize"] != null)
+            {
+                pageSize = int.Parse(httpObject["pageSize"].ToString());
+            }
+            #region 条件
+            StringBuilder Where = new StringBuilder();
+            Where.Append(" isDeleted=0 ");
+            //if (httpObject["jsonEntity"]["KeyWords"] != null)//关键词
+            //{
+            //    string KeyWords = httpObject["jsonEntity"]["KeyWords"].ToString();
+            //    Where.Append(" and( TName like '%" + KeyWords + "%'");
+            //    Where.Append(" or  Address like '%" + KeyWords + "%') ");
+            //}
+            if (httpObject["jsonEntity"]["Category"] != null)//分类
+            {
+                Where.Append( " and  ( Category like '" + httpObject["jsonEntity"]["Category"] + "%')");
+
+            }
+            if (httpObject["jsonEntity"]["ProvinceCode"] != null)//省
+            {
+                Where.Append(" and  ( ProvinceCode like '" + httpObject["jsonEntity"]["ProvinceCode"] + "%')");
+
+            }
+            if (httpObject["jsonEntity"]["CityCode"] != null)//城市
+            {
+                Where.Append(" and  ( CityCode like '" + httpObject["jsonEntity"]["CityCode"] + "%')");
+
+            }
+            if (httpObject["jsonEntity"]["AreaCode"] != null)//区
+            {
+                Where.Append(" and  ( AreaCode like '" + httpObject["jsonEntity"]["AreaCode"] + "%')");
+
+            }
+            #endregion
+            #region 有 坐标 有距离
+            if (httpObject["jsonEntity"]["Longitude"] != null && httpObject["jsonEntity"]["Latitude"] != null)//传有坐标按距离排序
+            {
+                string Longitude = httpObject["jsonEntity"]["Longitude"].ToString();
+                string Latitude = httpObject["jsonEntity"]["Latitude"].ToString();
+                if (httpObject["jsonEntity"]["minKM"] != null && httpObject["jsonEntity"]["maxKM"] != null)//有最小最大距离约定 不分页
+                {
+                    float minKM = float.Parse(httpObject["jsonEntity"]["minKM"].ToString());
+                    float maxKM = float.Parse(httpObject["jsonEntity"]["maxKM"].ToString());
+                    ds = VOPBiz.GetByDistancesOrderByLL(Where.ToString(), minKM, maxKM, Longitude, Latitude);
+                }
+                else //分页 按距离排序
+                {
+                    ds = VOPBiz.GetPagingOrderByLL(Where.ToString(), pageIndex, pageSize, Longitude, Latitude);
+                }
+            }
+            else //简单分页无排序
+            {
+                ds = VOPBiz.GetPagingDataSet(Where.ToString(), pageIndex, pageSize, "CreateTime desc");
+            }
+            #endregion
+            if (ds != null && ds.Tables[0].Rows.Count > 0)
+            {
+                resultMode.Code = 11;
+                resultMode.Msg = "获取成功";
+                resultMode.Data = JsonHelper.ToJson(ds.Tables[0], true);
+            }
+            else
+            {
+                resultMode.Code = 0;
+                resultMode.Msg = "没有数据";
+                resultMode.Data = "[]";
+            }
+            #endregion
+            context.Response.Write(JsonHelper.ToJson(resultMode, true));
+            context.Response.End();
+        }
         public bool IsReusable
         {
             get
