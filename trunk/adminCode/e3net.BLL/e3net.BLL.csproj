@@ -83,6 +83,8 @@
     <Compile Include="TramStewardDB\TS_RepairShopBiz.cs" />
     <Compile Include="AdvertisingXmlHelper.cs" />
     <Compile Include="SystemLogsBiz.cs" />
+    <Compile Include="TramStewardDB\TS_ServiceNewBiz.cs" />
+    <Compile Include="TramStewardDB\TS_ShopUserRoleBiz.cs" />
     <Compile Include="YhSys\PushMessageBiz.cs" />
     <Compile Include="AppVersionBiz.cs" />
     <Compile Include="SysItemBiz.cs" />

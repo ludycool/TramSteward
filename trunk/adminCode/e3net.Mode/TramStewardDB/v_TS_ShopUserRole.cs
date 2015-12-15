@@ -1,0 +1,337 @@
+﻿using System;
+using System.Text;
+using System.Collections;
+using System.Collections.Generic;
+using Moon.Orm;
+
+namespace e3net.Mode.TramStewardDB
+{
+
+    [Table("[v_TS_ShopUserRole]", DbType.SqlServer)]
+
+    public partial class v_TS_ShopUserRole : EntityBase
+    {
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Guid Id
+        {
+            get { return GetPropertyValue<Guid>("Id"); }
+            set { SetPropertyValue("Id", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String ImgeUrl
+        {
+            get { return GetPropertyValue<String>("ImgeUrl"); }
+            set { SetPropertyValue("ImgeUrl", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String TrueName
+        {
+            get { return GetPropertyValue<String>("TrueName"); }
+            set { SetPropertyValue("TrueName", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String UserName
+        {
+            get { return GetPropertyValue<String>("UserName"); }
+            set { SetPropertyValue("UserName", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String Pwd
+        {
+            get { return GetPropertyValue<String>("Pwd"); }
+            set { SetPropertyValue("Pwd", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String Phone
+        {
+            get { return GetPropertyValue<String>("Phone"); }
+            set { SetPropertyValue("Phone", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String ProvinceCode
+        {
+            get { return GetPropertyValue<String>("ProvinceCode"); }
+            set { SetPropertyValue("ProvinceCode", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String CityCode
+        {
+            get { return GetPropertyValue<String>("CityCode"); }
+            set { SetPropertyValue("CityCode", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String AreaCode
+        {
+            get { return GetPropertyValue<String>("AreaCode"); }
+            set { SetPropertyValue("AreaCode", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String Address
+        {
+            get { return GetPropertyValue<String>("Address"); }
+            set { SetPropertyValue("Address", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String Category
+        {
+            get { return GetPropertyValue<String>("Category"); }
+            set { SetPropertyValue("Category", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String Details
+        {
+            get { return GetPropertyValue<String>("Details"); }
+            set { SetPropertyValue("Details", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Double? Longitude
+        {
+            get { return GetPropertyValue<Double?>("Longitude"); }
+            set { SetPropertyValue("Longitude", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Double? Latitude
+        {
+            get { return GetPropertyValue<Double?>("Latitude"); }
+            set { SetPropertyValue("Latitude", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime? LocationUpdateTime
+        {
+            get { return GetPropertyValue<DateTime?>("LocationUpdateTime"); }
+            set { SetPropertyValue("LocationUpdateTime", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime? AddTime
+        {
+            get { return GetPropertyValue<DateTime?>("AddTime"); }
+            set { SetPropertyValue("AddTime", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public DateTime? UpdateTime
+        {
+            get { return GetPropertyValue<DateTime?>("UpdateTime"); }
+            set { SetPropertyValue("UpdateTime", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Int32? States
+        {
+            get { return GetPropertyValue<Int32?>("States"); }
+            set { SetPropertyValue("States", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Int32? isValid
+        {
+            get { return GetPropertyValue<Int32?>("isValid"); }
+            set { SetPropertyValue("isValid", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Boolean? isDeleted
+        {
+            get { return GetPropertyValue<Boolean?>("isDeleted"); }
+            set { SetPropertyValue("isDeleted", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Guid? RoleId
+        {
+            get { return GetPropertyValue<Guid?>("RoleId"); }
+            set { SetPropertyValue("RoleId", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String RoleName
+        {
+            get { return GetPropertyValue<String>("RoleName"); }
+            set { SetPropertyValue("RoleName", value); }
+        }
+    }
+
+    [Table("[v_TS_ShopUserRole]", DbType.SqlServer)]
+    public  partial class v_TS_ShopUserRoleSet : MQLBase
+    {
+        public static new MQLBase Select(params FieldBase[] fields)
+        {
+            return MQLBase.Select(DbType.SqlServer,"[v_TS_ShopUserRole]",fields);
+        }
+        public static new MQLBase SelectAll()
+        {
+            return MQLBase.SelectAll(DbType.SqlServer,"[v_TS_ShopUserRole]");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase Id = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[Id]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase ImgeUrl = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[ImgeUrl]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase TrueName = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[TrueName]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase UserName = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[UserName]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase Pwd = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[Pwd]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase Phone = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[Phone]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase ProvinceCode = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[ProvinceCode]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase CityCode = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[CityCode]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase AreaCode = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[AreaCode]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase Address = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[Address]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase Category = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[Category]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase Details = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[Details]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase Longitude = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[Longitude]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase Latitude = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[Latitude]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase LocationUpdateTime = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[LocationUpdateTime]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase AddTime = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[AddTime]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase UpdateTime = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[UpdateTime]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase States = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[States]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase isValid = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[isValid]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase isDeleted = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[isDeleted]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase RoleId = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[RoleId]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase RoleName = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[RoleName]");
+    }
+
+}
