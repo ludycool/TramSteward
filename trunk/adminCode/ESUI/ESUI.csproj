@@ -299,6 +299,9 @@
     <Compile Include="httpSever\TS_ServiceHandler.ashx.cs">
       <DependentUpon>TS_ServiceHandler.ashx</DependentUpon>
     </Compile>
+    <Compile Include="httpSever\TS_ServiceNewHandler.ashx.cs">
+      <DependentUpon>TS_ServiceNewHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="httpSever\TS_ShopHandler.ashx.cs">
       <DependentUpon>TS_ShopHandler.ashx</DependentUpon>
     </Compile>
@@ -3467,6 +3470,7 @@
     <Content Include="httpSever\File_ImageHandler.ashx" />
     <Content Include="httpSever\DictionaryHandler.ashx" />
     <Content Include="httpSever\CityAreaHandler.ashx" />
+    <Content Include="httpSever\TS_ServiceNewHandler.ashx" />
     <None Include="Properties\PublishProfiles\ESUIConfig.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />

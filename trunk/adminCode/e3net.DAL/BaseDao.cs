@@ -364,6 +364,45 @@ namespace e3net.DAL
                 return list;
             }
         }
+
+        public DataSet GetPagingDataP(PageClass pc)
+        {
+            DbParameter[] parameters = {
+			           new SqlParameter("@tableName", SqlDbType.NVarChar,200) ,            
+                        new SqlParameter("@fieldNames", SqlDbType.NVarChar,200) ,            
+                        new SqlParameter("@pageSize", SqlDbType.Int,4) ,            
+                        new SqlParameter("@page", SqlDbType.Int,4) ,            
+                     new SqlParameter("@pageCount", SqlDbType.Int,4 ) ,            
+                        new SqlParameter("@counts", SqlDbType.Int,4) ,            
+                        new SqlParameter("@fieldSort", SqlDbType.NVarChar,200) ,                      
+                        new SqlParameter("@condition", SqlDbType.NVarChar,200) ,            
+                        new SqlParameter("@keyID", SqlDbType.NVarChar,100) ,            
+                        new SqlParameter("@distinct", SqlDbType.Bit,1)                
+              
+            };
+
+            parameters[0].Value = pc.sys_Table;
+            parameters[1].Value = pc.sys_Fields;
+            parameters[2].Value = pc.sys_PageSize;
+            parameters[3].Value = pc.sys_PageIndex;
+            parameters[4].Direction = ParameterDirection.Output;
+
+            parameters[5].Direction = ParameterDirection.Output;
+            parameters[6].Value = pc.sys_Order;
+            parameters[7].Value = pc.sys_Where;
+            parameters[8].Value = pc.sys_Key;
+            parameters[9].Value = 0;
+
+            using (var db = GetDb())
+            {
+                //  db.DebugEnabled = true;
+
+                DataSet ds = db.ExecuteProToDataSet("proc_DataPagingList", parameters);
+                pc.RCount = Convert.ToInt32(parameters[5].Value);
+                pc.PCount = Convert.ToInt32(parameters[4].Value);
+                return ds;
+            }
+        }
         /// <summary>
         /// 简单的
         /// </summary>
@@ -411,9 +450,39 @@ namespace e3net.DAL
 
             string Fields = "*";
             string Table = GetTableName();
-            string sql = GetPageString(Fields, Table, pageIndex, pageSize, WhereStr, OrderStr);
-            DataSet ds = ExecuteSqlToDataSet(sql);
-            return ds;
+            DbParameter[] parameters = {
+			           new SqlParameter("@tableName", SqlDbType.NVarChar,200) ,            
+                        new SqlParameter("@fieldNames", SqlDbType.NVarChar,200) ,            
+                        new SqlParameter("@pageSize", SqlDbType.Int,4) ,            
+                        new SqlParameter("@page", SqlDbType.Int,4) ,            
+                     new SqlParameter("@pageCount", SqlDbType.Int,4 ) ,            
+                        new SqlParameter("@counts", SqlDbType.Int,4) ,            
+                        new SqlParameter("@fieldSort", SqlDbType.NVarChar,200) ,                      
+                        new SqlParameter("@condition", SqlDbType.NVarChar,200) ,            
+                        new SqlParameter("@keyID", SqlDbType.NVarChar,100) ,            
+                        new SqlParameter("@distinct", SqlDbType.Bit,1)                
+              
+            };
+            parameters[0].Value = Table;
+            parameters[1].Value = Fields;
+            parameters[2].Value = pageSize;
+            parameters[3].Value = pageIndex;
+            parameters[4].Direction = ParameterDirection.Output;
+            parameters[5].Direction = ParameterDirection.Output;
+            parameters[6].Value = OrderStr;
+            parameters[7].Value = WhereStr;
+            parameters[8].Value = "Id";
+            parameters[9].Value = 0;
+
+
+            using (var db = GetDb())
+            {
+                //  db.DebugEnabled = true;
+
+                DataSet ds = db.ExecuteProToDataSet("proc_DataPagingList", parameters);
+                return ds;
+            }
+
         }
         /// <summary>
         ///  分页 根据坐标排序从近到运 并添加距离字段distance

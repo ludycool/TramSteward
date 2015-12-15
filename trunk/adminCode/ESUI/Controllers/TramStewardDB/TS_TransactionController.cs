@@ -59,7 +59,7 @@ namespace ESUI.Controllers
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add("rows", list2);
             dic.Add("total", pc.RCount);
-            return Json(dic, JsonRequestBehavior.AllowGet);
+            return MyJson(dic, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult EditInfo(TS_Transaction TS_TransactionModle)
@@ -131,7 +131,7 @@ namespace ESUI.Controllers
             var mql2 = TS_TransactionSet.SelectAll().Where(TS_TransactionSet.Id.Equal(ID));
             TS_Transaction Rmodel = OPBiz.GetEntity(mql2);
             //  groupsBiz.Add(rol);
-            return Json(Rmodel, JsonRequestBehavior.AllowGet);
+            return MyJson(Rmodel, JsonRequestBehavior.AllowGet);
         }
 
 

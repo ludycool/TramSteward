@@ -119,7 +119,8 @@
                     data: { ID: ID },
                     cache: false,
                     error: function () { alert('Error $.ajax'); },
-                    success: function (result) {
+                    success: function (data) {
+                        var result = eval('(' + data + ')');
                         DataBaseFunction.BindForm("ff", result);
                         UM.getEditor('Details').setContent(result["Details"], false);
                         $("#imgLogo").attr('src', result.ImgeUrl);

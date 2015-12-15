@@ -59,7 +59,7 @@ namespace ESUI.Controllers
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add("rows", list2);
             dic.Add("total", pc.RCount);
-            return Json(dic, JsonRequestBehavior.AllowGet);
+            return MyJson(dic);
         }
 
         public JsonResult EditInfo(TS_RepairShop TS_RepairShopModle)
@@ -131,7 +131,7 @@ namespace ESUI.Controllers
             var mql2 = TS_RepairShopSet.SelectAll().Where(TS_RepairShopSet.Id.Equal(ID));
             TS_RepairShop Rmodel = OPBiz.GetEntity(mql2);
             //  groupsBiz.Add(rol);
-            return Json(Rmodel, JsonRequestBehavior.AllowGet);
+            return MyJson(Rmodel);
         }
 
 

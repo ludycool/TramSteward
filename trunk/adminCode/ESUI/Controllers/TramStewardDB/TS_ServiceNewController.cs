@@ -36,7 +36,7 @@ namespace ESUI.Controllers
         }
 
         [HttpPost]
-        public ContentResult Search()
+        public JsonResult Search()
         {
             // SelectWhere.selectwherestring(Request["sqlSet"]);
             int pageIndex = Request["page"] == null ? 1 : int.Parse(Request["page"]);
@@ -60,7 +60,7 @@ namespace ESUI.Controllers
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add("rows", list2);
             dic.Add("total", pc.RCount);
-            return CRToJson(dic);
+            return MyJson(dic);
         }
 
         public JsonResult EditInfo(TS_ServiceNew TS_ServiceNewModle)
@@ -132,7 +132,7 @@ namespace ESUI.Controllers
             var mql2 = TS_ServiceNewSet.SelectAll().Where(TS_ServiceNewSet.Id.Equal(ID));
             TS_ServiceNew Rmodel = OPBiz.GetEntity(mql2);
             //  groupsBiz.Add(rol);
-            return Json(Rmodel, JsonRequestBehavior.AllowGet);
+            return MyJson(Rmodel);
         }
 
 
