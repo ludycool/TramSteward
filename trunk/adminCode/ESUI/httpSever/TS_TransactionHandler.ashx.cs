@@ -29,11 +29,6 @@ namespace ESUI.httpSever
             try
             {
                 JObject httpObject = JsonHelper.FromJson(context.Request["json"]);
-                int pageIndex = 1;
-                int pageSize = 10000;
-                DataSet ds = new DataSet();
-                string Longitude = "";
-                string Latitude = "";
                 switch (httpObject["action"].ToString())
                 {
                     case "GetById":
