@@ -154,7 +154,7 @@
                     cache: false,
                     error: function () { alert('Error $.ajax'); },
                     success: function (data) {
-                        var result = eval('('+data+')');
+                        var result = eval('(' + data + ')');
                         DataBaseFunction.BindForm("ff", result);
                         UM.getEditor('Details').setContent(result["Details"], false);
                         $("#imgLogo").attr('src', result.ImageUrl);
@@ -232,6 +232,10 @@
             }
             //搜索
             function Search() {
+                _init_areaForSearch();//搜索省市区初始化
+                GetSonDictionaryNo("Category_like1", "06");
+                $('#States_eq').combobox('reload', '/httpHandle/DictionaryHandler.ashx?action=GetSysItem&ItemType=States');  // 使用新的URL重新载入列表数据
+                $("#fSearh").form("clear");
                 $("#Div_Searh").dialog('open').dialog('setTitle', '搜索').window('resize', { top: 100, left: 100 });
             }
             //删除
@@ -324,6 +328,37 @@
                         <label>电话：</label></td>
                     <td>
                         <input type="text" class="textbox" name="Phone_like" style="width: 200px;" />
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>省/市/区：</label></td>
+                    <td>
+                        <select id="ProvinceCode_eq" name="ProvinceCode_eq">
+                        </select>
+                        <select id="CityCode_eq" name="CityCode_eq">
+                        </select>
+                        <select id="AreaCode_eq" name="AreaCode_eq">
+                        </select>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>类别：</label></td>
+                    <td>
+                        <select id="Category_like1" name="Category_like1" class="easyui-combotree" style="width: 200px;">
+                        </select>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label>状态：</label></td>
+                    <td>
+                        <input id="States_eq" class="easyui-combobox" name="States_eq"
+                            data-options="valueField:'ItemValue',textField:'ItemName'" />
+
                     </td>
                 </tr>
             </table>

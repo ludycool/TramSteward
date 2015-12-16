@@ -2,6 +2,7 @@
 using e3net.common.SysMode;
 using e3net.Mode.HttpView;
 using e3net.Mode.TramStewardDB;
+using e3net.tools;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -48,11 +49,12 @@ namespace ESUI.httpSever
                         {
                             pageSize = int.Parse(httpObject["pageSize"].ToString());
                         }
-                         ShopId = httpObject["jsonEntity"]["ShopId"].ToString();
+                         ShopId =FilterTools.FilterSpecial( httpObject["jsonEntity"]["ShopId"].ToString());
                          string Where = " ShopId='" + ShopId + "'";
                          if (httpObject["jsonEntity"]["Category"] != null)
                          {
-                            Where+=" and  ( Category like '" + httpObject["jsonEntity"]["Category"] + "%')";
+                             string Category = FilterTools.FilterSpecial(httpObject["jsonEntity"]["Category"].ToString());
+                             Where += " and  ( Category like '" + Category + "%')";
 
                          }
                          ds = VOPBiz.GetPagingDataSet(Where, pageIndex, pageSize, " CreateTime desc ");
@@ -75,7 +77,7 @@ namespace ESUI.httpSever
 
                     case "GetById":
                         #region
-                        string IdG = httpObject["jsonEntity"]["Id"].ToString();
+                        string IdG = FilterTools.FilterSpecial(httpObject["jsonEntity"]["Id"].ToString());
                         var mqlG = TS_CarSet.SelectAll().Where(TS_CarSet.Id.Equal(IdG));
                         TS_Car modelG = VOPBiz.GetEntity(mqlG);
                         if (modelG != null)

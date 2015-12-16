@@ -137,16 +137,15 @@ function _init_areaForSearch() {  //初始化函数   搜索用
                             break;
                     }
                 });
-
+                changeForSearch(0);//省城市默认选择第一个
 
             }
         });
     } else {
         $.each(ProvinceD, function (i, n) {
           document.getElementById(d[0]).options.add(new Option(n.Name, n.ValueName));
-
         });
-
+        changeForSearch(0);//省城市默认选择第一个
     }
 
     for (i = 0; i < s.length - 1; i++) {
@@ -164,6 +163,7 @@ function changeForSearch(v) {
             break;
         case 1:
             sCity.options.length = 0;//清空
+            sCity.options.add(new Option("请选择", ""));
             $("#" + d[1]).val("");
             var prId;//省 的id
             var selectproCode = $("#" + d[0]).val();
@@ -183,6 +183,7 @@ function changeForSearch(v) {
             break;
         case 2:
             sCArea.options.length = 0;
+            sCArea.options.add(new Option("请选择", ""));
             $("#" + d[2]).val("");
             var CId;//市 的id
             var selectCCode = $("#" + d[1]).val();

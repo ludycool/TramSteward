@@ -1,6 +1,7 @@
 ﻿using e3net.BLL;
 using e3net.Mode.RMS;
 using e3net.Mode.V_mode;
+using e3net.tools;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,15 +76,15 @@ namespace ESUI.Controllers
                     var nameData = data[i].Substring(0, index);
 
                     string[] name = nameData.Split('_');
-
-                    string value = data[i].Substring(index + 1);
-
+                    string value = FilterTools.FilterSpecial(data[i].Substring(index + 1));
                     sql += " and " + GetOP(name[0], name[1], value);
 
                 }
             }
             return sql;
         }
+ 
+
         static string GetOP(string name, string op, string values)
         {
             switch (op)

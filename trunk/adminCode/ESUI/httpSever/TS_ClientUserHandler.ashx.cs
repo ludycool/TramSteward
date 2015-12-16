@@ -1,6 +1,7 @@
 ﻿using e3net.BLL.TramStewardDB;
 using e3net.Mode.HttpView;
 using e3net.Mode.TramStewardDB;
+using e3net.tools;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace ESUI.httpSever
 
         TS_ClientUserBiz OPBiz = new TS_ClientUserBiz();
 
-        // 请求例子 /httpSever/TS_ClientUserHandler.ashx?json={"jsonEntity":{"UserName":"admin","Pwd":"123456"},"action":"Login"}
+        // 请求例子 /httpSever/TS_ClientUserHandler.ashx?json={"jsonEntity":{"UserName":"ludycool","Pwd":"123456"},"action":"Login"}
         // 请求例子  /httpSever/TS_ClientUserHandler.ashx?json={"jsonEntity":{"UserName":"ludycool","Pwd":"123456"},"action":"Register"}
         public void ProcessRequest(HttpContext context)
         {
@@ -30,12 +31,15 @@ namespace ESUI.httpSever
                 JObject httpObject = JsonHelper.FromJson(context.Request["json"]);
                 // JObject ObjectParameter = (JObject)JsonConvert.DeserializeObject(httpObject["jsonEntity"].ObjToStr());
                 string jsonData = httpObject["jsonEntity"].ToString();
+                string UserName = "";
+                string Pwd = "";
                 switch (httpObject["action"].ToString())
                 {
 
                     case "Register":
 
-                        var registermql = TS_ClientUserSet.SelectAll().Where(TS_ClientUserSet.UserName.Equal(httpObject["jsonEntity"]["UserName"].ToString()));
+                        UserName = FilterTools.FilterSpecial(httpObject["jsonEntity"]["UserName"].ToString());
+                        var registermql = TS_ClientUserSet.SelectAll().Where(TS_ClientUserSet.UserName.Equal(UserName));
                         TS_ClientUser registermodel = OPBiz.GetEntity(registermql);
                         if (registermodel != null)
                         {
@@ -61,8 +65,8 @@ namespace ESUI.httpSever
 
                         break;
                     case "Login":
-                        string UserName = httpObject["jsonEntity"]["UserName"].ToString();
-                        string Pwd = httpObject["jsonEntity"]["Pwd"].ToString();
+                         UserName = FilterTools.FilterSpecial(httpObject["jsonEntity"]["UserName"].ToString());
+                         Pwd = httpObject["jsonEntity"]["Pwd"].ToString();
                         var Loginmql = TS_ClientUserSet.SelectAll().Where(TS_ClientUserSet.UserName.Equal(UserName).And(TS_ClientUserSet.Pwd.Equal(Pwd)));
                         TS_ClientUser Loginmodel = OPBiz.GetEntity(Loginmql);
                         if (Loginmodel != null)
@@ -80,13 +84,13 @@ namespace ESUI.httpSever
                         }
                         break;
                     case "ChangePassword":
-                        string CUserName = httpObject["jsonEntity"]["UserName"].ToString();
-                        string CPwd = httpObject["jsonEntity"]["Pwd"].ToString();
-                        var mqlG = TS_ClientUserSet.SelectAll().Where(TS_ClientUserSet.UserName.Equal(CUserName));
+                        UserName = FilterTools.FilterSpecial(httpObject["jsonEntity"]["UserName"].ToString());
+                        Pwd = httpObject["jsonEntity"]["Pwd"].ToString();
+                        var mqlG = TS_ClientUserSet.SelectAll().Where(TS_ClientUserSet.UserName.Equal(UserName));
                         TS_ClientUser modelG = OPBiz.GetEntity(mqlG);
                         if (modelG != null)
                         {
-                            modelG.Pwd = CPwd;
+                            modelG.Pwd = Pwd;
                             modelG.UpdateTime = DateTime.Now;
                             modelG.WhereExpression = TS_ClientUserSet.Id.Equal(modelG.Id);
                             if (OPBiz.Update(modelG) > 0)

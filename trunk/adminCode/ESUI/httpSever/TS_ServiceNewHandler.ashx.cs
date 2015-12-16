@@ -1,6 +1,7 @@
 ﻿using e3net.BLL.TramStewardDB;
 using e3net.Mode.HttpView;
 using e3net.Mode.TramStewardDB;
+using e3net.tools;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,7 @@ namespace ESUI.httpSever
 
                     case "GetById":
                         #region
-                        string IdG = httpObject["jsonEntity"]["Id"].ToString();
+                        string IdG = FilterTools.FilterSpecial(httpObject["jsonEntity"]["Id"].ToString());
                         var mqlG = TS_ServiceNewSet.SelectAll().Where(TS_ServiceNewSet.Id.Equal(IdG));
                         TS_ServiceNew modelG = VOPBiz.GetEntity(mqlG);
                         if (modelG != null)
@@ -94,28 +95,32 @@ namespace ESUI.httpSever
             Where.Append(" isDeleted=0 ");
             if (httpObject["jsonEntity"]["KeyWords"] != null)//关键词
             {
-                string KeyWords = httpObject["jsonEntity"]["KeyWords"].ToString();
+                string KeyWords = FilterTools.FilterSpecial(httpObject["jsonEntity"]["KeyWords"].ToString());
                 Where.Append(" and( TName like '%" + KeyWords + "%'");
                 Where.Append(" or  Address like '%" + KeyWords + "%') ");
             }
             if (httpObject["jsonEntity"]["Category"] != null)//分类
             {
-                Where.Append(" and  ( Category like '" + httpObject["jsonEntity"]["Category"] + "%')");
+                string Category = FilterTools.FilterSpecial(httpObject["jsonEntity"]["Category"].ToString());
+                Where.Append(" and  ( Category like '" + Category + "%')");
 
             }
             if (httpObject["jsonEntity"]["ProvinceCode"] != null)//省
             {
-                Where.Append(" and  ( ProvinceCode like '" + httpObject["jsonEntity"]["ProvinceCode"] + "%')");
+                string ProvinceCode = FilterTools.FilterSpecial(httpObject["jsonEntity"]["ProvinceCode"].ToString());
+                Where.Append(" and  ( ProvinceCode like '" + ProvinceCode + "%')");
 
             }
             if (httpObject["jsonEntity"]["CityCode"] != null)//城市
             {
-                Where.Append(" and  ( CityCode like '" + httpObject["jsonEntity"]["CityCode"] + "%')");
+                string CityCode = FilterTools.FilterSpecial(httpObject["jsonEntity"]["CityCode"].ToString());
+                Where.Append(" and  ( CityCode like '" + CityCode + "%')");
 
             }
             if (httpObject["jsonEntity"]["AreaCode"] != null)//区
             {
-                Where.Append(" and  ( AreaCode like '" + httpObject["jsonEntity"]["AreaCode"] + "%')");
+                string AreaCode = FilterTools.FilterSpecial(httpObject["jsonEntity"]["AreaCode"].ToString());
+                Where.Append(" and  ( AreaCode like '" + AreaCode + "%')");
 
             }
             #endregion
