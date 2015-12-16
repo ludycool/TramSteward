@@ -15,6 +15,7 @@ using e3net.BLL;
 using e3net.BLL.TramStewardDB;
 using e3net.Mode.TramStewardDB;
 using e3net.Mode.HttpView;
+using e3net.Mode.V_mode;
 
 namespace ESUI.Controllers
 {
@@ -43,7 +44,10 @@ namespace ESUI.Controllers
             //string Where = Request["sqlSet"] == null ? "1=1" : SelectWhere.selectwherestring(Request["sqlSet"]);
             string Where = Request["sqlSet"] == null ? "1=1" : GetSql(Request["sqlSet"]);
             Where += " and (isDeleted=0)";
-            Where += " and (CreateManId='" + UserData.UserInfo.Id + "')";//只能返回自己的医院科室
+            if (UserData.UserTypes != UserType.admin)//不是管理员只能返回自己添加的
+            {
+                Where += " and (CreateManId='" + UserData.Id + "')";
+            }
             ////字段排序
             String sortField = Request["sort"];
             String sortOrder = Request["order"];
@@ -88,7 +92,7 @@ namespace ESUI.Controllers
                 TS_CarModle.Id = Guid.NewGuid();
                 TS_CarModle.CreateTime = DateTime.Now;
                 TS_CarModle.States = 0;
-                TS_CarModle.CreateManId = UserData.UserInfo.Id;
+                TS_CarModle.CreateManId = UserData.Id;
                 try
                 {
                     OPBiz.Add(TS_CarModle);

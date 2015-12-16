@@ -81,8 +81,16 @@ namespace ESUI.httpHandle
             if (context.Session["UserData"] != null)
             {
                 AdminUserInfo UserData = context.Session["UserData"] as AdminUserInfo;
-                var sql = TS_ShopSet.SelectAll().Where(TS_ShopSet.CreateManId.Equal(UserData.UserInfo.Id));
-                AllList = OPBiz.GetOwnList<TS_Shop>(sql);
+                if (UserData.UserTypes != UserType.admin)//不是管理员只能返回自己添加的
+                {
+                    var sql = TS_ShopSet.SelectAll().Where(TS_ShopSet.CreateManId.Equal(UserData.Id));
+                    AllList = OPBiz.GetOwnList<TS_Shop>(sql);
+                }
+                else {
+                    var sql = TS_ShopSet.SelectAll();
+                    AllList = OPBiz.GetOwnList<TS_Shop>(sql);
+                }
+              
             }
             return JsonHelper.ToJson(AllList, true);
 

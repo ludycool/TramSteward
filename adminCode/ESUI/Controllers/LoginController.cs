@@ -14,6 +14,7 @@ using TZHSWEET.Common;
 using ESUI.Models;
 using WebMatrix.WebData;
 using e3net.tools;
+using e3net.Mode.TramStewardDB;
 
 namespace ESUI.Controllers
 {
@@ -41,24 +42,65 @@ namespace ESUI.Controllers
         public ActionResult Index(LoginModel mode)
         {
            // if (ModelState.IsValid)
+
+            ViewData["UserType"] = GenerateList();
             if (Session["ValidateCode"] != null)
             {
+                //if (Request.Cookies["User"] != null)//Cookies保存 获取解析
+                //{
+                //    HttpCookie cookie = new HttpCookie("User");//初使化并设置Cookie的名称
+                //    DateTime dt = DateTime.Now;
+                //    TimeSpan ts = new TimeSpan(0, 1, 0, 0, 0);//过期时间为1分钟
+                //    cookie.Expires = dt.Add(ts);//设置过期时间
+                //    string info = JsonHelper.ToJson(UserData.ListManus, true);
+                //    string manuInfo = Server.HtmlEncode(info);
+                //    cookie.Values.Add("Manus", manuInfo);
+
+                //    string UserDataString = Server.HtmlEncode(Request.Cookies["User"]["UserInfo"]);
+                //    string ManusString = Server.HtmlEncode(Request.Cookies["User"]["Manus"]);
+                //    V_UserRole Rmodel = JsonHelper.FromJson<V_UserRole>(UserDataString);
+                //}
+
+
                 string Vcode = Session["ValidateCode"].ToString();
                 if (mode.VCode.Trim().Equals(Vcode))//验证码
                 {
 
                     UserData = null;
-                    var sql = V_UserRoleSet.SelectAll().Where(V_UserRoleSet.LoginName.Equal(mode.LoginName).And(V_UserRoleSet.Password.Equal(mode.Password)));
-
-                    List<V_UserRole> Rmodel = URBiz.GetOwnList<V_UserRole>(sql);
-                    if (Rmodel != null && Rmodel.Count > 0) // 账号是否存在，添加权限配置
+                    List<V_UserRole> adminRole =null;
+                    List<v_TS_ShopUserRole> shopRole = null;
+                    if (mode.UserType == "0")//根据用户类型去找数据
                     {
-
-
+                        var sql = V_UserRoleSet.SelectAll().Where(V_UserRoleSet.LoginName.Equal(mode.LoginName).And(V_UserRoleSet.Password.Equal(mode.Password)));
+                        adminRole = URBiz.GetOwnList<V_UserRole>(sql);
+                    }
+                    else {
+                        var sql = v_TS_ShopUserRoleSet.SelectAll().Where(v_TS_ShopUserRoleSet.UserName.Equal(mode.LoginName).And(v_TS_ShopUserRoleSet.Pwd.Equal(mode.Password)));
+                        shopRole = URBiz.GetOwnList<v_TS_ShopUserRole>(sql);
+                    }
+                   
+                    if (adminRole != null || adminRole != null) // 账号是否存在，添加权限配置
+                    {
                         UserData = new AdminUserInfo();
-                        UserData.UserInfo = Rmodel[0];
-                        List<V_RoleManus> manus = URBiz.GetOwnList<V_RoleManus>(V_RoleManusSet.SelectAll().Where(V_RoleManusSet.RoleId.Equal(UserData.UserInfo.RoleId)));//所有的菜单
-                        List<V_RoleManuButtons> buttons = URBiz.GetOwnList<V_RoleManuButtons>(V_RoleManuButtonsSet.SelectAll().Where(V_RoleManuButtonsSet.RoleId.Equal(UserData.UserInfo.RoleId)));//角色拥有的菜单的所有按钮
+                        if (mode.UserType == "0")// 商家为1 管理员为0 缓存用户信息
+                        {
+                            UserData.UserTypes = UserType.admin;
+                           // UserData.adminUserInfo = adminRole[0];
+                            UserData.Id = adminRole[0].Id;
+                            UserData.UserName = adminRole[0].LoginName;
+                            UserData.RoleId = adminRole[0].RoleId;
+                            UserData.Password = adminRole[0].Password;
+                        }
+                        else {
+                            UserData.UserTypes = UserType.ShopUser;
+                          // UserData.shopUserInfo = shopRole[0];
+                            UserData.Id = shopRole[0].Id;
+                            UserData.UserName = shopRole[0].UserName;
+                            UserData.RoleId = shopRole[0].RoleId;
+                            UserData.Password = shopRole[0].Pwd;
+                        }
+                        List<V_RoleManus> manus = URBiz.GetOwnList<V_RoleManus>(V_RoleManusSet.SelectAll().Where(V_RoleManusSet.RoleId.Equal(UserData.RoleId)));//所有的菜单
+                        List<V_RoleManuButtons> buttons = URBiz.GetOwnList<V_RoleManuButtons>(V_RoleManuButtonsSet.SelectAll().Where(V_RoleManuButtonsSet.RoleId.Equal(UserData.RoleId)));//角色拥有的菜单的所有按钮
                         List<V_MenuButtons> AllButtons = URBiz.GetOwnList<V_MenuButtons>(V_MenuButtonsSet.SelectAll());//所有菜单的所有按钮
                         List<Manu> ListManus = new List<Manu>();
                         if (manus != null && manus.Count > 0)

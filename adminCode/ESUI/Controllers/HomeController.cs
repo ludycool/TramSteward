@@ -80,13 +80,13 @@ namespace ESUI.Controllers
         /// <returns></returns>
         public ActionResult ChangePwd(string NewPwd, string OldPwd)
         {
-            if (!OldPwd.Trim().Equals(UserData.UserInfo.Password))
+            if (!OldPwd.Trim().Equals(UserData.Password))
             {
                 return Json("旧密码不成确", JsonRequestBehavior.AllowGet);
             }
             else {
 
-                 var mql = RMS_UserSet.SelectAll().Where(RMS_UserSet.Id.Equal(UserData.UserInfo.Id));
+                 var mql = RMS_UserSet.SelectAll().Where(RMS_UserSet.Id.Equal(UserData.Id));
                 RMS_User item = userBiz.GetEntity(mql);
                 item.Password = NewPwd;
                 item.WhereExpression = RMS_UserSet.Id.Equal(item.Id);

@@ -263,9 +263,6 @@
     <Compile Include="httpHandle\ImageHandler.ashx.cs">
       <DependentUpon>ImageHandler.ashx</DependentUpon>
     </Compile>
-    <Compile Include="httpHandle\loginHandler.ashx.cs">
-      <DependentUpon>loginHandler.ashx</DependentUpon>
-    </Compile>
     <Compile Include="httpHandle\SystemSetHandler.ashx.cs">
       <DependentUpon>SystemSetHandler.ashx</DependentUpon>
     </Compile>
@@ -3458,7 +3455,6 @@
     <Content Include="httpHandle\DictionaryHandler.ashx" />
     <Content Include="httpSever\AdvertisingHandler.ashx" />
     <Content Include="httpSever\AppVersionHandler.ashx" />
-    <Content Include="httpHandle\loginHandler.ashx" />
     <Content Include="Login.aspx" />
     <Content Include="httpSever\TS_ClientUserHandler.ashx" />
     <Content Include="httpSever\TS_RepairShopHandler.ashx" />
