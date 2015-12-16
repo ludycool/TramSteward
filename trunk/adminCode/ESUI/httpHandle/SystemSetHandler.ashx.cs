@@ -53,7 +53,7 @@ namespace ESUI.httpHandle
             pc.sys_Table = "RMS_Role";
             pc.sys_Where = "1=1";
             pc.sys_Order = "Id";
-            if (!UserData.UserInfo.RoleId.ToString().Equals("fb38f312-0078-4f44-9cda-1183c8042db8"))//不是系统管理员，不请允许显示系统管理员
+            if (!UserData.RoleId.ToString().Equals("fb38f312-0078-4f44-9cda-1183c8042db8"))//不是系统管理员，不请允许显示系统管理员
             {
                 pc.sys_Where += " and Id!='fb38f312-0078-4f44-9cda-1183c8042db8'";
             }

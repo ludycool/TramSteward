@@ -1,4 +1,5 @@
 ﻿using e3net.Mode.RMS;
+using e3net.Mode.TramStewardDB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,10 +12,53 @@ namespace e3net.Mode.V_mode
     /// </summary>
     public class AdminUserInfo
     {
-        public V_UserRole UserInfo
+        /// <summary>
+        /// 用户Id
+        /// </summary>
+        public Guid Id
         {
             get;
             set;
+
+        }
+        /// <summary>
+        /// 用户名
+        /// </summary>
+        public string UserName
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 密码
+        /// </summary>
+        public string Password
+        {
+            get;
+            set;
+        }
+        public Guid DepartmentId
+        {
+            get;
+            set;
+        
+        }
+        /// <summary>
+        /// 角色Id
+        /// </summary>
+        public Guid? RoleId
+        {
+            get;
+            set;
+        }
+        /// <summary>
+        /// 用户类型
+        /// </summary>
+        public UserType UserTypes
+        {
+            get;
+            set;
+
         }
         /// <summary>
         /// 拥有的菜单
@@ -24,12 +68,22 @@ namespace e3net.Mode.V_mode
             get;
             set;
         }
-        public int UserType
-        {
-            get;
-            set;
-
-        }
+        ///// <summary>
+        ///// 管理员用户信息
+        ///// </summary>
+        //public V_UserRole adminUserInfo
+        //{
+        //    get;
+        //    set;
+        //}
+        ///// <summary>
+        ///// 商家用户信息
+        ///// </summary>
+        //public v_TS_ShopUserRole shopUserInfo
+        //{
+        //    get;
+        //    set;
+        //}
     }
     /// <summary>
     /// 用户类型

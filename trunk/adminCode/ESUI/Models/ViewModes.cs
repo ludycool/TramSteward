@@ -20,7 +20,9 @@ namespace ESUI.Models
          [Required]
         [Display(Name = "验证码")]
         public string VCode { get; set; }
-
+        /// <summary>
+        /// 用户类型 商家为1 管理员为0
+        /// </summary>
          public string UserType { get; set; }
     }
 }
