@@ -78,8 +78,8 @@ namespace ESUI.Controllers
                         var sql = v_TS_ShopUserRoleSet.SelectAll().Where(v_TS_ShopUserRoleSet.UserName.Equal(mode.LoginName).And(v_TS_ShopUserRoleSet.Pwd.Equal(mode.Password)));
                         shopRole = URBiz.GetOwnList<v_TS_ShopUserRole>(sql);
                     }
-                   
-                    if (adminRole != null || adminRole != null) // 账号是否存在，添加权限配置
+
+                    if ((adminRole != null && adminRole.Count>0) ||( shopRole != null&&shopRole.Count>0)) // 账号是否存在，添加权限配置
                     {
                         UserData = new AdminUserInfo();
                         if (mode.UserType == "0")// 商家为1 管理员为0 缓存用户信息

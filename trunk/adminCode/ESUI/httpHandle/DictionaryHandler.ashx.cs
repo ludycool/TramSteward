@@ -1,5 +1,7 @@
 ﻿using e3net.BLL;
+using e3net.BLL.RMS;
 using e3net.Mode;
+using e3net.Mode.RMS;
 using e3net.Mode.TramStewardDB;
 using e3net.Mode.V_mode;
 using System;
@@ -57,9 +59,21 @@ namespace ESUI.httpHandle
                     context.Response.End();
 
                     break;
+                case "GetDepartment"://获取部门
+                    context.Response.Write(GetDepartment());
+                    context.Response.End();
+
+                    break;
             }
         }
-
+        public string GetDepartment()
+        {
+            RMS_DepartmentBiz DDBiz = new RMS_DepartmentBiz();
+            var sql = RMS_DepartmentSet.SelectAll();
+            List<RMS_Department> listAll = DDBiz.GetOwnList<RMS_Department>(sql);
+            string jsonstring = DDBiz.GetTree(listAll);
+            return jsonstring;
+        }
 
 
         public string GetSys_CityArea(HttpContext context)
