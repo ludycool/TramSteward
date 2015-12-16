@@ -27,6 +27,8 @@ namespace ESUI.Controllers
        // public TS_ShopUserBiz OPBiz = new TS_ShopUserBiz();
         [Dependency]
         public TS_ShopUserBiz OPBiz { get; set; }
+        [Dependency]
+        public TS_ShopUserRoleBiz URBiz { get; set; }
         public ActionResult Index()
         {
             ViewBag.RuteUrl = RuteUrl();
@@ -51,10 +53,10 @@ namespace ESUI.Controllers
             pc.sys_Key = "Id";
             pc.sys_PageIndex = pageIndex;
             pc.sys_PageSize = pageSize;
-            pc.sys_Table = "v_TS_ShopUser";
+            pc.sys_Table = "v_TS_ShopUserRole";
             pc.sys_Where = Where;
             pc.sys_Order = " " + sortField + " " + sortOrder;
-            List<v_TS_ShopUser> list2 = OPBiz.GetPagingData<v_TS_ShopUser>(pc);
+            List<v_TS_ShopUserRole> list2 = OPBiz.GetPagingData<v_TS_ShopUserRole>(pc);
 
             Dictionary<string, object> dic = new Dictionary<string, object>();
             dic.Add("rows", list2);
@@ -159,5 +161,39 @@ namespace ESUI.Controllers
 
         }
 
+
+        public JsonResult SetRole(string UserId, string RoleId)
+        {
+            Guid uId = Guid.Parse(UserId);
+            Guid rId = Guid.Parse(RoleId);
+            var sql = TS_ShopUserRoleSet.SelectAll().Where(TS_ShopUserRoleSet.UserId.Equal(uId));
+
+            TS_ShopUserRole Rmodel = URBiz.GetEntity(sql);
+            if (Rmodel == null)
+            {
+                Rmodel = new TS_ShopUserRole();
+                Rmodel.Id = Guid.NewGuid();
+                Rmodel.UserId = uId;
+                Rmodel.RoleId = rId;
+                URBiz.Add(Rmodel);
+                return Json("ok", JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                Rmodel.RoleId = rId;
+                Rmodel.WhereExpression = TS_ShopUserRoleSet.Id.Equal(Rmodel.Id);
+                //  spmodel.GroupId = GroupId;
+                if (URBiz.Update(Rmodel) > 0)
+                {
+                    return Json("ok", JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return Json("Nok", JsonRequestBehavior.AllowGet);
+                }
+
+            }
+
+        }
     }
 }

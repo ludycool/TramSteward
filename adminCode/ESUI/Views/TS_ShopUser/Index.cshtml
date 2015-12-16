@@ -29,7 +29,7 @@
             @Html.Raw(ViewBag.RuteUrl)
          @Html.Raw(ViewBag.toolbar)
 
-
+            var UserId = "";
             jQuery(document).ready(function () {
 
                 FormStripes();//表单样式
@@ -38,9 +38,83 @@
                 GetSonDictionaryNo("Category", "04");
                 $('#States').combobox('reload', '/httpHandle/DictionaryHandler.ashx?action=GetSysItem&ItemType=States');  // 使用新的URL重新载入列表数据
                 _init_area();//初始化省市区联动
-
+                BindRole();//角色
 
             })
+            //弹出
+            function SetRole()
+            {
+
+                var rows = $("#dg").datagrid("getSelected");
+                if (rows) {
+                    UserId = rows.Id;
+                    var rowData = $('#tbRole').datagrid("getRows");
+                    $.each(rowData, function (idx, val) {//遍历JSON设置选中行
+                        if (val.Id == rows.RoleId) {
+                            $('#tbRole').datagrid('selectRow', idx);
+                        }
+                    });
+
+
+                    $('#DivRole').dialog({
+                        title: '角色设定',
+                        //width: 400,
+                        //height: 200,
+                        closed: false,
+                        cache: false,
+                        // href: 'get_content.php',
+                        modal: true, top: 100,
+                        onClose: function () {
+                            //解决弹出窗口关闭后，验证消息还显示在最上面
+                        }
+                    });
+                }
+            }
+           //保存
+            function SaveRole()
+            {
+                var rows = $("#tbRole").datagrid("getSelected");
+                if (rows) {
+                    var postData =
+                    {
+                        UserId: UserId,        //属性名用引号括起来，属性间由逗号隔开
+                        RoleId: rows.Id
+                    };
+                    $.post(BaseUrl + 'SetRole', postData, function (data) {
+                        if (data = "OK") {
+                            //添加成功  1.关闭弹出层，2.刷新DataGird
+                            alert("设置成功");
+                            $("#dg").datagrid("reload");
+                            $('#DivRole').dialog('close');
+                        }
+                        else {
+                            alert("编辑失败，请您检查");
+                        }
+                    });
+                }
+
+
+            }
+            function BindRole() {
+
+                $('#tbRole').datagrid({
+                    url: '/httpHandle/SystemSetHandler.ashx?action=GetList',
+                    columns: [[
+                        { field: 'RoleName', title: '角色名称', width: 100 },
+                        { field: 'Remarks', title: '描述', width: 370, align: 'right' }
+                    ]],
+                    nowrap: true,
+                    singleSelect: true,
+                    striped: true,
+                    collapsible: true,
+                    pageSize: 1000,
+                    width: 510,
+                    height: 300,
+                    rownumbers: true
+                });
+
+            }
+
             function DataGridSet() {
                 $('#dg').datagrid({
                     url: BaseUrl + 'Search',
@@ -48,6 +122,7 @@
                         { field: 'ck', checkbox: true },
                         { field: 'UserName', title: '用户名', width: 100 },
                         { field: 'TrueName', title: '姓名', width: 100 },
+                        { field: 'RoleName', title: '角色', width: 100 },
                         { field: 'Phone', title: '电话', width: 100 },
                          { field: 'CategoryName', title: '类型', width: 100 },
                           { field: 'StatesName', title: '状态', width: 100 },
@@ -58,7 +133,7 @@
                         { field: 'Address', title: '地址', width: 300, align: 'right' }
                     ]],
                     iconCls: 'icon-save',
-                    title: '用户管理',
+                    title: '商家管理',
                     nowrap: true,
                     fit: true,
                     fitColumns: true,
@@ -308,5 +383,33 @@
             <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" onclick="$('#DivEditor').dialog('close')">关闭</a>
         </div>
     </div>
+
+    <div id="DivRole" class="easyui-dialog" style="width:580px;height:435px;padding:10px 20px"
+         closed="true" resizable="true" modal="true" buttons="#dlg-buttons">
+
+         
+            <fieldset>
+                <legend>选择角色</legend>
+                <table>
+                     <tr>
+                        <td colspan="4">
+
+                             <table id="tbRole"></table>
+                        </td>           
+                        
+                    </tr>
+     
+                    <tr>
+                        <td colspan="4" style="text-align:center; padding-top:10px">
+                            <a href="javascript:void(0)" class="easyui-linkbutton"  iconcls="icon-ok" onclick="SaveRole();" >确定</a>
+                            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" onclick="$('#DivRole').dialog('close')">关闭</a>
+                        </td>
+                    </tr>
+                </table>
+            </fieldset>
+
+
+
+            </div>
 </body>
 </html>

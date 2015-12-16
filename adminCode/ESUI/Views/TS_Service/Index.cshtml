@@ -58,7 +58,7 @@
                         { field: 'Address', title: '地址', width: 300, align: 'right' }
                     ]],
                     iconCls: 'icon-save',
-                    title: '用户管理',
+                    title: '服务',
                     nowrap: true,
                     fit: true,
                     fitColumns: true,
@@ -222,6 +222,8 @@
             }
             //搜索
             function Search() {
+                _init_areaForSearch();
+                changeForSearch(0);//省城市默认选择第一个
                 $("#Div_Searh").dialog('open').dialog('setTitle', '搜索').window('resize', { top: 100, left: 100 });
             }
             //删除
@@ -318,6 +320,19 @@
                         <input type="text" class="textbox" name="Phone_like" style="width: 200px;" />
                     </td>
                 </tr>
+                   <tr>
+                        <td>
+                            <label>省/市/区：</label></td>
+                        <td>
+                            <select id="ProvinceCode_eq" name="ProvinceCode_eq">
+                            </select>
+                            <select id="CityCode_eq" name="CityCode_eq">
+                            </select>
+                            <select id="AreaCode_eq" name="AreaCode_eq">
+                            </select>
+
+                        </td>
+                    </tr>
             </table>
 
         </form>

@@ -15,6 +15,42 @@ namespace e3net.Mode.TramStewardDB
         /// <summary>
         /// 
         /// </summary>
+        public Guid? RoleId
+        {
+            get { return GetPropertyValue<Guid?>("RoleId"); }
+            set { SetPropertyValue("RoleId", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String RoleName
+        {
+            get { return GetPropertyValue<String>("RoleName"); }
+            set { SetPropertyValue("RoleName", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String CategoryName
+        {
+            get { return GetPropertyValue<String>("CategoryName"); }
+            set { SetPropertyValue("CategoryName", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String StatesName
+        {
+            get { return GetPropertyValue<String>("StatesName"); }
+            set { SetPropertyValue("StatesName", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public Guid Id
         {
             get { return GetPropertyValue<Guid>("Id"); }
@@ -195,19 +231,28 @@ namespace e3net.Mode.TramStewardDB
         /// <summary>
         /// 
         /// </summary>
-        public Guid? RoleId
+        public String ProvinceName
         {
-            get { return GetPropertyValue<Guid?>("RoleId"); }
-            set { SetPropertyValue("RoleId", value); }
+            get { return GetPropertyValue<String>("ProvinceName"); }
+            set { SetPropertyValue("ProvinceName", value); }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public String RoleName
+        public String CityName
         {
-            get { return GetPropertyValue<String>("RoleName"); }
-            set { SetPropertyValue("RoleName", value); }
+            get { return GetPropertyValue<String>("CityName"); }
+            set { SetPropertyValue("CityName", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String AreaName
+        {
+            get { return GetPropertyValue<String>("AreaName"); }
+            set { SetPropertyValue("AreaName", value); }
         }
     }
 
@@ -222,6 +267,26 @@ namespace e3net.Mode.TramStewardDB
         {
             return MQLBase.SelectAll(DbType.SqlServer,"[v_TS_ShopUserRole]");
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase RoleId = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[RoleId]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase RoleName = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[RoleName]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase CategoryName = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[CategoryName]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase StatesName = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[StatesName]");
 
         /// <summary>
         /// 
@@ -326,12 +391,17 @@ namespace e3net.Mode.TramStewardDB
         /// <summary>
         /// 
         /// </summary>
-        public static readonly FieldBase RoleId = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[RoleId]");
+        public static readonly FieldBase ProvinceName = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[ProvinceName]");
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly FieldBase RoleName = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[RoleName]");
+        public static readonly FieldBase CityName = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[CityName]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase AreaName = new FieldBase(DbType.SqlServer, "[v_TS_ShopUserRole]", FieldType.Common, "[AreaName]");
     }
 
 }

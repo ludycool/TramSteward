@@ -92,6 +92,7 @@ namespace ESUI.Controllers
                 item.WhereExpression = RMS_UserSet.Id.Equal(item.Id);
                 if (userBiz.Update(item) > 0)
                 {
+                    UserData.Password = NewPwd;
                     return Json("密码修改成功", JsonRequestBehavior.AllowGet);
                 }
                 else
