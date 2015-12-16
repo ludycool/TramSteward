@@ -102,6 +102,7 @@
     <Compile Include="FilterHelper\FilterParam.cs" />
     <Compile Include="FilterHelper\FilterRule.cs" />
     <Compile Include="FilterHelper\FilterTranslator.cs" />
+    <Compile Include="FilterTools.cs" />
     <Compile Include="IsUniqueness.cs" />
     <Compile Include="JsonHelper\AjaxResult.cs" />
     <Compile Include="JsonHelper\FormatToJson.cs" />
@@ -110,6 +111,7 @@
     <Compile Include="QueryControlEntity.cs" />
     <Compile Include="StringHelpTool.cs" />
     <Compile Include="ToEntityByEmit.cs" />
+    <Compile Include="ToolsHelper\AESHelper.cs" />
     <Compile Include="ToolsHelper\Base64Provider.cs" />
     <Compile Include="ToolsHelper\ConvertHelper.cs" />
     <Compile Include="ToolsHelper\ConvertHtmlPage.cs" />
@@ -123,6 +125,7 @@
     <Compile Include="ToolsHelper\Tools.cs" />
     <Compile Include="ToolsHelper\TypeHelper.cs" />
     <Compile Include="ToolsHelper\XMlHelper.cs" />
+    <Compile Include="ToolsHelper\XXTEAHelper.cs" />
     <Compile Include="ToolsHelper\YZMHelper.cs" />
     <Compile Include="ValidateCode.cs" />
     <Compile Include="WriteLog.cs" />
