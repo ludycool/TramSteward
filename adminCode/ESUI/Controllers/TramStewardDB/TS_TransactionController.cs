@@ -91,6 +91,9 @@ namespace ESUI.Controllers
                 TS_TransactionModle.isDeleted = false;
                 TS_TransactionModle.isValid = 1;
                 TS_TransactionModle.CreateManId = UserData.Id;
+                TS_TransactionModle.Praises = 0;
+                TS_TransactionModle.CallCount = 0;
+                TS_TransactionModle.Clicks = 0;
                 try
                 {
                     OPBiz.Add(TS_TransactionModle);

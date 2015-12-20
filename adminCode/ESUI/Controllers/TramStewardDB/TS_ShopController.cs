@@ -92,6 +92,9 @@ namespace ESUI.Controllers
                 TS_ShopModle.Id = Guid.NewGuid();
                 TS_ShopModle.CreateTime = DateTime.Now;
                 TS_ShopModle.CreateManId = UserData.Id;
+                TS_ShopModle.Praises = 0;
+                TS_ShopModle.CallCount = 0;
+                TS_ShopModle.Clicks = 0;
                 try
                 {
                     OPBiz.Add(TS_ShopModle);

@@ -128,7 +128,34 @@ namespace e3net.DAL
                 return res;
             }
         }
+        /// <summary>
+        /// 字段统计加1
+        /// </summary>
+        /// <param name="Idfied">id列名称</param>
+        /// <param name="IdSet">id</param>
+        ///  /// <param name="Countfied">统计的字段</param>
+        /// <returns></returns>
+        public int SetCout(string Idfied, string Id, string Countfied)
+        {
+            DbParameter[] parameters = {
+                                            new SqlParameter("@tableName", SqlDbType.NVarChar,100) ,    
+                                               new SqlParameter("@Countfied", SqlDbType.NVarChar,100) ,    
+			           new SqlParameter("@Idfied", SqlDbType.NVarChar,100) ,            
+                        new SqlParameter("@Id", SqlDbType.NVarChar,100)                      
+              
+            };
+            parameters[0].Value = typeof(T).Name; ;
+            parameters[1].Value = Countfied;
+            parameters[2].Value = Idfied;
+            parameters[3].Value = Id;
+            using (var db = GetDb())
+            {
+                //  db.DebugEnabled = true;
 
+                int res = db.ExecuteProWithNonQuery("proc_CountOne", parameters);
+                return res;
+            }
+        }
 
         public List<T> GetEntities(MQLBase mql)
         {

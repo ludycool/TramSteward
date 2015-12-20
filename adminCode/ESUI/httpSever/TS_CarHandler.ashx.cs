@@ -19,13 +19,15 @@ namespace ESUI.httpSever
     public class TS_CarHandler : IHttpHandler
     {
 
-        TS_CarBiz VOPBiz = new TS_CarBiz();
+        TS_CarBiz OPBiz = new TS_CarBiz();
         // 请求例子  /httpSever/TS_CarHandler.ashx?json={"jsonEntity":{"Category":"08","ShopId":"d6807c66-c4fb-4350-83fd-afd19cb82693"},"pageIndex":"1","pageSize":"20","action":"Searh"}
         public void ProcessRequest(HttpContext context)
         {
             context.Response.ContentType = "text/plain";
             // context.Response.Write("Hello World");
             HttpReSultMode resultMode = new HttpReSultMode();
+            string Id = "";
+            int res = 0;//返回结果行数
             try
             {
                 JObject httpObject = JsonHelper.FromJson(context.Request["json"]);
@@ -57,7 +59,7 @@ namespace ESUI.httpSever
                              Where += " and  ( Category like '" + Category + "%')";
 
                          }
-                         ds = VOPBiz.GetPagingDataSet(Where, pageIndex, pageSize, " CreateTime desc ");
+                         ds = OPBiz.GetPagingDataSet(Where, pageIndex, pageSize, " CreateTime desc ");
                         if (ds != null && ds.Tables[0].Rows.Count > 0)
                         {
                             resultMode.Code = 11;
@@ -77,9 +79,9 @@ namespace ESUI.httpSever
 
                     case "GetById":
                         #region
-                        string IdG = FilterTools.FilterSpecial(httpObject["jsonEntity"]["Id"].ToString());
-                        var mqlG = TS_CarSet.SelectAll().Where(TS_CarSet.Id.Equal(IdG));
-                        TS_Car modelG = VOPBiz.GetEntity(mqlG);
+                       Id = FilterTools.FilterSpecial(httpObject["jsonEntity"]["Id"].ToString());
+                        var mqlG = TS_CarSet.SelectAll().Where(TS_CarSet.Id.Equal(Id));
+                        TS_Car modelG = OPBiz.GetEntity(mqlG);
                         if (modelG != null)
                         {
                             resultMode.Code = 11;
@@ -95,6 +97,25 @@ namespace ESUI.httpSever
                         #endregion
 
                         break;
+                    case "PraiseCount"://点赞量加1
+                        Id = FilterTools.FilterSpecial(httpObject["jsonEntity"]["Id"].ToString());
+                        res = OPBiz.SetCout("Id", Id, "Praises");
+                        if (res > 0)
+                        {
+                            resultMode.Code = 11;
+                            resultMode.Data = res.ToString();
+                            resultMode.Msg = "统计成功";
+                        }
+                        else
+                        {
+                            resultMode.Code = -13;
+                            resultMode.Data = "0";
+                            resultMode.Msg = "统计失败！";
+                        }
+
+
+                        break;
+
                 }
             }
             catch (Exception ex)

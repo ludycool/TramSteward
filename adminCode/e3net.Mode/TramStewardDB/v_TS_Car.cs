@@ -114,9 +114,9 @@ namespace e3net.Mode.TramStewardDB
         /// <summary>
         /// 
         /// </summary>
-        public Int32? Star
+        public Int32 Star
         {
-            get { return GetPropertyValue<Int32?>("Star"); }
+            get { return GetPropertyValue<Int32>("Star"); }
             set { SetPropertyValue("Star", value); }
         }
 
@@ -177,9 +177,9 @@ namespace e3net.Mode.TramStewardDB
         /// <summary>
         /// 
         /// </summary>
-        public Int32? Praises
+        public Int32 Praises
         {
-            get { return GetPropertyValue<Int32?>("Praises"); }
+            get { return GetPropertyValue<Int32>("Praises"); }
             set { SetPropertyValue("Praises", value); }
         }
 
@@ -204,18 +204,18 @@ namespace e3net.Mode.TramStewardDB
         /// <summary>
         /// 
         /// </summary>
-        public Int32? States
+        public Int32 States
         {
-            get { return GetPropertyValue<Int32?>("States"); }
+            get { return GetPropertyValue<Int32>("States"); }
             set { SetPropertyValue("States", value); }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public Int32? isValid
+        public Int32 isValid
         {
-            get { return GetPropertyValue<Int32?>("isValid"); }
+            get { return GetPropertyValue<Int32>("isValid"); }
             set { SetPropertyValue("isValid", value); }
         }
 

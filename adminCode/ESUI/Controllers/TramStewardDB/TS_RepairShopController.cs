@@ -91,6 +91,9 @@ namespace ESUI.Controllers
                 TS_RepairShopModle.Id = Guid.NewGuid();
                 TS_RepairShopModle.CreateTime = DateTime.Now;
                 TS_RepairShopModle.CreateManId = UserData.Id;
+                TS_RepairShopModle.Praises = 0;
+                TS_RepairShopModle.CallCount = 0;
+                TS_RepairShopModle.Clicks = 0;
                 try
                 {
                     OPBiz.Add(TS_RepairShopModle);
