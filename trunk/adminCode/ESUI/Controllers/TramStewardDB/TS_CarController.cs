@@ -93,6 +93,7 @@ namespace ESUI.Controllers
                 TS_CarModle.CreateTime = DateTime.Now;
                 TS_CarModle.States = 0;
                 TS_CarModle.CreateManId = UserData.Id;
+                TS_CarModle.Praises = 0;
                 try
                 {
                     OPBiz.Add(TS_CarModle);

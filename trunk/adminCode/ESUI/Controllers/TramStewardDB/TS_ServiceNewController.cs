@@ -92,6 +92,9 @@ namespace ESUI.Controllers
                 TS_ServiceNewModle.isDeleted = false;
                 TS_ServiceNewModle.isValid = 1;
                 TS_ServiceNewModle.CreateManId = UserData.Id;
+                TS_ServiceNewModle.Praises = 0;
+                TS_ServiceNewModle.CallCount = 0;
+                TS_ServiceNewModle.Clicks = 0;
                 try
                 {
                     OPBiz.Add(TS_ServiceNewModle);

@@ -58,7 +58,7 @@ namespace ESUI.httpSever
                             Rmodel.States = 0;
                             OPBiz.Add(Rmodel);
 
-                            resultMode.Code = 1;
+                            resultMode.Code = 11;
                             resultMode.Msg = "注册成功";
                             resultMode.Data = Rmodel.Id.ToString();
                         }
@@ -71,8 +71,8 @@ namespace ESUI.httpSever
                         TS_ClientUser Loginmodel = OPBiz.GetEntity(Loginmql);
                         if (Loginmodel != null)
                         {
-                            resultMode.Code = 1;
-                            resultMode.Msg = "获取成功";
+                            resultMode.Code = 11;
+                            resultMode.Msg = "登录成功";
                             resultMode.Data = JsonHelper.ToJson(Loginmodel, true);
                         }
                         else

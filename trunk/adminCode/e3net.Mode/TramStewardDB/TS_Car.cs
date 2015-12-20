@@ -51,9 +51,9 @@ namespace e3net.Mode.TramStewardDB
         /// <summary>
         /// 星级
         /// </summary>
-        public Int32? Star
+        public Int32 Star
         {
-            get { return GetPropertyValue<Int32?>("Star"); }
+            get { return GetPropertyValue<Int32>("Star"); }
             set { SetPropertyValue("Star", value); }
         }
 
@@ -114,9 +114,9 @@ namespace e3net.Mode.TramStewardDB
         /// <summary>
         /// 赞
         /// </summary>
-        public Int32? Praises
+        public Int32 Praises
         {
-            get { return GetPropertyValue<Int32?>("Praises"); }
+            get { return GetPropertyValue<Int32>("Praises"); }
             set { SetPropertyValue("Praises", value); }
         }
 
@@ -141,18 +141,18 @@ namespace e3net.Mode.TramStewardDB
         /// <summary>
         /// 状态（2已审核、开启1，未审核0，关闭-1）
         /// </summary>
-        public Int32? States
+        public Int32 States
         {
-            get { return GetPropertyValue<Int32?>("States"); }
+            get { return GetPropertyValue<Int32>("States"); }
             set { SetPropertyValue("States", value); }
         }
 
         /// <summary>
         /// 是否有效
         /// </summary>
-        public Int32? isValid
+        public Int32 isValid
         {
-            get { return GetPropertyValue<Int32?>("isValid"); }
+            get { return GetPropertyValue<Int32>("isValid"); }
             set { SetPropertyValue("isValid", value); }
         }
 

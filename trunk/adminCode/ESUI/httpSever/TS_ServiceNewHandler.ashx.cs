@@ -19,13 +19,15 @@ namespace ESUI.httpSever
     public class TS_ServiceNewHandler : IHttpHandler
     {
 
-        TS_ServiceNewBiz VOPBiz = new TS_ServiceNewBiz();
+        TS_ServiceNewBiz OPBiz = new TS_ServiceNewBiz();
         // 请求例子  /httpSever/TS_ServiceNewHandler.ashx?json={"jsonEntity":{"Category":"01","CityCode":"4502"},"pageIndex":"1","pageSize":"20","action":"GetByCategory"}
         public void ProcessRequest(HttpContext context)
         {
             context.Response.ContentType = "text/plain";
             // context.Response.Write("Hello World");
             HttpReSultMode resultMode = new HttpReSultMode();
+            string Id = "";
+            int res = 0;//返回结果行数
             try
             {
                 JObject httpObject = JsonHelper.FromJson(context.Request["json"]);
@@ -40,9 +42,9 @@ namespace ESUI.httpSever
 
                     case "GetById":
                         #region
-                        string IdG = FilterTools.FilterSpecial(httpObject["jsonEntity"]["Id"].ToString());
-                        var mqlG = TS_ServiceNewSet.SelectAll().Where(TS_ServiceNewSet.Id.Equal(IdG));
-                        TS_ServiceNew modelG = VOPBiz.GetEntity(mqlG);
+                         Id= FilterTools.FilterSpecial(httpObject["jsonEntity"]["Id"].ToString());
+                        var mqlG = TS_ServiceNewSet.SelectAll().Where(TS_ServiceNewSet.Id.Equal(Id));
+                        TS_ServiceNew modelG = OPBiz.GetEntity(mqlG);
                         if (modelG != null)
                         {
                             resultMode.Code = 11;
@@ -57,6 +59,58 @@ namespace ESUI.httpSever
                         }
                         #endregion
 
+                        break;
+                    case "ClickCount"://点击量
+                        Id = FilterTools.FilterSpecial(httpObject["jsonEntity"]["Id"].ToString());
+                        res = OPBiz.SetCout("Id", Id, "Clicks");
+                        if (res > 0)
+                        {
+                            resultMode.Code = 11;
+                            resultMode.Data = res.ToString();
+                            resultMode.Msg = "统计成功";
+                        }
+                        else
+                        {
+                            resultMode.Code = -13;
+                            resultMode.Data = "0";
+                            resultMode.Msg = "统计失败！";
+                        }
+
+
+                        break;
+                    case "PraiseCount"://点赞量加1
+                        Id = FilterTools.FilterSpecial(httpObject["jsonEntity"]["Id"].ToString());
+                        res = OPBiz.SetCout("Id", Id, "Praises");
+                        if (res > 0)
+                        {
+                            resultMode.Code = 11;
+                            resultMode.Data = res.ToString();
+                            resultMode.Msg = "统计成功";
+                        }
+                        else
+                        {
+                            resultMode.Code = -13;
+                            resultMode.Data = "0";
+                            resultMode.Msg = "统计失败！";
+                        }
+
+
+                        break;
+                    case "CallCount"://呼叫量加1
+                        Id = FilterTools.FilterSpecial(httpObject["jsonEntity"]["Id"].ToString());
+                        res = OPBiz.SetCout("Id", Id, "CallCount");
+                        if (res > 0)
+                        {
+                            resultMode.Code = 11;
+                            resultMode.Data = res.ToString();
+                            resultMode.Msg = "统计成功";
+                        }
+                        else
+                        {
+                            resultMode.Code = -13;
+                            resultMode.Data = "0";
+                            resultMode.Msg = "统计失败！";
+                        }
                         break;
                 }
             }
@@ -125,7 +179,7 @@ namespace ESUI.httpSever
             }
             #endregion
             
-                ds = VOPBiz.GetPagingDataSet(Where.ToString(), pageIndex, pageSize, "CreateTime desc");
+                ds = OPBiz.GetPagingDataSet(Where.ToString(), pageIndex, pageSize, "CreateTime desc");
 
             if (ds != null && ds.Tables[0].Rows.Count > 0)
             {
