@@ -1,0 +1,277 @@
+﻿<!DOCTYPE html>
+@{
+    ViewBag.Title = "Index";
+}
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <!-- 编辑器Star-->
+
+    <link href="~/Content/umditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
+    <script type="text/javascript" charset="utf-8" src="~/Content/umditor/umeditor.config.js"></script>
+    <script type="text/javascript" charset="utf-8" src="~/Content/umditor/umeditor.min.js"></script>
+    <script type="text/javascript" src="~/Content/umditor/lang/zh-cn/zh-cn.js"></script>
+
+
+    <script type="text/javascript" charset="utf-8" src="~/Content/js/ImgUp.js"></script>
+    <script type="text/javascript" charset="utf-8" src="~/Content/js/DictionaryHelper.js"></script>
+    @* ReSharper disable once NotAllPathsReturnValue *@
+
+
+    @section Jsprepare{
+
+        <script type="text/javascript">
+            @Html.Raw(ViewBag.RuteUrl)
+         @Html.Raw(ViewBag.toolbar)
+
+
+            jQuery(document).ready(function () {
+
+                FormStripes();//表单样式
+                AutoWH("#body", 40, 42);//自适应宽度
+                DataGridSet();
+                GetSonDictionaryNo("Category", "08");
+
+            })
+            function DataGridSet() {
+                $('#dg').datagrid({
+                    url: BaseUrl + 'Search',
+                    columns: [[
+                        { field: 'ck', checkbox: true },
+                        { field: 'Title', title: '标题', width: 100 },
+                         { field: 'Resume', title: '简述', width: 100 },
+                       { field: 'Url', title: '地址', width: 100 },
+                          {
+                              field: 'States', title: '状态', width: 100, formatter: function (value, row, index) {
+                                  if (value == "1") {
+                                      return "启用";
+                                  } else {
+                                      return "禁用";
+                                  }
+                              }
+                          },
+                        { field: 'AddTime', title: '添加时间', width: 100 },
+                    { field: 'UpdateTime', title: '更新时间', width: 100 },
+                         { field: 'DeadLine', title: '截止时间', width: 100 },
+                        { field: 'CategoryName', title: '类别', width: 300, align: 'right' }
+                    ]],
+                    iconCls: 'icon-save',
+                    title: '广告',
+                    nowrap: true,
+                    fit: true,
+                    fitColumns: true,
+                    singleSelect: true,
+                    striped: true,
+                    collapsible: true,
+                    pageSize: 20,
+                    pagination: true,
+                    rownumbers: true,
+                    sortName: 'AddTime',
+                    sortOrder: 'desc',
+                    toolbar: toolbars
+                });
+            }
+            //easyUI 弹出添加的对话框
+            function AddInfo() {
+                //弹出层
+                // $("#DivEditor").dialog('open').dialog('setTitle', '添加信息');
+                $('#DivEditor').dialog({
+                    title: '添加信息',
+                    //width: 400,
+                    //height: 200,
+                    closed: false,
+                    cache: false,
+                    // href: 'get_content.php',
+                    modal: true, top: 50, left: 50,
+                    onClose: function () {
+                        //解决弹出窗口关闭后，验证消息还显示在最上面
+
+                    }
+                });
+                $(".validatebox-tip").remove();//清除验证样式
+                DataBaseFunction.ClearForm("ff");
+                $("#imgLogo").attr('src', "");
+            }
+
+
+            //绑定修改显示详细信息的方法
+            function EditInfo() {
+                //处理修改的信息，弹出修改的对话框,然后显示选择的的详细信息
+                $("#DivEditor").dialog('open').dialog('setTitle', '修改信息').window('resize', { top: 50, left: 50 });
+                //首先发送一个异步请求去后台实现方法
+
+
+                var rows = $("#dg").datagrid('getSelected');
+                //首先取出来值判断只能选择一个
+                if (rows == null) {
+                    $.messager.alert("友情提示", "请选择", "error");
+                    return;
+                }
+                $(".validatebox-tip").remove();//清除验证样式
+                var ID = rows.Id;  //获取到了用选择的ID
+                $.ajax({
+                    url: BaseUrl + 'GetInfo',
+                    type: 'POST',
+                    data: { ID: ID },
+                    cache: false,
+                    error: function () { alert('Error $.ajax'); },
+                    success: function (data) {
+                        var result = eval('(' + data + ')');
+                        DataBaseFunction.BindForm("ff", result);
+                        $('#States').combobox('select', result.States);
+                        $("#imgLogo").attr('src', result.ImageUrl);
+                    }
+                });
+
+            }
+
+            //实现的编辑，包括增查改
+            function SaveInfo() {
+
+                //判断的信息是否通过验证
+                var validate = $("#ff").form('validate');
+                if (validate == false) {
+                    return false;
+                }
+                //获取需要传递的参数传递给前台
+                var data = DataBaseFunction.GetFormData("ff")
+                var Details = UM.getEditor('Details').getContent();
+                Details = htmlEncode(Details);
+                data[17].value = Details;
+                //发送异步请求到后台保存数据
+                $.post(BaseUrl + 'EditInfo', data, function (data) {
+                    alerts(data.Msg, 2);
+                    if (data.Code > 0) {
+                        $('#DivEditor').dialog('close');
+                        $(".validatebox-tip").remove();
+                        $("#dg").datagrid("reload");
+
+                    }
+                });
+
+            }
+
+            //删除
+            function Del() {
+                DataBaseFunction.deleteInfo("dg", "Id", "UserName");
+            }
+            function FileHeadSave() {
+                //----上传头像
+                var FileId = "";
+                $("input[name='Details']").val("");//html带有非法字符
+                $("#ff").form('submit', {
+                    url: "/httpHandle/UploadHandler.ashx?action=addImg&SourceTable=TS_ClientUser",
+                    onSubmit: function () {
+
+                    },
+                    success: function (data) {
+                        var d = eval('(' + data + ')');
+                        if (d.Success) {
+                            var imgList = eval('(' + d.Data + ')');
+                            $("#imgLogo").attr('src', imgList[0].FullRoute);
+                            $("input[name='ImageUrl']").val(imgList[0].FullRoute)
+                        }
+                        else {
+                            alerts(d.Message, 5);
+                        }
+
+                    }
+                })
+            }
+        </script>
+    }
+
+</head>
+<body style="overflow-y: hidden">
+    <div id="body">
+        <table id="dg"></table>
+
+    </div>
+
+    <!------------------------弹出修改角色信息的弹出层---------------------------------->
+    <div id="DivEditor" class="easyui-dialog" style="width: 1000px;"
+        closed="true" resizable="true" modal="true" buttons="#dlg-buttons">
+        <div id="Div_form" class="easyui-panel" style="padding: 10px 20px; overflow-x: hidden;" data-options=" height:600,width:980,border:false">
+            <form id="ff" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="Id" />
+                <input type="hidden" name="ImageUrl" />
+                <input type="hidden" name="AddTime" />
+                <input type="hidden" name="UpdateTime" />
+                <input type="hidden" name="isDeleted" />
+                <table class="stripes" style="table-layout: fixed;" border="0" cellspacing="0" cellpadding="0">
+
+
+                    <tr>
+                        <td>
+                            <label>标题：</label></td>
+                        <td>
+                            <input class="easyui-validatebox textbox" type="text" name="Title" /></td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label>地址：</label></td>
+                        <td>
+                            <input class="easyui-validatebox textbox" type="text" name="Url" /></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>图片：</label></td>
+                        <td>
+
+                            <img alt="" id="imgLogo" src="" style="width: 100px; height: 100px; margin-top: 10px;" />
+                            <input type="file" name="file1" style="width: 50px;" onchange="FileHeadSave()" />
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>类别：</label></td>
+                        <td>
+                            <select id="Category" name="Category" class="easyui-combotree" style="width: 200px;"
+                                data-options="required:true">
+                            </select>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>简述：</label></td>
+                        <td>
+                            <input class="easyui-validatebox textbox" type="text" name="Resume" /></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>备注说明：</label></td>
+                        <td>
+                            <textarea class="areabox" name="Details"></textarea></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>过期时间：</label></td>
+                        <td>
+                            <input class="easyui-validatebox textbox" type="text" name="DeadLine" /></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>状态：</label></td>
+                        <td>
+                            <select class="easyui-combobox" id="States" data-options="required:true" name="States" style="width: 200px;">
+                                <option value="1">启用</option>
+                                <option value="0">禁用</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+
+        <div style="text-align: center; width: 100%; margin-bottom: 5px;">
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-ok" onclick="SaveInfo();">确定</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" onclick="$('#DivEditor').dialog('close')">关闭</a>
+        </div>
+    </div>
+</body>
+</html>
