@@ -63,6 +63,8 @@
     <Compile Include="AppVersion.cs" />
     <Compile Include="File_Image.cs" />
     <Compile Include="SysItem.cs" />
+    <Compile Include="Sys_Advertising.cs" />
+    <Compile Include="Sys_AppVerSion.cs" />
     <Compile Include="Sys_CityArea.cs" />
     <Compile Include="TramStewardDB\TS_Car.cs" />
     <Compile Include="TramStewardDB\TS_ClientUser.cs" />
@@ -84,6 +86,8 @@
     <Compile Include="TramStewardDB\v_TS_ShopUserRole.cs" />
     <Compile Include="TramStewardDB\v_TS_Transaction.cs" />
     <Compile Include="V_mode\AdminUserInfo.cs" />
+    <Compile Include="V_mode\v_Sys_Advertising.cs" />
+    <Compile Include="V_mode\v_Sys_AppVerSion.cs" />
     <Compile Include="V_mode\v_Sys_CityArea.cs" />
     <Compile Include="HttpView\HttpReSultMode.cs" />
     <Compile Include="JsonMessage.cs" />

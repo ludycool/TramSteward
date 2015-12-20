@@ -89,6 +89,8 @@
     <Compile Include="AppVersionBiz.cs" />
     <Compile Include="SysItemBiz.cs" />
     <Compile Include="Sys_CityAreaBiz.cs" />
+    <Compile Include="Sys_AdvertisingBiz.cs" />
+    <Compile Include="Sys_AppVerSionBiz.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\e3net.common\e3net.common.csproj">

@@ -248,12 +248,14 @@
     <Compile Include="Controllers\TramStewardDB\TS_TransactionController.cs" />
     <Compile Include="Controllers\TramStewardDB\TS_CarController.cs" />
     <Compile Include="Controllers\TramStewardDB\TS_ServiceNewController.cs" />
+    <Compile Include="Controllers\Sys_AppVerSionController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ParameterController.cs" />
     <Compile Include="Controllers\AdvertisingController.cs" />
     <Compile Include="Controllers\AppVersionController.cs" />
     <Compile Include="Controllers\PushMessageController.cs" />
     <Compile Include="Controllers\Sys_CityAreaController.cs" />
+    <Compile Include="Controllers\Sys_AdvertisingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -3521,6 +3523,8 @@
     <Content Include="Views\TS_Car\Index.cshtml" />
     <Content Include="Views\Sys_CityArea\Index.cshtml" />
     <Content Include="Views\TS_ServiceNew\Index.cshtml" />
+    <Content Include="Views\Sys_AppVerSion\Index.cshtml" />
+    <Content Include="Views\Sys_Advertising\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="upload\image\20150319\" />

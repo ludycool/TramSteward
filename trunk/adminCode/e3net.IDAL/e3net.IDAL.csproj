@@ -88,6 +88,8 @@
     <Compile Include="IAppVersionDao.cs" />
     <Compile Include="ISysItemDao.cs" />
     <Compile Include="ISys_CityAreaDao.cs" />
+    <Compile Include="ISys_AdvertisingDao.cs" />
+    <Compile Include="ISys_AppVerSionDao.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\e3net.common\e3net.common.csproj">
