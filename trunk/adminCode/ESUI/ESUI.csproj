@@ -326,6 +326,7 @@
     <Content Include="App_Data\SatisfactionItemSeedData.xml" />
     <Content Include="App_Data\V_SatisfactionSeedData.xml" />
     <Content Include="Content\Images\footerback.png" />
+    <Content Include="Content\Images\logo.png" />
     <Content Include="Content\Images\mheader.png" />
     <Content Include="Content\Images\start-here-centos.png" />
     <Content Include="Content\JqueryEasyUI\index.html" />

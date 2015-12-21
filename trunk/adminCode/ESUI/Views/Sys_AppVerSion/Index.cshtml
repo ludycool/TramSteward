@@ -8,13 +8,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <!-- 编辑器Star-->
-
-    <link href="~/Content/umditor/themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-    <script type="text/javascript" charset="utf-8" src="~/Content/umditor/umeditor.config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="~/Content/umditor/umeditor.min.js"></script>
-    <script type="text/javascript" src="~/Content/umditor/lang/zh-cn/zh-cn.js"></script>
-
-
     <script type="text/javascript" charset="utf-8" src="~/Content/js/ImgUp.js"></script>
     <script type="text/javascript" charset="utf-8" src="~/Content/js/DictionaryHelper.js"></script>
     @* ReSharper disable once NotAllPathsReturnValue *@
@@ -31,9 +24,8 @@
 
                 FormStripes();//表单样式
                 AutoWH("#body", 40, 42);//自适应宽度
-                var um = UM.getEditor('Details');
                 DataGridSet();
-
+                GetSonDictionaryNo("Category", "00");
 
             })
             function DataGridSet() {
@@ -68,11 +60,11 @@
                          var url = '<a href="' + value + '"> 下载</a>'
                          return url;
                      }
-                 }, { field: 'AddTime', title: '添加时间', width: 100 },
-                    { field: 'UpdateTime', title: '更新时间', width: 100 }
+                 }, { field: 'AddTime', title: '添加时间', width: 150 },
+                    { field: 'UpdateTime', title: '更新时间', width: 150 }
                     ]],
                     iconCls: 'icon-save',
-                    title: 'app用户',
+                    title: 'app 版本',
                     nowrap: true,
                     fit: true,
                     fitColumns: true,
@@ -92,7 +84,7 @@
                 //弹出层
                 // $("#DivEditor").dialog('open').dialog('setTitle', '添加信息');
                 $('#DivEditor').dialog({
-                    title: '添加信息',
+                    title: '添加更新版本',
                     //width: 400,
                     //height: 200,
                     closed: false,
@@ -112,7 +104,7 @@
             //绑定修改显示详细信息的方法
             function EditInfo() {
                 //处理修改的信息，弹出修改的对话框,然后显示选择的的详细信息
-                $("#DivEditor").dialog('open').dialog('setTitle', '修改信息').window('resize', { top: 50, left: 50 });
+                $("#DivEditor").dialog('open').dialog('setTitle', '修改版本').window('resize', { top: 50, left: 50 });
                 //首先发送一个异步请求去后台实现方法
 
 
@@ -134,6 +126,7 @@
                         var result = eval('(' + data + ')');
                         DataBaseFunction.BindForm("ff", result);
                         $('#States').combobox('select', result.States);
+                        $('#Category').combotree('setValue', result['Category']);
                     }
                 });
 
@@ -166,12 +159,11 @@
             function Del() {
                 DataBaseFunction.deleteInfo("dg", "Id", "UserName");
             }
-            function FileHeadSave() {
+            function FileSave() {
                 //----上传头像
                 var FileId = "";
-                $("input[name='Details']").val("");//html带有非法字符
                 $("#ff").form('submit', {
-                    url: "/httpHandle/UploadHandler.ashx?action=addImg&SourceTable=TS_ClientUser",
+                    url: "/httpHandle/UploadHandler.ashx?action=addFile&SourceTable=Sys_AppVerSion",
                     onSubmit: function () {
 
                     },
@@ -179,8 +171,7 @@
                         var d = eval('(' + data + ')');
                         if (d.Success) {
                             var imgList = eval('(' + d.Data + ')');
-                            $("#imgLogo").attr('src', imgList[0].FullRoute);
-                            $("input[name='ImgeUrl']").val(imgList[0].FullRoute)
+                            $("input[name='Url']").val(imgList[0].FullRoute)
                         }
                         else {
                             alerts(d.Message, 5);
@@ -200,9 +191,9 @@
     </div>
 
     <!------------------------弹出修改角色信息的弹出层---------------------------------->
-    <div id="DivEditor" class="easyui-dialog" style="width: 1000px;"
+    <div id="DivEditor" class="easyui-dialog" style="width: 620px;"
         closed="true" resizable="true" modal="true" buttons="#dlg-buttons">
-        <div id="Div_form" class="easyui-panel" style="padding: 10px 20px; overflow-x: hidden;" data-options=" height:600,width:980,border:false">
+        <div id="Div_form" class="easyui-panel" style="padding: 10px 20px; overflow-x: hidden;" data-options="border:false">
             <form id="ff" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="Id" />
                 <input type="hidden" name="AddTime" />
@@ -230,14 +221,14 @@
                         <td>
                             <label>版本号：</label></td>
                         <td>
-                            <input class="easyui-validatebox textbox" type="text" name="Version" /></td>
+                            <input class="easyui-validatebox textbox" style="width:300px;" type="text" name="Version" />(数字格式：00.00.00)</td>
                     </tr>
                     <tr>
                         <td>
                             <label>下载地址：</label></td>
                         <td>
-                            <input class="easyui-validatebox textbox" type="text" name="Url" />
-                            <input type="file" name="file1" style="width: 50px;" onchange="FileHeadSave()" /></td>
+                            <input class="easyui-validatebox textbox" style="width:300px;" type="text" name="Url" />
+                            <input type="file" name="file1" style="width: 50px;" onchange="FileSave()" />(可以直接填网络地址)</td>
                     </tr>
                     <tr>
                         <td>

@@ -101,6 +101,15 @@ namespace e3net.Mode.V_mode
             get { return GetPropertyValue<String>("CategoryName"); }
             set { SetPropertyValue("CategoryName", value); }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Boolean? isDeleted
+        {
+            get { return GetPropertyValue<Boolean?>("isDeleted"); }
+            set { SetPropertyValue("isDeleted", value); }
+        }
     }
 
     [Table("[v_Sys_AppVerSion]", DbType.SqlServer)]
@@ -164,6 +173,11 @@ namespace e3net.Mode.V_mode
         /// 
         /// </summary>
         public static readonly FieldBase CategoryName = new FieldBase(DbType.SqlServer, "[v_Sys_AppVerSion]", FieldType.Common, "[CategoryName]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase isDeleted = new FieldBase(DbType.SqlServer, "[v_Sys_AppVerSion]", FieldType.Common, "[isDeleted]");
     }
 
 }
