@@ -1,4 +1,5 @@
-﻿using e3net.BLL.YhSys;
+﻿using e3net.BLL;
+using e3net.BLL.YhSys;
 using e3net.Mode;
 using e3net.Mode.HttpView;
 using e3net.tools;
@@ -19,7 +20,7 @@ namespace ESUI.httpSever
         //请求实例 /httpSever/AppVersionHandler.ashx?json={"jsonEntity":{"Version":"01.01.01"},"action":"GetNewVersion"}
         public void ProcessRequest(HttpContext context)
         {
-            AppVersionBiz OPBiz = new AppVersionBiz();
+            Sys_AppVerSionBiz OPBiz = new Sys_AppVerSionBiz();
             HttpReSultMode resultMode = new HttpReSultMode();
             context.Response.ContentType = "text/plain";
             try

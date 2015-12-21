@@ -7,7 +7,7 @@ using System.Xml;
 
 namespace e3net.BLL.YhSys
 {
-    public class AdvertisingXmlHelper
+    public class Sys_AdvertisingXmlHelper
     {
         /// <summary>
         /// xml文件操作
@@ -22,9 +22,9 @@ namespace e3net.BLL.YhSys
         /// <summary>
         /// 文件路径
         /// </summary>
-        string filePath = @"/AdvertisingData.xml";
+        string filePath = @"/Sys_AdvertisingData.xml";
 
-        public AdvertisingXmlHelper(string path)
+        public Sys_AdvertisingXmlHelper(string path)
         {
             try
             {
@@ -43,7 +43,7 @@ namespace e3net.BLL.YhSys
         /// </summary>
         /// <param name="item"></param>
         /// <returns>1添加成功  否则添加失败</returns>
-        public int Add(Advertising item)
+        public int Add(Sys_Advertising item)
         {
             int rs = 0;
 
@@ -58,9 +58,9 @@ namespace e3net.BLL.YhSys
                     XmlElement Id = xmlDoc.CreateElement("Id");
                     Id.InnerText = item.Id.ToString();
                     node.AppendChild(Id);
-                    XmlElement ImgeUrl = xmlDoc.CreateElement("ImgeUrl");
-                    ImgeUrl.InnerText = item.ImgeUrl;
-                    node.AppendChild(ImgeUrl);
+                    XmlElement ImageUrl = xmlDoc.CreateElement("ImageUrl");
+                    ImageUrl.InnerText = item.ImageUrl;
+                    node.AppendChild(ImageUrl);
 
                     XmlElement Category = xmlDoc.CreateElement("Category");
                     Category.InnerText = item.Category;
@@ -74,9 +74,9 @@ namespace e3net.BLL.YhSys
                     Details.InnerText = item.Details;
                     node.AppendChild(Details);
 
-                    XmlElement Website = xmlDoc.CreateElement("Website");
-                    Website.InnerText = item.Website;
-                    node.AppendChild(Website);
+                    XmlElement Url = xmlDoc.CreateElement("Url");
+                    Url.InnerText = item.Url;
+                    node.AppendChild(Url);
 
                     XmlElement AddTime = xmlDoc.CreateElement("AddTime");
                     AddTime.InnerText = item.AddTime.ToString();
@@ -111,9 +111,9 @@ namespace e3net.BLL.YhSys
         /// 获取一条记录
         /// </summary>
         /// <returns></returns>
-        public Advertising GetItemById(string Id)
+        public Sys_Advertising GetItemById(string Id)
         {
-            Advertising item = null;
+            Sys_Advertising item = null;
             try
             {
                 if (xmlDoc != null && root != null)
@@ -124,9 +124,9 @@ namespace e3net.BLL.YhSys
                     {
                         if (string.IsNullOrEmpty(Id))
                         {
-                            item = new Advertising();
-                            item.Id = Guid.Parse(node["Id"].InnerText);
-                            item.ImgeUrl = node["ImgeUrl"].InnerText;
+                            item = new Sys_Advertising();
+                            item.Id = int.Parse(node["Id"].InnerText);
+                            item.ImageUrl = node["ImageUrl"].InnerText;
                             item.Title = node["Title"].InnerText;
                             item.Category = node["Category"].InnerText;
                             if (node["UpdateTime"].InnerText != "")
@@ -136,7 +136,7 @@ namespace e3net.BLL.YhSys
                                 item.AddTime = Convert.ToDateTime(node["AddTime"].InnerText);
                             else item.AddTime = DateTime.Now;
                             item.Details = node["Details"].InnerText;
-                            item.Website = node["Website"].InnerText;
+                            item.Url = node["Url"].InnerText;
                             if (node["States"].InnerText != "")
                                 item.States = Convert.ToInt32(node["States"].InnerText);
                             break;
@@ -144,9 +144,9 @@ namespace e3net.BLL.YhSys
                         }
                         else if (node["Id"].InnerText == Id)
                         {
-                            item = new Advertising();
-                            item.Id = Guid.Parse(node["Id"].InnerText);
-                            item.ImgeUrl = node["ImgeUrl"].InnerText;
+                            item = new Sys_Advertising();
+                            item.Id = int.Parse(node["Id"].InnerText);
+                            item.ImageUrl = node["ImageUrl"].InnerText;
                             item.Title = node["Title"].InnerText;
                             item.Category = node["Category"].InnerText;
                             if (node["UpdateTime"].InnerText != "")
@@ -156,7 +156,7 @@ namespace e3net.BLL.YhSys
                                 item.AddTime = Convert.ToDateTime(node["AddTime"].InnerText);
                             else item.AddTime = DateTime.Now;
                             item.Details = node["Details"].InnerText;
-                            item.Website = node["Website"].InnerText;
+                            item.Url = node["Url"].InnerText;
                             if (node["States"].InnerText != "")
                                 item.States = Convert.ToInt32(node["States"].InnerText);
                             break;
@@ -175,7 +175,7 @@ namespace e3net.BLL.YhSys
         /// 更新
         /// </summary>
         /// <param name="item"></param>
-        public int Update(Advertising item)
+        public int Update(Sys_Advertising item)
         {
             int rs = 0;
             if (xmlDoc != null && root != null)
@@ -189,12 +189,12 @@ namespace e3net.BLL.YhSys
                         XmlNode node = nodeList[i];
                         if (node["Id"].InnerText == item.Id.ToString().Trim())
                         {
-                            node["ImgeUrl"].InnerText = item.ImgeUrl;
+                            node["ImageUrl"].InnerText = item.ImageUrl;
                             node["Title"].InnerText = item.Title;
                             node["Category"].InnerText = item.Category;
                             node["UpdateTime"].InnerText = item.UpdateTime.ToString();
                             node["Details"].InnerText = item.Details;
-                            node["Website"].InnerText = item.Website;
+                            node["Url"].InnerText = item.Url;
                             node["States"].InnerText = item.States.ToString();
                             node["UpdateTime"].InnerText = item.UpdateTime.ToString();
                             //保存文件
@@ -217,9 +217,9 @@ namespace e3net.BLL.YhSys
         /// 获取所有友情链接
         /// </summary>
         /// <returns></returns>
-        public List<Advertising> GetAll()
+        public List<Sys_Advertising> GetAll()
         {
-            List<Advertising> list = new List<Advertising>();
+            List<Sys_Advertising> list = new List<Sys_Advertising>();
 
             if (xmlDoc != null && root != null)
             {
@@ -228,9 +228,9 @@ namespace e3net.BLL.YhSys
                 // 遍历根节点下所有子节点
                 foreach (XmlNode node in nodeList)
                 {
-                    Advertising item = new Advertising();
-                    item.Id = Guid.Parse(node["Id"].InnerText);
-                    item.ImgeUrl = node["ImgeUrl"].InnerText;
+                    Sys_Advertising item = new Sys_Advertising();
+                    item.Id = int.Parse(node["Id"].InnerText);
+                    item.ImageUrl = node["ImageUrl"].InnerText;
                     item.Title = node["Title"].InnerText;
                     item.Category = node["Category"].InnerText;
                     if (node["UpdateTime"].InnerText != "")
@@ -240,7 +240,7 @@ namespace e3net.BLL.YhSys
                         item.AddTime = Convert.ToDateTime(node["AddTime"].InnerText);
                     else item.AddTime = DateTime.Now;
                     item.Details = node["Details"].InnerText;
-                    item.Website = node["Website"].InnerText;
+                    item.Url = node["Url"].InnerText;
                     if (node["States"].InnerText != "")
                         item.States = Convert.ToInt32(node["States"].InnerText);
                     list.Add(item);
@@ -253,9 +253,9 @@ namespace e3net.BLL.YhSys
         /// 根据分类获取
         /// </summary>
         /// <returns></returns>
-        public List<Advertising> GetByCategory(string Category)
+        public List<Sys_Advertising> GetByCategory(string Category)
         {
-            List<Advertising> list = new List<Advertising>();
+            List<Sys_Advertising> list = new List<Sys_Advertising>();
 
             if (xmlDoc != null && root != null)
             {
@@ -266,9 +266,9 @@ namespace e3net.BLL.YhSys
                 {
                     if (node["Category"].InnerText == Category)
                     {
-                        Advertising item = new Advertising();
-                        item.Id = Guid.Parse(node["Id"].InnerText);
-                        item.ImgeUrl = node["ImgeUrl"].InnerText;
+                        Sys_Advertising item = new Sys_Advertising();
+                        item.Id = int.Parse(node["Id"].InnerText);
+                        item.ImageUrl = node["ImageUrl"].InnerText;
                         item.Title = node["Title"].InnerText;
                         item.Category = node["Category"].InnerText;
                         if (node["UpdateTime"].InnerText != "")
@@ -278,7 +278,7 @@ namespace e3net.BLL.YhSys
                             item.AddTime = Convert.ToDateTime(node["AddTime"].InnerText);
                         else item.AddTime = DateTime.Now;
                         item.Details = node["Details"].InnerText;
-                        item.Website = node["Website"].InnerText;
+                        item.Url = node["Url"].InnerText;
                         if (node["States"].InnerText != "")
                             item.States = Convert.ToInt32(node["States"].InnerText);
                         list.Add(item);

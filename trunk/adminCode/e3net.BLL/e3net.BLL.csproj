@@ -86,7 +86,6 @@
     <Compile Include="TramStewardDB\TS_ServiceNewBiz.cs" />
     <Compile Include="TramStewardDB\TS_ShopUserRoleBiz.cs" />
     <Compile Include="YhSys\PushMessageBiz.cs" />
-    <Compile Include="AppVersionBiz.cs" />
     <Compile Include="SysItemBiz.cs" />
     <Compile Include="Sys_CityAreaBiz.cs" />
     <Compile Include="Sys_AdvertisingBiz.cs" />

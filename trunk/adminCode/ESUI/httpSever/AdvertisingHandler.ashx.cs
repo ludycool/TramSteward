@@ -2,10 +2,12 @@
 using e3net.BLL.YhSys;
 using e3net.Mode;
 using e3net.Mode.HttpView;
+using e3net.tools;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Web;
 using TZHSWEET.Common;
 
@@ -22,7 +24,7 @@ namespace ESUI.httpSever
             context.Response.ContentType = "text/plain";
             // context.Response.Write("Hello World");
             HttpReSultMode resultMode = new HttpReSultMode();
-            AdvertisingXmlHelper xh = new AdvertisingXmlHelper(System.Web.HttpContext.Current.Server.MapPath("~/App_Data/"));
+            Sys_AdvertisingBiz OPBiz = new Sys_AdvertisingBiz();
             try
             {
                 JObject httpObject = JsonHelper.FromJson(context.Request["json"]);
@@ -31,14 +33,18 @@ namespace ESUI.httpSever
 
                     case "GetByCategory":
                         #region
-                        List<Advertising> list = new List<Advertising>();
-                        if (httpObject["jsonEntity"]["Category"] != null)
+                        List<Sys_Advertising> list = new List<Sys_Advertising>();
+                        if (httpObject["jsonEntity"]["Category"] != null)//分类
                         {
-                            string Category = httpObject["jsonEntity"]["Category"].ToString();
-                            list = xh.GetByCategory(Category);
+                            string Category = FilterTools.FilterSpecial(httpObject["jsonEntity"]["Category"].ToString());
+                            var sqlm = Sys_AdvertisingSet.SelectAll().Where(Sys_AdvertisingSet.Category.Equal(Category).And(Sys_AdvertisingSet.States.Equal(1)).And(Sys_AdvertisingSet.isDeleted.Equal(0)));
+                            list = OPBiz.GetEntities(sqlm);
                         }
-                        else {
-                            list = xh.GetAll();
+                        else
+                        {
+
+                            var sqlm = Sys_AdvertisingSet.SelectAll().Where(Sys_AdvertisingSet.States.Equal(1).And(Sys_AdvertisingSet.isDeleted.Equal(0)));
+                            list = OPBiz.GetEntities(sqlm);
                         }
                         if (list.Count > 0)
                         {
@@ -59,7 +65,8 @@ namespace ESUI.httpSever
                     case "GetById":
                         #region
                         string IdG = httpObject["jsonEntity"]["Id"].ToString();
-                        Advertising modelG = xh.GetItemById(IdG);
+                        var sqlO = Sys_AdvertisingSet.SelectAll().Where(Sys_AdvertisingSet.Id.Equal(IdG));
+                        Sys_Advertising modelG = OPBiz.GetEntity(sqlO);
                         if (modelG != null)
                         {
                             resultMode.Code = 11;
