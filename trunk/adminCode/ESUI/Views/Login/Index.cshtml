@@ -1,4 +1,4 @@
-@model ESUI.Models.LoginModel
+Ôªø@model ESUI.Models.LoginModel
 @{
     Layout = null;
     if (ViewData["IsShowAlert"] != null && ViewData["IsShowAlert"].ToString() == "True")
@@ -11,33 +11,30 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-    <title>µÁ≥µeπ‹º“µ«¬º</title>
-    <link href="~/Content/Login/images/Default.css" rel="stylesheet" />
-    <link href="~/Content/Login/images/xtree.css" rel="stylesheet" />
-    <link href="~/Content/Login/images/User_Login.css" rel="stylesheet" />
+
+
+
+<head id="Head1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta id="d_meta_keywords" name="keywords" content="ÁîµËΩ¶EÁÆ°ÂÆ∂">
+    <meta name="description" content="ÂçóÂÆÅEËÅîÂàõËΩØ‰ª∂Â∑•‰ΩúÂÆ§ QQ 317490789">
+    <meta name="copyright" content="ÂçóÂÆÅEËÅîÂàõËΩØ‰ª∂Â∑•‰ΩúÂÆ§">
+    <title>ÁîµËΩ¶EÁÆ°ÂÆ∂
+</title>
+
+    <link href="~/Content/Login/wuye/base.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Login/wuye/login.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/Login/wuye/sitebefore.css" rel="stylesheet" type="text/css" />
+
     <script src="~/Content/JqueryEasyUI/jquery1.9.min.js"></script>
-    <script src="~/Content/js/CommonFunction.js"></script>
-    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
-    <meta content="MSHTML 6.00.6000.16674" name="GENERATOR">
-
-    <style type="text/css">
-        .img {
-            /*…Ë÷√Õº∆¨¥π÷±æ”÷–*/
-            vertical-align: middle;
-            margin-left: 0px;
-        }
-    </style>
-
-
     <script type="text/javascript">
         $(function () {
 
-            // ◊¥Œº”‘ÿ
+            //È¶ñÊ¨°Âä†ËΩΩ
 
-            $("#valiCode").attr("src", "/Login/GetValidateCode?time=" + (new Date()).getTime());
+            CV();
 
-            //µ•ª˜—È÷§¬Î ¬º˛
+            //ÂçïÂáªÈ™åËØÅÁ†Å‰∫ã‰ª∂
 
             $("#valiCode").bind("click", function () {
 
@@ -45,94 +42,91 @@
 
             });
 
+
         });
 
+        function CV() {
+            $("#valiCode").attr("src", "/Login/GetValidateCode?time=" + (new Date()).getTime());
 
+        }
+        function cleartxt() {
+            $('#VCode').val('');
+        }
     </script>
-
-
-
-
-
-
 </head>
-<body id="userlogin_body">
-    <div></div>
 
+<body>
+    <div class="container">
 
-    @using (Html.BeginForm())
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary()
-        <div id="user_login">
-            <dl>
-                <dd id="user_top">
-                    <ul>
-                        <li class="user_top_l"></li>
-                        <li class="user_top_c"></li>
-                        <li class="user_top_r"></li>
-                    </ul>
-                    <dd id="user_main">
-                        <ul>
-                            <li class="user_main_l"></li>
-                            <li class="user_main_c">
-                                <div class="user_main_box">
+        <div class="header">
 
-                                    <ul>
-                                        <li class="user_main_text">”√ªß√˚£∫ </li>
-                                        <li class="user_main_input">
+            <table width="100%">
+                <tbody>
+                    <tr style="vertical-align: bottom">
 
-                                            @Html.TextBoxFor(m => m.LoginName, new { @class = "TxtUserNameCssClass" })
+                        <td style="width: 700px;">
+                            @*  <img src="~/Content/Login/wuye/header.png" style="border: 0px;" alt="">*@
+                            <span style="padding-left: 10px; font-size: 30px; float: left; color:#566695; line-height: 70px; font-family: Verdana, ÂæÆËΩØÈõÖÈªë,Èªë‰Ωì">
+                                <img src="~/Content/Images/logo.png" width="64" height="64" align="absmiddle" />
+                                ÁîµËΩ¶eÁÆ°ÂÆ∂Á≥ªÁªü
+                            </span>
+                        </td>
 
-                                        </li>
-                                    </ul>
-                                    <ul>
-                                        <li class="user_main_text">√‹ ¬Î£∫ </li>
-                                        <li class="user_main_input">
-                                            @Html.PasswordFor(m => m.Password, new { @class = "TxtPasswordCssClass" })
+                        <td align="left" valign="middle">
+                            <div id="d_region_menu">
+                                <ul id="breadcrumb">
 
-                                        </li>
-                                    </ul>
-                                    <ul>
-                                        <li class="user_main_text">—È÷§¬Î£∫ </li>
-                                        <li class="user_main_input">
-                                            @Html.TextBoxFor(m => m.VCode, new { @class = "TxtValidateCodeCssClass" })
-                                            <img id="valiCode" style="cursor: pointer;" class="img" src="/Common/GetValidateCode" alt="ø¥≤ª«Â£ø«Îµ„Œ“" />
+                                    <li><a href="#" class="chinese" target="_blank">ËÅîÁ≥ªÊàë‰ª¨</a></li>
+                                     <li><a href="#" class="chinese" target="_blank">Á≥ªÁªüËØ¥Êòé</a></li>
+                                </ul>
+                            </div>
 
-                                        </li>
-                                    </ul>
-                                    <ul>
-                                        <li class="user_main_text">¿‡–Õ£∫ </li>
-                                        <li class="user_main_input">
-                                             @Html.DropDownListFor(model => model.UserType, ViewData["UserType"] as SelectList)
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
 
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="user_main_r">
-                                <input class="IbtnEnterCssClass" id="IbtnEnter" value=""
-                                    style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px; margin-top: 0px;"
-                                    type="submit" name="IbtnEnter">
-                            </li>
-                        </ul>
-                        <dd id="user_bottom">
-                            <ul>
-                                <li class="user_bottom_l"></li>
-                                <li class="user_bottom_c"><span style="MARGIN-TOP: 40px">»œ ∂◊‘º∫£¨Ωµ∑¸◊‘º∫£¨∏ƒ±‰◊‘º∫£¨≤≈ƒ‹∏ƒ±‰±»À°£</span> </li>
-                                <li class="user_bottom_r"></li>
-                            </ul>
-                        </dd>
-            </dl>
         </div>
-    }
-    <span id="ValrUserName"
-        style="DISPLAY: none; COLOR: red"></span><span id="ValrPassword"
-            style="DISPLAY: none; COLOR: red"></span><span id="ValrValidateCode"
-                style="DISPLAY: none; COLOR: red"></span>
-    <div id="ValidationSummary1" style="DISPLAY: none; COLOR: red"></div>
 
-    <div></div>
 
-    </FORM></body></html>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary()
 
+            <div class="content">
+                <div class="login_box cf">
+                    <div class="pic fl">
+                        <img src="~/Content/Login/wuye/login_left.jpg">
+                    </div>
+                    <div class="login fr">
+                        <p>
+                            <label>Áî®Êà∑Âêç</label>
+                            @Html.TextBoxFor(m => m.LoginName, new { @class = "TxtUserNameCssClass" })
+                        </p>
+                        <p>
+                            <label><a href="#"></a>ÂØÜÁ†Å</label>
+                            @Html.PasswordFor(m => m.Password, new { @class = "TxtPasswordCssClass" })
+                        </p>
+                        <p class="verify">
+                            @Html.TextBoxFor(m => m.VCode, new { @class = "TxtValidateCodeCssClass", @Value = "È™åËØÅÁ†Å", @onfocus = "cleartxt();" })
+                            <span class="code">
+                                <img id="valiCode" style="cursor: pointer;" class="img" src="/Common/GetValidateCode" alt="Áúã‰∏çÊ∏ÖÔºüËØ∑ÁÇπÊàë" /></span>
+                            <a href="#" onclick="CV();">Áúã‰∏çÊ∏ÖÊ•ö</a>
+                        </p>
+                        <p>
+                            <label><a href="#"></a>Á±ªÂûã</label>
+                            @Html.DropDownListFor(model => model.UserType, ViewData["UserType"] as SelectList, new { @class="selecttor"})
+                        </p>
+                        <p class="btn">
+                            <input name="" type="submit" value="ÁôªÂΩï">
+                        </p>
+                    </div>
+                </div>
+            </div>
+                    
+        }
+        <div id="d_footer" class="footer"><span style="font-family: Arial;"></span>&nbsp;2010-2015&nbsp;ÂçóÂÆÅÁîµËΩ¶EÁÆ°ÂÆ∂ &nbsp;All Rights Reserved.</div>
+    </div>
+</body>
+</html>

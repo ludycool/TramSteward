@@ -528,6 +528,15 @@
     <Content Include="Content\JqueryEasyUI\themes\default\validatebox.css" />
     <Content Include="Content\JqueryEasyUI\themes\default\window.css" />
     <Content Include="Content\js\area.js" />
+    <Content Include="Content\Login\wuye\base.css" />
+    <Content Include="Content\Login\wuye\bc_bg.gif" />
+    <Content Include="Content\Login\wuye\bc_separator.gif" />
+    <Content Include="Content\Login\wuye\footer_bg.jpg" />
+    <Content Include="Content\Login\wuye\header.png" />
+    <Content Include="Content\Login\wuye\login.css" />
+    <Content Include="Content\Login\wuye\login_btn.jpg" />
+    <Content Include="Content\Login\wuye\login_left.jpg" />
+    <Content Include="Content\Login\wuye\sitebefore.css" />
     <Content Include="Content\PIE\PIE.htc" />
     <Content Include="Content\PIE\PIE.js" />
     <Content Include="Content\Style.css" />
@@ -3533,6 +3542,7 @@
     <Content Include="Views\UTS_RepairShop\Index.cshtml" />
     <Content Include="Views\UTS_Service\Index.cshtml" />
     <Content Include="Views\UTS_Shop\Index.cshtml" />
+    <Content Include="Views\Login_old\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="upload\image\20150319\" />
