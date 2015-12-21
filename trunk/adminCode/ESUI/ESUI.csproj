@@ -249,6 +249,10 @@
     <Compile Include="Controllers\TramStewardDB\TS_CarController.cs" />
     <Compile Include="Controllers\TramStewardDB\TS_ServiceNewController.cs" />
     <Compile Include="Controllers\Sys_AppVerSionController.cs" />
+    <Compile Include="Controllers\TramStewardDB_U\UTS_CarController.cs" />
+    <Compile Include="Controllers\TramStewardDB_U\UTS_RepairShopController.cs" />
+    <Compile Include="Controllers\TramStewardDB_U\UTS_ServiceController.cs" />
+    <Compile Include="Controllers\TramStewardDB_U\UTS_ShopController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ParameterController.cs" />
     <Compile Include="Controllers\AdvertisingController.cs" />
@@ -3528,6 +3532,10 @@
     <Content Include="Views\TS_ServiceNew\Index.cshtml" />
     <Content Include="Views\Sys_AppVerSion\Index.cshtml" />
     <Content Include="Views\Sys_Advertising\Index.cshtml" />
+    <Content Include="Views\UTS_Car\Index.cshtml" />
+    <Content Include="Views\UTS_RepairShop\Index.cshtml" />
+    <Content Include="Views\UTS_Service\Index.cshtml" />
+    <Content Include="Views\UTS_Shop\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="upload\image\20150319\" />
