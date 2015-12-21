@@ -34,10 +34,8 @@
                 FormStripes();//表单样式
                 AutoWH("#body", 40, 42);//自适应宽度
                 DataGridSet();
-                GetSonDictionaryNo("Category", "06");
-                $('#States').combobox('reload', '/httpHandle/DictionaryHandler.ashx?action=GetSysItem&ItemType=States');  // 使用新的URL重新载入列表数据
-                _init_area();//初始化省市区联动
-
+                GetSonDictionaryNo("Category", "08");
+                $('#ShopId').combobox('reload', '/httpHandle/DictionaryHandler.ashx?action=GetShop');  // 商店
             })
             function DataGridSet() {
                 $('#dg').datagrid({
@@ -45,29 +43,13 @@
                     columns: [[
                         { field: 'ck', checkbox: true },
                         { field: 'TName', title: '名称', width: 100 },
-                        { field: 'Star', title: '星级', width: 100 },
-                        { field: 'Phone', title: '电话', width: 100 },
-                        { field: 'ProvinceName', title: '省', width: 100 },
-                         { field: 'CityName', title: '市', width: 100 },
-                         { field: 'AreaName', title: '区', width: 100 },
-                          {
-                              field: 'IsRepair', title: '是否提供抢修', width: 100, formatter: function (value, row, index) {
-                                  if (value == '1') {
-                                      return '是';
-                                  } else {
-                                      return '否';
-                                  }
-                              }
-                          },
-                         { field: 'CallCount', title: '呼叫量', width: 100 },
-                        { field: 'Praises', title: '赞', width: 100 },
-                        { field: 'StatesName', title: '状态', width: 100 },
-                        { field: 'CreateTime', title: '添加时间', width: 150 },
-                         { field: 'CategoryName', title: '类型', width: 100 },
-                        { field: 'Address', title: '地址', width: 300, align: 'right' }
+                        { field: 'Brand', title: '品牌', width: 100 },
+                        { field: 'Price', title: '价格', width: 100 },
+                          { field: 'Praises', title: '赞', width: 100 },
+                         { field: 'ShopName', title: '所属店', width: 100 }
                     ]],
                     iconCls: 'icon-save',
-                    title: '维修店',
+                    title: '车辆',
                     nowrap: true,
                     fit: true,
                     fitColumns: true,
@@ -77,7 +59,7 @@
                     pageSize: 20,
                     pagination: true,
                     rownumbers: true,
-                    sortName: 'CreateTime,TName',
+                    sortName: 'CreateTime',
                     sortOrder: 'desc',
                     toolbar: toolbars
                 });
@@ -87,7 +69,7 @@
                 //弹出层
                 // $("#DivEditor").dialog('open').dialog('setTitle', '添加信息');
                 $('#DivEditor').dialog({
-                    title: '添加维修店',
+                    title: '添加车辆',
                     //width: 400,
                     //height: 200,
                     closed: false,
@@ -101,39 +83,18 @@
                 });
                 $(".validatebox-tip").remove();//清除验证样式
                 DataBaseFunction.ClearForm("ff");
-                $("#imgLogo").attr('src', "");
+                // $("#imgLogo").attr('src', "");
                 $("#imgLogoM").attr('src', "");
-                var _o = document.getElementsByName("IsRepair")[1].checked = true;;//radio默认选中
                 UM.getEditor('Details').setContent("", false);
-                change(0);//省城市默认选择第一个
-                var map = new BMap.Map("Mapcontainer");          // 创建地图实例  
-                var opts = { type: BMAP_NAVIGATION_CONTROL_LARGE }
-                map.addControl(new BMap.NavigationControl(opts));
-                var point = new BMap.Point(108.321465, 22.832497);  // 创建点坐标 默认
-                $("input[name='Longitude']").val(108.321465);//默认
-                $("input[name='Latitude']").val(22.832497)//默认
-                map.centerAndZoom(point, 12);                 // 初始化地图，设置中心点坐标和地图级别 
-                var marker = new BMap.Marker(point);
-                map.addOverlay(marker);                     // 将标注添加到地图中
-                marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画  
 
-                map.addEventListener("click", function (e) {//点击事件
-                    map.clearOverlays();//清除
-                    $("input[name='Longitude']").val(e.point.lng);
-                    $("input[name='Latitude']").val(e.point.lat);
-                    var point = new BMap.Point(e.point.lng, e.point.lat);  // 创建点坐标   
-                    var marker = new BMap.Marker(point);
-                    map.addOverlay(marker);                     // 将标注添加到地图中
-                    marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画  
-
-                });
-
-
+                // GetFileList();
             }
 
 
             //绑定修改显示详细信息的方法
             function EditInfo() {
+   
+
                 var rows = $("#dg").datagrid('getSelected');
                 //首先取出来值判断只能选择一个
                 if (rows == null) {
@@ -156,43 +117,12 @@
                         var result = eval('(' + data + ')');
                         DataBaseFunction.BindForm("ff", result);
                         UM.getEditor('Details').setContent(result["Details"], false);
-                        $("#imgLogo").attr('src', result.ImageUrl);
+                        // $("#imgLogo").attr('src', result.ImageUrl);
                         $("#imgLogoM").attr('src', result.ImageUrlMax);
                         $('#Category').combotree('setValue', result['Category']);
-                        $('#States').combobox('select', result.States);
+                        $('#ShopId').combobox('select', result.ShopId);
 
-                        change(1);
-                        $('#CityCode').val(result.CityCode);
-                        change(2);
-                        $('#AreaCode').val(result.AreaCode);
-
-                        var map = new BMap.Map("Mapcontainer");          // 创建地图实例  
-                        var opts = { type: BMAP_NAVIGATION_CONTROL_LARGE }
-                        map.addControl(new BMap.NavigationControl(opts));
-                        var point = new BMap.Point(result["Longitude"], result["Latitude"]);  // 创建点坐标  
-                        map.centerAndZoom(point, 12);                 // 初始化地图，设置中心点坐标和地图级别  
-                        var marker = new BMap.Marker(point);        // 创建标注    
-                        map.addOverlay(marker);                     // 将标注添加到地图中
-                        marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
-
-                        map.addEventListener("click", function (e) {//点击事件
-                            map.clearOverlays();//清除
-                            $("input[name='Longitude']").val(e.point.lng)
-                            $("input[name='Latitude']").val(e.point.lat)
-                            var point = new BMap.Point(e.point.lng, e.point.lat);  // 创建点坐标   
-                            var marker = new BMap.Marker(point);
-                            map.addOverlay(marker);                     // 将标注添加到地图中
-                            marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画  
-
-                        });
-                        //var Wopts = {
-                        //    width: 250,     // 信息窗口宽度    
-                        //    height: 100,     // 信息窗口高度    
-                        //    title: "地址信息"  // 信息窗口标题   
-                        //}
-                        //var infoWindow = new BMap.InfoWindow(result["Address"], Wopts);  // 创建信息窗口对象    
-                        //map.openInfoWindow(infoWindow, map.getCenter());      // 打开信息窗口
-
+                        //  GetFileList(result.Id);//图片
                     }
                 });
 
@@ -210,7 +140,7 @@
                 var data = DataBaseFunction.GetFormData("ff")
                 var Details = UM.getEditor('Details').getContent();
                 Details = htmlEncode(Details);
-                data[data.length - 1].value = Details;
+                data[data.length-1].value = Details;
                 //发送异步请求到后台保存数据
                 $.post(BaseUrl + 'EditInfo', data, function (data) {
                     alerts(data.Msg, 2);
@@ -219,6 +149,13 @@
                         $(".validatebox-tip").remove();
                         $("#dg").datagrid("reload");
 
+
+                        //var id = $("input[name='Id']").val();
+                        //if (id == "") {
+                        //    id = data.Data;//id
+                        //}
+                        //Delfile();//删除移除的图片
+                        //SaveToid(id);//保存添加的图片
                     }
                 });
 
@@ -231,10 +168,6 @@
             }
             //搜索
             function Search() {
-                _init_areaForSearch();//搜索省市区初始化
-                GetSonDictionaryNo("Category_like1", "06");
-                $('#States_eq').combobox('reload', '/httpHandle/DictionaryHandler.ashx?action=GetSysItem&ItemType=States');  // 使用新的URL重新载入列表数据
-              //  $("#fSearh").form("clear");
                 $("#Div_Searh").dialog('open').dialog('setTitle', '搜索').window('resize', { top: 100, left: 100 });
             }
             //删除
@@ -246,7 +179,7 @@
                 var FileId = "";
                 $("input[name='Details']").val("");//html带有非法字符
                 $("#ff").form('submit', {
-                    url: "/httpHandle/UploadHandler.ashx?action=addImg&SourceTable=TS_ShopUser",
+                    url: "/httpHandle/UploadHandler.ashx?action=addImg&SourceTable=TS_Car",
                     onSubmit: function () {
 
                     },
@@ -296,7 +229,9 @@
                     }
                 })
             }
-
+            function AddImg() {
+                FileUp("TS_Car")
+            }
 
 
         </script>
@@ -324,40 +259,9 @@
                 </tr>
                 <tr>
                     <td>
-                        <label>电话：</label></td>
+                        <label>品牌：</label></td>
                     <td>
-                        <input type="text" class="textbox" name="Phone_like" style="width: 200px;" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>省/市/区：</label></td>
-                    <td>
-                        <select id="ProvinceCode_eq" name="ProvinceCode_eq">
-                        </select>
-                        <select id="CityCode_eq" name="CityCode_eq">
-                        </select>
-                        <select id="AreaCode_eq" name="AreaCode_eq">
-                        </select>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>类别：</label></td>
-                    <td>
-                        <select id="Category_like1" name="Category_like1" class="easyui-combotree" style="width: 200px;">
-                        </select>
-
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <label>状态：</label></td>
-                    <td>
-                        <input id="States_eq" class="easyui-combobox" name="States_eq"
-                            data-options="valueField:'ItemValue',textField:'ItemName'" />
-
+                        <input type="text" class="textbox" name="Brand_like" style="width: 200px;" />
                     </td>
                 </tr>
             </table>
@@ -377,15 +281,16 @@
                 <input type="hidden" name="Id" />
                 <input type="hidden" name="ImageUrlMax" />
                 <input type="hidden" name="ImageUrl" />
-                <input type="hidden" name="CreateManId" />
-                <input type="hidden" name="CreateTime" />
-                <input type="hidden" name="UpdateTime" />
-                <input type="hidden" name="Longitude" />
-                <input type="hidden" name="Latitude" />
-                <input type="hidden" name="isValid" />
-                <input type="hidden" name="isDeleted" />
+               
                 <table class="stripes" border="0" cellspacing="0" cellpadding="0">
+
                     <tr>
+                        <td style="width: 120px;">
+                            <label>名称：</label></td>
+                        <td>
+                            <input class="easyui-validatebox textbox" type="text" data-options="required:true" name="TName" /></td>
+                    </tr>
+                    @*  <tr>
                         <td>
                             <label>logo：</label></td>
                         <td>
@@ -394,7 +299,7 @@
                             <input type="file" name="file1" style="width: 50px;" onchange="FileHeadSave()" />
                         </td>
 
-                    </tr>
+                    </tr>*@
                     <tr>
                         <td>
                             <label>展示大图片：</label></td>
@@ -405,73 +310,39 @@
                         </td>
 
                     </tr>
-                    <tr>
-                        <td style="width: 120px;">
-                            <label>名称：</label></td>
+                    @* <tr>
                         <td>
-                            <input class="easyui-validatebox textbox" type="text" data-options="required:true" name="TName" /></td>
-                    </tr>
-                    <tr>
+                            <label>图片集：</label></td>
                         <td>
-                            <label>星级：</label></td>
-                        <td>
-                            <input class="easyui-validatebox textbox" onkeyup="clearNoNumberContainDot(this);" type="text" name="Star" /></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>电话：</label></td>
-                        <td>
-                            <input class="easyui-validatebox textbox" data-options="required:true" type="text" name="Phone" /></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>省/市/区：</label></td>
-                        <td>
-                            <select id="ProvinceCode" name="ProvinceCode">
-                            </select>
-                            <select id="CityCode" name="CityCode">
-                            </select>
-                            <select id="AreaCode" name="AreaCode">
-                            </select>
-
+                            <input type="file" id="fileimg" name="file" style="width: 50px;" onchange="AddImg()" />
+                            <div style="display: none">
+                                <div id="content" style="display: block; width: 100px; float: left; text-align: center;">
+                                    <input id="fileId" type="hidden" />
+                                    <img alt="" id="imgShow" src="ss" style="width: 100px; height: 100px; margin-top: 10px;" />
+                                    <a id="jian" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-delete'">移除</a>
+                                </div>
+                            </div>
+                            <div id="zhi" style="display: block; width: 600px;">
+                            </div>
                         </td>
+                    </tr>*@
+                    <tr>
+                        <td>
+                            <label>品牌：</label></td>
+                        <td>
+                            <input class="easyui-validatebox textbox" type="text" name="Brand" /></td>
                     </tr>
                     <tr>
                         <td>
-                            <label>地址：</label></td>
+                            <label>价格：</label></td>
                         <td>
-                            <textarea class="areabox" name="Address"></textarea></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>呼叫量：</label></td>
-                        <td>
-                            <input class="easyui-validatebox textbox" onkeyup="clearNoNumberContainDot(this);" type="text" name="CallCount" /></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>赞：</label></td>
-                        <td>
-                            <input class="easyui-validatebox textbox" onkeyup="clearNoNumberContainDot(this);" type="text" name="Praises" /></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>点击数：</label></td>
-                        <td>
-                            <input class="easyui-validatebox textbox" onkeyup="clearNoNumberContainDot(this);" type="text" name="Clicks" /></td>
-                    </tr>
-                    <td>
-                        <label>是否提供抢修：</label></td>
-                    <td>
-                        <input type="radio" value="1" name="IsRepair" />是
-                             <input type="radio" value="0" name="IsRepair" />否</td>
-
+                            <input class="easyui-validatebox textbox" onkeyup="clearNoNum(this);" data-options="required:true" type="text" name="Price" /></td>
                     </tr>
                     <tr>
                         <td>
                             <label>类别：</label></td>
                         <td>
-                            <select id="Category" name="Category" class="easyui-combotree" style="width: 200px;"
+                            <select id="Category" name="Category"  class="easyui-combotree" style="width: 200px;"
                                 data-options="required:true">
                             </select>
 
@@ -479,11 +350,10 @@
                     </tr>
                     <tr>
                         <td>
-                            <label>状态：</label></td>
+                            <label>所属店铺：</label></td>
                         <td>
-                            <input id="States" class="easyui-combobox" name="States"
-                                data-options="valueField:'ItemValue',textField:'ItemName',required:true" />
-
+                             <input id="ShopId" class="easyui-combobox" name="ShopId"
+                                data-options="valueField:'Id',textField:'TName',required:true" />
                         </td>
                     </tr>
                     <tr>
@@ -499,15 +369,8 @@
 
                         </td>
                     </tr>
-                    <tr>
-                        <td colspan="2">
-                            <div id="Mapcontainer" style="height: 460px; width: 100%"></div>
-
-                        </td>
-                    </tr>
                 </table>
             </form>
-
         </div>
 
         <div style="text-align: center; width: 100%; margin-bottom: 5px;">

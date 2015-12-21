@@ -34,8 +34,7 @@
                 FormStripes();//表单样式
                 AutoWH("#body", 40, 42);//自适应宽度
                 DataGridSet();
-                GetSonDictionaryNo("Category", "06");
-                $('#States').combobox('reload', '/httpHandle/DictionaryHandler.ashx?action=GetSysItem&ItemType=States');  // 使用新的URL重新载入列表数据
+                GetSonDictionaryNo("Category", "05");
                 _init_area();//初始化省市区联动
 
             })
@@ -50,24 +49,15 @@
                         { field: 'ProvinceName', title: '省', width: 100 },
                          { field: 'CityName', title: '市', width: 100 },
                          { field: 'AreaName', title: '区', width: 100 },
-                          {
-                              field: 'IsRepair', title: '是否提供抢修', width: 100, formatter: function (value, row, index) {
-                                  if (value == '1') {
-                                      return '是';
-                                  } else {
-                                      return '否';
-                                  }
-                              }
-                          },
                          { field: 'CallCount', title: '呼叫量', width: 100 },
                         { field: 'Praises', title: '赞', width: 100 },
                         { field: 'StatesName', title: '状态', width: 100 },
-                        { field: 'CreateTime', title: '添加时间', width: 150 },
+                        { field: 'CreateTime', title: '添加时间', width: 100 },
                          { field: 'CategoryName', title: '类型', width: 100 },
                         { field: 'Address', title: '地址', width: 300, align: 'right' }
                     ]],
                     iconCls: 'icon-save',
-                    title: '维修店',
+                    title: '店铺',
                     nowrap: true,
                     fit: true,
                     fitColumns: true,
@@ -87,7 +77,7 @@
                 //弹出层
                 // $("#DivEditor").dialog('open').dialog('setTitle', '添加信息');
                 $('#DivEditor').dialog({
-                    title: '添加维修店',
+                    title: '添加信息',
                     //width: 400,
                     //height: 200,
                     closed: false,
@@ -103,7 +93,6 @@
                 DataBaseFunction.ClearForm("ff");
                 $("#imgLogo").attr('src', "");
                 $("#imgLogoM").attr('src', "");
-                var _o = document.getElementsByName("IsRepair")[1].checked = true;;//radio默认选中
                 UM.getEditor('Details').setContent("", false);
                 change(0);//省城市默认选择第一个
                 var map = new BMap.Map("Mapcontainer");          // 创建地图实例  
@@ -127,8 +116,7 @@
                     marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画  
 
                 });
-
-
+                GetFileList();
             }
 
 
@@ -159,8 +147,7 @@
                         $("#imgLogo").attr('src', result.ImageUrl);
                         $("#imgLogoM").attr('src', result.ImageUrlMax);
                         $('#Category').combotree('setValue', result['Category']);
-                        $('#States').combobox('select', result.States);
-
+                     
                         change(1);
                         $('#CityCode').val(result.CityCode);
                         change(2);
@@ -185,14 +172,7 @@
                             marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画  
 
                         });
-                        //var Wopts = {
-                        //    width: 250,     // 信息窗口宽度    
-                        //    height: 100,     // 信息窗口高度    
-                        //    title: "地址信息"  // 信息窗口标题   
-                        //}
-                        //var infoWindow = new BMap.InfoWindow(result["Address"], Wopts);  // 创建信息窗口对象    
-                        //map.openInfoWindow(infoWindow, map.getCenter());      // 打开信息窗口
-
+                        GetFileList(result.Id);//图片
                     }
                 });
 
@@ -219,6 +199,13 @@
                         $(".validatebox-tip").remove();
                         $("#dg").datagrid("reload");
 
+
+                        var id = $("input[name='Id']").val();
+                        if (id == "") {
+                            id = data.Data;//id
+                        }
+                        Delfile();//删除移除的图片
+                        SaveToid(id);//保存添加的图片
                     }
                 });
 
@@ -231,8 +218,9 @@
             }
             //搜索
             function Search() {
+
                 _init_areaForSearch();//搜索省市区初始化
-                GetSonDictionaryNo("Category_like1", "06");
+                GetSonDictionaryNo("Category_like1", "05");
                 $('#States_eq').combobox('reload', '/httpHandle/DictionaryHandler.ashx?action=GetSysItem&ItemType=States');  // 使用新的URL重新载入列表数据
               //  $("#fSearh").form("clear");
                 $("#Div_Searh").dialog('open').dialog('setTitle', '搜索').window('resize', { top: 100, left: 100 });
@@ -296,7 +284,9 @@
                     }
                 })
             }
-
+            function AddImg() {
+                FileUp("TS_Shop")
+            }
 
 
         </script>
@@ -329,7 +319,7 @@
                         <input type="text" class="textbox" name="Phone_like" style="width: 200px;" />
                     </td>
                 </tr>
-                <tr>
+                                  <tr>
                     <td>
                         <label>省/市/区：</label></td>
                     <td>
@@ -351,15 +341,6 @@
 
                     </td>
                 </tr>
-                <tr>
-                    <td>
-                        <label>状态：</label></td>
-                    <td>
-                        <input id="States_eq" class="easyui-combobox" name="States_eq"
-                            data-options="valueField:'ItemValue',textField:'ItemName'" />
-
-                    </td>
-                </tr>
             </table>
 
         </form>
@@ -377,14 +358,16 @@
                 <input type="hidden" name="Id" />
                 <input type="hidden" name="ImageUrlMax" />
                 <input type="hidden" name="ImageUrl" />
-                <input type="hidden" name="CreateManId" />
-                <input type="hidden" name="CreateTime" />
-                <input type="hidden" name="UpdateTime" />
                 <input type="hidden" name="Longitude" />
                 <input type="hidden" name="Latitude" />
-                <input type="hidden" name="isValid" />
-                <input type="hidden" name="isDeleted" />
                 <table class="stripes" border="0" cellspacing="0" cellpadding="0">
+
+                    <tr>
+                        <td style="width: 120px;">
+                            <label>名称：</label></td>
+                        <td>
+                            <input class="easyui-validatebox textbox" type="text" data-options="required:true" name="TName" /></td>
+                    </tr>
                     <tr>
                         <td>
                             <label>logo：</label></td>
@@ -406,16 +389,20 @@
 
                     </tr>
                     <tr>
-                        <td style="width: 120px;">
-                            <label>名称：</label></td>
                         <td>
-                            <input class="easyui-validatebox textbox" type="text" data-options="required:true" name="TName" /></td>
-                    </tr>
-                    <tr>
+                            <label>图片集：</label></td>
                         <td>
-                            <label>星级：</label></td>
-                        <td>
-                            <input class="easyui-validatebox textbox" onkeyup="clearNoNumberContainDot(this);" type="text" name="Star" /></td>
+                            <input type="file" id="fileimg" name="file" style="width: 50px;" onchange="AddImg()" />
+                            <div style="display: none">
+                                <div id="content" style="display: block; width: 100px; float: left; text-align: center;">
+                                    <input id="fileId" type="hidden" />
+                                    <img alt="" id="imgShow" src="ss" style="width: 100px; height: 100px; margin-top: 10px;" />
+                                    <a id="jian" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-delete'">移除</a>
+                                </div>
+                            </div>
+                            <div id="zhi" style="display: block; width: 600px;">
+                            </div>
+                        </td>
                     </tr>
                     <tr>
                         <td>
@@ -438,51 +425,11 @@
                     </tr>
                     <tr>
                         <td>
-                            <label>地址：</label></td>
-                        <td>
-                            <textarea class="areabox" name="Address"></textarea></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>呼叫量：</label></td>
-                        <td>
-                            <input class="easyui-validatebox textbox" onkeyup="clearNoNumberContainDot(this);" type="text" name="CallCount" /></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>赞：</label></td>
-                        <td>
-                            <input class="easyui-validatebox textbox" onkeyup="clearNoNumberContainDot(this);" type="text" name="Praises" /></td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>点击数：</label></td>
-                        <td>
-                            <input class="easyui-validatebox textbox" onkeyup="clearNoNumberContainDot(this);" type="text" name="Clicks" /></td>
-                    </tr>
-                    <td>
-                        <label>是否提供抢修：</label></td>
-                    <td>
-                        <input type="radio" value="1" name="IsRepair" />是
-                             <input type="radio" value="0" name="IsRepair" />否</td>
-
-                    </tr>
-                    <tr>
-                        <td>
                             <label>类别：</label></td>
                         <td>
                             <select id="Category" name="Category" class="easyui-combotree" style="width: 200px;"
                                 data-options="required:true">
                             </select>
-
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <label>状态：</label></td>
-                        <td>
-                            <input id="States" class="easyui-combobox" name="States"
-                                data-options="valueField:'ItemValue',textField:'ItemName',required:true" />
 
                         </td>
                     </tr>
@@ -507,7 +454,6 @@
                     </tr>
                 </table>
             </form>
-
         </div>
 
         <div style="text-align: center; width: 100%; margin-bottom: 5px;">

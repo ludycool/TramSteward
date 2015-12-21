@@ -124,17 +124,16 @@
 
             //绑定修改显示详细信息的方法
             function EditInfo() {
-                //处理修改的信息，弹出修改的对话框,然后显示选择的的详细信息
-                $("#DivEditor").dialog('open').dialog('setTitle', '修改信息').window('resize', { top: 50, left: 50 });
-                //首先发送一个异步请求去后台实现方法
-
-
                 var rows = $("#dg").datagrid('getSelected');
                 //首先取出来值判断只能选择一个
                 if (rows == null) {
                     $.messager.alert("友情提示", "请选择", "error");
                     return;
                 }
+                //处理修改的信息，弹出修改的对话框,然后显示选择的的详细信息
+                $("#DivEditor").dialog('open').dialog('setTitle', '修改-' + rows.TName).window('resize', { top: 50, left: 50 });
+                //首先发送一个异步请求去后台实现方法
+
                 $(".validatebox-tip").remove();//清除验证样式
                 var ID = rows.Id;  //获取到了用选择的ID
                 $.ajax({
