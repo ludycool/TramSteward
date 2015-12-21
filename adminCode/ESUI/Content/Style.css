@@ -9,6 +9,24 @@ body {
     margin: 0;
 }
 
+.heder {
+    width: 100%;
+    height: 80px;
+    background: url(Images/mheader.png) repeat-x left center;
+}
+
+.footer {
+    width: 100%;
+    height: 30px;
+    background: url(Images/footerback.png) repeat-x left center;
+    text-align: center;
+    color: #ffffff;
+    margin: 0px;
+    padding: 0px;
+    line-height: 23px;
+    font-weight: bold;
+}
+
 h2 {
     font-size: 18px;
     font-weight: bold;
@@ -60,7 +78,8 @@ form table {
 /* css注释：鼠标经过时候背景颜色 */
 
 .textbox {
-    width:200px;height:24px;
+    width: 200px;
+    height: 24px;
     position: relative;
     border: 1px solid #95B8E7;
     background-color: #fff;
@@ -77,7 +96,8 @@ form table {
 }
 
 .areabox {
-     width:450px;height:150px;
+    width: 450px;
+    height: 150px;
     position: relative;
     border: 1px solid #95B8E7;
     background-color: #fff;
