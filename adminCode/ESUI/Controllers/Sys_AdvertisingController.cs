@@ -66,7 +66,7 @@ namespace ESUI.Controllers
             HttpReSultMode ReSultMode = new HttpReSultMode();
             bool IsAdd = false;
             Sys_AdvertisingModle.UpdateTime = DateTime.Now;
-            if (!(Sys_AdvertisingModle.Id != null && !Sys_AdvertisingModle.Id.ToString().Equals("00000000-0000-0000-0000-000000000000")))//id为空，是添加
+            if (Sys_AdvertisingModle.Id ==0)//id为空，是添加
             {
                 IsAdd = true;
                 Sys_AdvertisingModle.AddTime = DateTime.Now;

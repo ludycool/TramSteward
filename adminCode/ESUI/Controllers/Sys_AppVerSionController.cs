@@ -66,7 +66,7 @@ namespace ESUI.Controllers
             HttpReSultMode ReSultMode = new HttpReSultMode();
             bool IsAdd = false;
             Sys_AppVerSionModle.UpdateTime = DateTime.Now;
-            if (!(Sys_AppVerSionModle.Id != null && !Sys_AppVerSionModle.Id.ToString().Equals("00000000-0000-0000-0000-000000000000")))//id为空，是添加
+            if (Sys_AppVerSionModle.Id ==0)//id为空，是添加
             {
                 IsAdd = true;
                 Sys_AppVerSionModle.AddTime = DateTime.Now;

@@ -276,7 +276,7 @@
                 _init_areaForSearch();//搜索省市区初始化
                 GetSonDictionaryNo("Category_like1", "04");
                 $('#States_eq').combobox('reload', '/httpHandle/DictionaryHandler.ashx?action=GetSysItem&ItemType=States');  // 使用新的URL重新载入列表数据
-                $("#fSearh").form("clear");
+            //   $("#fSearh").form("clear");
                 $("#Div_Searh").dialog('open').dialog('setTitle', '搜索').window('resize', { top: 100, left: 100 });
             }
         </script>
