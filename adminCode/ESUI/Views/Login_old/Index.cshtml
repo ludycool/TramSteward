@@ -1,0 +1,138 @@
+@model ESUI.Models.LoginModel
+@{
+    Layout = null;
+    if (ViewData["IsShowAlert"] != null && ViewData["IsShowAlert"].ToString() == "True")
+    {
+
+        Response.Write(" <script>alert('" + ViewData["Alert"] + "'); </script>");
+
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>电车e管家登录</title>
+    <link href="~/Content/Login/images/Default.css" rel="stylesheet" />
+    <link href="~/Content/Login/images/xtree.css" rel="stylesheet" />
+    <link href="~/Content/Login/images/User_Login.css" rel="stylesheet" />
+    <script src="~/Content/JqueryEasyUI/jquery1.9.min.js"></script>
+    <script src="~/Content/js/CommonFunction.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+    <meta content="MSHTML 6.00.6000.16674" name="GENERATOR">
+
+    <style type="text/css">
+        .img {
+            /*设置图片垂直居中*/
+            vertical-align: middle;
+            margin-left: 0px;
+        }
+    </style>
+
+
+    <script type="text/javascript">
+        $(function () {
+
+            //首次加载
+
+            $("#valiCode").attr("src", "/Login/GetValidateCode?time=" + (new Date()).getTime());
+
+            //单击验证码事件
+
+            $("#valiCode").bind("click", function () {
+
+                this.src = "/Login/GetValidateCode?time=" + (new Date()).getTime();
+
+            });
+
+        });
+
+
+    </script>
+
+
+
+
+
+
+</head>
+<body id="userlogin_body">
+    <div></div>
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+        <div id="user_login">
+            <dl>
+                <dd id="user_top">
+                    <ul>
+                        <li class="user_top_l"></li>
+                        <li class="user_top_c"></li>
+                        <li class="user_top_r"></li>
+                    </ul>
+                    <dd id="user_main">
+                        <ul>
+                            <li class="user_main_l"></li>
+                            <li class="user_main_c">
+                                <div class="user_main_box">
+
+                                    <ul>
+                                        <li class="user_main_text">用户名： </li>
+                                        <li class="user_main_input">
+
+                                            @Html.TextBoxFor(m => m.LoginName, new { @class = "TxtUserNameCssClass" })
+
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li class="user_main_text">密 码： </li>
+                                        <li class="user_main_input">
+                                            @Html.PasswordFor(m => m.Password, new { @class = "TxtPasswordCssClass" })
+
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li class="user_main_text">验证码： </li>
+                                        <li class="user_main_input">
+                                            @Html.TextBoxFor(m => m.VCode, new { @class = "TxtValidateCodeCssClass" })
+                                            <img id="valiCode" style="cursor: pointer;" class="img" src="/Common/GetValidateCode" alt="看不清？请点我" />
+
+                                        </li>
+                                    </ul>
+                                    <ul>
+                                        <li class="user_main_text">类型： </li>
+                                        <li class="user_main_input">
+                                             @Html.DropDownListFor(model => model.UserType, ViewData["UserType"] as SelectList)
+
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="user_main_r">
+                                <input class="IbtnEnterCssClass" id="IbtnEnter" value=""
+                                    style="BORDER-TOP-WIDTH: 0px; BORDER-LEFT-WIDTH: 0px; BORDER-BOTTOM-WIDTH: 0px; BORDER-RIGHT-WIDTH: 0px; margin-top: 0px;"
+                                    type="submit" name="IbtnEnter">
+                            </li>
+                        </ul>
+                        <dd id="user_bottom">
+                            <ul>
+                                <li class="user_bottom_l"></li>
+                                <li class="user_bottom_c"><span style="MARGIN-TOP: 40px">认识自己，降伏自己，改变自己，才能改变别人。</span> </li>
+                                <li class="user_bottom_r"></li>
+                            </ul>
+                        </dd>
+            </dl>
+        </div>
+    }
+    <span id="ValrUserName"
+        style="DISPLAY: none; COLOR: red"></span><span id="ValrPassword"
+            style="DISPLAY: none; COLOR: red"></span><span id="ValrValidateCode"
+                style="DISPLAY: none; COLOR: red"></span>
+    <div id="ValidationSummary1" style="DISPLAY: none; COLOR: red"></div>
+
+    <div></div>
+
+    </FORM></body></html>
+
