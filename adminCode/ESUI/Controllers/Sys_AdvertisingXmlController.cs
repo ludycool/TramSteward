@@ -19,12 +19,12 @@ using System.Xml;
 namespace ESUI.Controllers
 {
     //[Export]
-    public class AdvertisingController : BaseController
+    public class Sys_AdvertisingController : BaseController
     {
 
-        //[Import(typeof(IAdvertisingDao))]
-        //   public IAdvertisingDao OPBiz { get; set; }
-        // public AdvertisingBiz OPBiz = new AdvertisingBiz();
+        //[Import(typeof(ISys_AdvertisingDao))]
+        //   public ISys_AdvertisingDao OPBiz { get; set; }
+        // public Sys_AdvertisingBiz OPBiz = new Sys_AdvertisingBiz();
         public ActionResult Index()
         {
             ViewBag.RuteUrl = RuteUrl();
@@ -36,47 +36,46 @@ namespace ESUI.Controllers
         public JsonResult Search()
         {
 
-            AdvertisingXmlHelper xh = new AdvertisingXmlHelper(System.Web.HttpContext.Current.Server.MapPath("~/App_Data/"));
-            List<Advertising> list2 = xh.GetAll();
+            Sys_AdvertisingXmlHelper xh = new Sys_AdvertisingXmlHelper(System.Web.HttpContext.Current.Server.MapPath("~/App_Data/"));
+            List<Sys_Advertising> list2 = xh.GetAll();
             Dictionary<string, object> dic = new Dictionary<string, object>();
 
 
-            // var mql = AdvertisingSet.Id.NotEqual("");
+            // var mql = Sys_AdvertisingSet.Id.NotEqual("");
             dic.Add("rows", list2);
             dic.Add("total", xh.GetAll().Count);
             string d = JsonConvert.SerializeObject(dic);
             return Json(dic, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult EditInfo(Advertising AdvertisingModle)
+        public JsonResult EditInfo(Sys_Advertising Sys_AdvertisingModle)
         {
-            AdvertisingXmlHelper xh = new AdvertisingXmlHelper(System.Web.HttpContext.Current.Server.MapPath("~/App_Data/"));
+            Sys_AdvertisingXmlHelper xh = new Sys_AdvertisingXmlHelper(System.Web.HttpContext.Current.Server.MapPath("~/App_Data/"));
             bool IsAdd = false;
-            if (AdvertisingModle.Details != null)
+            if (Sys_AdvertisingModle.Details != null)
             {
-                AdvertisingModle.Details = AdvertisingModle.Details.Replace("&lt", "<").Replace("&gt", ">");
+                Sys_AdvertisingModle.Details = Sys_AdvertisingModle.Details.Replace("&lt", "<").Replace("&gt", ">");
             }
-            if (AdvertisingModle.States == null)
+            if (Sys_AdvertisingModle.States == null)
             {
-                AdvertisingModle.States = 1;
+                Sys_AdvertisingModle.States = 1;
             }
-            if (!(AdvertisingModle.Id != null && !AdvertisingModle.Id.ToString().Equals("00000000-0000-0000-0000-000000000000")))//id为空，是添加
+            if (Sys_AdvertisingModle.Id ==0)//id为空，是添加
             {
                 IsAdd = true;
             }
             if (IsAdd)
             {
-                AdvertisingModle.Id = Guid.NewGuid();
-                AdvertisingModle.UpdateTime = DateTime.Now;
-                AdvertisingModle.AddTime = DateTime.Now;
-                xh.Add(AdvertisingModle);
+                Sys_AdvertisingModle.UpdateTime = DateTime.Now;
+                Sys_AdvertisingModle.AddTime = DateTime.Now;
+                xh.Add(Sys_AdvertisingModle);
                 return Json("ok", JsonRequestBehavior.AllowGet);
             }
             else
             {
 
-                AdvertisingModle.UpdateTime = DateTime.Now;
-                if (xh.Update(AdvertisingModle) > 0)
+                Sys_AdvertisingModle.UpdateTime = DateTime.Now;
+                if (xh.Update(Sys_AdvertisingModle) > 0)
                 {
                     return Json("ok", JsonRequestBehavior.AllowGet);
                 }
@@ -91,15 +90,15 @@ namespace ESUI.Controllers
         }
         public JsonResult GetInfo(string ID)
         {
-            AdvertisingXmlHelper xh = new AdvertisingXmlHelper(System.Web.HttpContext.Current.Server.MapPath("~/App_Data/"));
-            Advertising Rmodel = xh.GetItemById(ID);
+            Sys_AdvertisingXmlHelper xh = new Sys_AdvertisingXmlHelper(System.Web.HttpContext.Current.Server.MapPath("~/App_Data/"));
+            Sys_Advertising Rmodel = xh.GetItemById(ID);
             //  groupsBiz.Add(rol);
             return Json(Rmodel, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult Del(string IDSet)
         {
-            AdvertisingXmlHelper xh = new AdvertisingXmlHelper(System.Web.HttpContext.Current.Server.MapPath("~/App_Data/"));
+            Sys_AdvertisingXmlHelper xh = new Sys_AdvertisingXmlHelper(System.Web.HttpContext.Current.Server.MapPath("~/App_Data/"));
 
             int f = xh.DelById(IDSet);
             return Json("OK", JsonRequestBehavior.AllowGet);

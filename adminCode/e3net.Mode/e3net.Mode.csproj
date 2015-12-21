@@ -60,7 +60,6 @@
     <Compile Include="AgSys\ClientUser.cs" />
     <Compile Include="AgSys\Comment.cs" />
     <Compile Include="AgSys\File_tb.cs" />
-    <Compile Include="AppVersion.cs" />
     <Compile Include="File_Image.cs" />
     <Compile Include="SysItem.cs" />
     <Compile Include="Sys_Advertising.cs" />
@@ -107,7 +106,6 @@
     <Compile Include="Sys_Dictionary.cs" />
     <Compile Include="RMS\V_MenuButtons.cs" />
     <Compile Include="RMS\V_RoleManuButtons.cs" />
-    <Compile Include="Advertising.cs" />
     <Compile Include="Parameter.cs" />
     <Compile Include="YhSys\PushMessage.cs" />
   </ItemGroup>

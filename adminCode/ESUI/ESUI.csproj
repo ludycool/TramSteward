@@ -255,8 +255,7 @@
     <Compile Include="Controllers\TramStewardDB_U\UTS_ShopController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ParameterController.cs" />
-    <Compile Include="Controllers\AdvertisingController.cs" />
-    <Compile Include="Controllers\AppVersionController.cs" />
+    <Compile Include="Controllers\Sys_AdvertisingXmlController.cs" />
     <Compile Include="Controllers\PushMessageController.cs" />
     <Compile Include="Controllers\Sys_CityAreaController.cs" />
     <Compile Include="Controllers\Sys_AdvertisingController.cs" />
@@ -3518,8 +3517,6 @@
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Products\Index.cshtml" />
     <Content Include="Views\Parameter\Index.cshtml" />
-    <Content Include="Views\Advertising\Index.cshtml" />
-    <Content Include="Views\AppVersion\Index.cshtml" />
     <Content Include="Views\PushMessage\Index.cshtml" />
     <Content Include="Views\TS_ClientUser\Index.cshtml" />
     <Content Include="Views\TS_ShopUser\Index.cshtml" />
