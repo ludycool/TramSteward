@@ -147,7 +147,7 @@
                         DataBaseFunction.BindForm("ff", result);
                         UM.getEditor('Details').setContent(result["Details"], false);
                         $("#imgLogo").attr('src', result.ImageUrl);
-                        $("#imgLogoM").attr('src', result.ImageUrlMax);
+                       // $("#imgLogoM").attr('src', result.ImageUrlMax);
                         $('#Category').combotree('setValue', result['Category']);
                       
 
@@ -375,7 +375,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <label>logo：</label></td>
+                            <label>图片logo：</label></td>
                         <td>
 
                             <img alt="" id="imgLogo" src="" style="width: 100px; height: 100px; margin-top: 10px;" />
@@ -383,7 +383,7 @@
                         </td>
 
                     </tr>
-                    <tr>
+                @*    <tr>
                         <td>
                             <label>展示大图片：</label></td>
                         <td>
@@ -392,7 +392,7 @@
                             <input type="file" name="fileM" style="width: 50px;" onchange="FileHeadSaveM()" />
                         </td>
 
-                    </tr>
+                    </tr>*@
 
 
                     <tr>

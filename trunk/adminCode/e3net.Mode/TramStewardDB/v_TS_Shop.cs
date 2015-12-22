@@ -263,6 +263,24 @@ namespace e3net.Mode.TramStewardDB
             get { return GetPropertyValue<String>("AreaName"); }
             set { SetPropertyValue("AreaName", value); }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String TrueName
+        {
+            get { return GetPropertyValue<String>("TrueName"); }
+            set { SetPropertyValue("TrueName", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String UserName
+        {
+            get { return GetPropertyValue<String>("UserName"); }
+            set { SetPropertyValue("UserName", value); }
+        }
     }
 
     [Table("[v_TS_Shop]", DbType.SqlServer)]
@@ -416,6 +434,16 @@ namespace e3net.Mode.TramStewardDB
         /// 
         /// </summary>
         public static readonly FieldBase AreaName = new FieldBase(DbType.SqlServer, "[v_TS_Shop]", FieldType.Common, "[AreaName]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase TrueName = new FieldBase(DbType.SqlServer, "[v_TS_Shop]", FieldType.Common, "[TrueName]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase UserName = new FieldBase(DbType.SqlServer, "[v_TS_Shop]", FieldType.Common, "[UserName]");
     }
 
 }
