@@ -19,7 +19,7 @@ using System.Xml;
 namespace ESUI.Controllers
 {
     //[Export]
-    public class Sys_AdvertisingController : BaseController
+    public class Sys_AdvertisingXmlController : BaseController
     {
 
         //[Import(typeof(ISys_AdvertisingDao))]

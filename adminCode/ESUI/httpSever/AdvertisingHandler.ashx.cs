@@ -23,6 +23,7 @@ namespace ESUI.httpSever
         {
             context.Response.ContentType = "text/plain";
             // context.Response.Write("Hello World");
+            //  /httpSever/AdvertisingHandler.ashx?json={"jsonEntity":{"Category":"0201"},"action":"GetByCategory"}
             HttpReSultMode resultMode = new HttpReSultMode();
             Sys_AdvertisingBiz OPBiz = new Sys_AdvertisingBiz();
             try

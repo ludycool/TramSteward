@@ -18,7 +18,7 @@ using e3net.Mode.HttpView;
 namespace ESUI.Controllers
 {
     //[Export]
-    public class Sys_AdvertisingXmlController : BaseController
+    public class Sys_AdvertisingController : BaseController
     {
 
         //[Import(typeof(ISys_AdvertisingDao))]
