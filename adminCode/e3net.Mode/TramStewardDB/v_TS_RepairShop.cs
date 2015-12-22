@@ -31,7 +31,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 主键
+        /// 
         /// </summary>
         public Guid Id
         {
@@ -40,7 +40,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 名称
+        /// 
         /// </summary>
         public String TName
         {
@@ -49,7 +49,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 大图片
+        /// 
         /// </summary>
         public String ImageUrlMax
         {
@@ -58,7 +58,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 图像
+        /// 
         /// </summary>
         public String ImageUrl
         {
@@ -67,7 +67,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 星级
+        /// 
         /// </summary>
         public Int32? Star
         {
@@ -76,7 +76,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 电话
+        /// 
         /// </summary>
         public String Phone
         {
@@ -85,7 +85,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 详情
+        /// 
         /// </summary>
         public String Details
         {
@@ -94,7 +94,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 是否提供抢修（1是，0否）
+        /// 
         /// </summary>
         public Int32? IsRepair
         {
@@ -103,7 +103,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 类别
+        /// 
         /// </summary>
         public String Category
         {
@@ -112,7 +112,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 创建人Id
+        /// 
         /// </summary>
         public Guid? CreateManId
         {
@@ -121,7 +121,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 省
+        /// 
         /// </summary>
         public String ProvinceCode
         {
@@ -130,7 +130,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 城市
+        /// 
         /// </summary>
         public String CityCode
         {
@@ -139,7 +139,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 区
+        /// 
         /// </summary>
         public String AreaCode
         {
@@ -148,7 +148,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 地址
+        /// 
         /// </summary>
         public String Address
         {
@@ -157,7 +157,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 呼叫量
+        /// 
         /// </summary>
         public Int32? CallCount
         {
@@ -166,7 +166,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 赞
+        /// 
         /// </summary>
         public Int32? Praises
         {
@@ -175,7 +175,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 点击数
+        /// 
         /// </summary>
         public Int32? Clicks
         {
@@ -184,7 +184,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 添加时间
+        /// 
         /// </summary>
         public DateTime? CreateTime
         {
@@ -193,7 +193,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 修改时间
+        /// 
         /// </summary>
         public DateTime? UpdateTime
         {
@@ -202,7 +202,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 经度
+        /// 
         /// </summary>
         public Double? Longitude
         {
@@ -211,7 +211,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 纬度
+        /// 
         /// </summary>
         public Double? Latitude
         {
@@ -220,7 +220,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 状态（2已审核、开启1，未审核0，关闭-1）
+        /// 
         /// </summary>
         public Int32? States
         {
@@ -229,7 +229,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 是否有效
+        /// 
         /// </summary>
         public Int32? isValid
         {
@@ -238,7 +238,7 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
-        /// 是否删除
+        /// 
         /// </summary>
         public Boolean? isDeleted
         {
@@ -272,6 +272,24 @@ namespace e3net.Mode.TramStewardDB
             get { return GetPropertyValue<String>("AreaName"); }
             set { SetPropertyValue("AreaName", value); }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String UserName
+        {
+            get { return GetPropertyValue<String>("UserName"); }
+            set { SetPropertyValue("UserName", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String TrueName
+        {
+            get { return GetPropertyValue<String>("TrueName"); }
+            set { SetPropertyValue("TrueName", value); }
+        }
     }
 
     [Table("[v_TS_RepairShop]", DbType.SqlServer)]
@@ -297,122 +315,122 @@ namespace e3net.Mode.TramStewardDB
         public static readonly FieldBase CategoryName = new FieldBase(DbType.SqlServer, "[v_TS_RepairShop]", FieldType.Common, "[CategoryName]");
 
         /// <summary>
-        /// 主键
+        /// 
         /// </summary>
         public static readonly FieldBase Id = new FieldBase(DbType.SqlServer, "[v_TS_RepairShop]", FieldType.Common, "[Id]");
 
         /// <summary>
-        /// 名称
+        /// 
         /// </summary>
         public static readonly FieldBase TName = new FieldBase(DbType.SqlServer, "[v_TS_RepairShop]", FieldType.Common, "[TName]");
 
         /// <summary>
-        /// 大图片
+        /// 
         /// </summary>
         public static readonly FieldBase ImageUrlMax = new FieldBase(DbType.SqlServer, "[v_TS_RepairShop]", FieldType.Common, "[ImageUrlMax]");
 
         /// <summary>
-        /// 图像
+        /// 
         /// </summary>
         public static readonly FieldBase ImageUrl = new FieldBase(DbType.SqlServer, "[v_TS_RepairShop]", FieldType.Common, "[ImageUrl]");
 
         /// <summary>
-        /// 星级
+        /// 
         /// </summary>
         public static readonly FieldBase Star = new FieldBase(DbType.SqlServer, "[v_TS_RepairShop]", FieldType.Common, "[Star]");
 
         /// <summary>
-        /// 电话
+        /// 
         /// </summary>
         public static readonly FieldBase Phone = new FieldBase(DbType.SqlServer, "[v_TS_RepairShop]", FieldType.Common, "[Phone]");
 
         /// <summary>
-        /// 详情
+        /// 
         /// </summary>
         public static readonly FieldBase Details = new FieldBase(DbType.SqlServer, "[v_TS_RepairShop]", FieldType.Common, "[Details]");
 
         /// <summary>
-        /// 是否提供抢修（1是，0否）
+        /// 
         /// </summary>
         public static readonly FieldBase IsRepair = new FieldBase(DbType.SqlServer, "[v_TS_RepairShop]", FieldType.Common, "[IsRepair]");
 
         /// <summary>
-        /// 类别
+        /// 
         /// </summary>
         public static readonly FieldBase Category = new FieldBase(DbType.SqlServer, "[v_TS_RepairShop]", FieldType.Common, "[Category]");
 
         /// <summary>
-        /// 创建人Id
+        /// 
         /// </summary>
         public static readonly FieldBase CreateManId = new FieldBase(DbType.SqlServer, "[v_TS_RepairShop]", FieldType.Common, "[CreateManId]");
 
         /// <summary>
-        /// 省
+        /// 
         /// </summary>
         public static readonly FieldBase ProvinceCode = new FieldBase(DbType.SqlServer, "[v_TS_RepairShop]", FieldType.Common, "[ProvinceCode]");
 
         /// <summary>
-        /// 城市
+        /// 
         /// </summary>
         public static readonly FieldBase CityCode = new FieldBase(DbType.SqlServer, "[v_TS_RepairShop]", FieldType.Common, "[CityCode]");
 
         /// <summary>
-        /// 区
+        /// 
         /// </summary>
         public static readonly FieldBase AreaCode = new FieldBase(DbType.SqlServer, "[v_TS_RepairShop]", FieldType.Common, "[AreaCode]");
 
         /// <summary>
-        /// 地址
+        /// 
         /// </summary>
         public static readonly FieldBase Address = new FieldBase(DbType.SqlServer, "[v_TS_RepairShop]", FieldType.Common, "[Address]");
 
         /// <summary>
-        /// 呼叫量
+        /// 
         /// </summary>
         public static readonly FieldBase CallCount = new FieldBase(DbType.SqlServer, "[v_TS_RepairShop]", FieldType.Common, "[CallCount]");
 
         /// <summary>
-        /// 赞
+        /// 
         /// </summary>
         public static readonly FieldBase Praises = new FieldBase(DbType.SqlServer, "[v_TS_RepairShop]", FieldType.Common, "[Praises]");
 
         /// <summary>
-        /// 点击数
+        /// 
         /// </summary>
         public static readonly FieldBase Clicks = new FieldBase(DbType.SqlServer, "[v_TS_RepairShop]", FieldType.Common, "[Clicks]");
 
         /// <summary>
-        /// 添加时间
+        /// 
         /// </summary>
         public static readonly FieldBase CreateTime = new FieldBase(DbType.SqlServer, "[v_TS_RepairShop]", FieldType.Common, "[CreateTime]");
 
         /// <summary>
-        /// 修改时间
+        /// 
         /// </summary>
         public static readonly FieldBase UpdateTime = new FieldBase(DbType.SqlServer, "[v_TS_RepairShop]", FieldType.Common, "[UpdateTime]");
 
         /// <summary>
-        /// 经度
+        /// 
         /// </summary>
         public static readonly FieldBase Longitude = new FieldBase(DbType.SqlServer, "[v_TS_RepairShop]", FieldType.Common, "[Longitude]");
 
         /// <summary>
-        /// 纬度
+        /// 
         /// </summary>
         public static readonly FieldBase Latitude = new FieldBase(DbType.SqlServer, "[v_TS_RepairShop]", FieldType.Common, "[Latitude]");
 
         /// <summary>
-        /// 状态（2已审核、开启1，未审核0，关闭-1）
+        /// 
         /// </summary>
         public static readonly FieldBase States = new FieldBase(DbType.SqlServer, "[v_TS_RepairShop]", FieldType.Common, "[States]");
 
         /// <summary>
-        /// 是否有效
+        /// 
         /// </summary>
         public static readonly FieldBase isValid = new FieldBase(DbType.SqlServer, "[v_TS_RepairShop]", FieldType.Common, "[isValid]");
 
         /// <summary>
-        /// 是否删除
+        /// 
         /// </summary>
         public static readonly FieldBase isDeleted = new FieldBase(DbType.SqlServer, "[v_TS_RepairShop]", FieldType.Common, "[isDeleted]");
 
@@ -430,6 +448,16 @@ namespace e3net.Mode.TramStewardDB
         /// 
         /// </summary>
         public static readonly FieldBase AreaName = new FieldBase(DbType.SqlServer, "[v_TS_RepairShop]", FieldType.Common, "[AreaName]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase UserName = new FieldBase(DbType.SqlServer, "[v_TS_RepairShop]", FieldType.Common, "[UserName]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase TrueName = new FieldBase(DbType.SqlServer, "[v_TS_RepairShop]", FieldType.Common, "[TrueName]");
     }
 
 }

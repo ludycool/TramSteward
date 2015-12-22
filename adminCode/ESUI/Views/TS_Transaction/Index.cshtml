@@ -45,6 +45,8 @@
                     columns: [[
                         { field: 'ck', checkbox: true },
                         { field: 'Title', title: '名称', width: 100 },
+                         { field: 'UserName', title: '发布者', width: 100 },
+                            { field: 'TrueName', title: '姓名', width: 100 },
                           { field: 'Brand', title: '品牌', width: 100 },
                              { field: 'Price', title: '价格', width: 100 },
                         { field: 'TrueName', title: '联系人', width: 100 },
@@ -63,7 +65,7 @@
                     title: '交易信息',
                     nowrap: true,
                     fit: true,
-                    fitColumns: true,
+                    //fitColumns: true,
                     singleSelect: true,
                     striped: true,
                     collapsible: true,
@@ -206,9 +208,8 @@
                         $("#dg").datagrid("reload");
 
 
-                        var id=$("input[name='Id']").val();
-                        if (id == "")
-                        {
+                        var id = $("input[name='Id']").val();
+                        if (id == "") {
                             id = data.Data;//id
                         }
                         Delfile();//删除移除的图片
@@ -229,7 +230,7 @@
                 _init_areaForSearch();//搜索省市区初始化
                 GetSonDictionaryNo("Category_like1", "09");
                 $('#States_eq').combobox('reload', '/httpHandle/DictionaryHandler.ashx?action=GetSysItem&ItemType=States');  // 使用新的URL重新载入列表数据
-              //  $("#fSearh").form("clear");
+                //  $("#fSearh").form("clear");
                 $("#Div_Searh").dialog('open').dialog('setTitle', '搜索').window('resize', { top: 100, left: 100 });
             }
             //删除
@@ -264,7 +265,7 @@
             }
 
             function AddImg() {
-                    FileUp("TS_Transaction")
+                FileUp("TS_Transaction")
             }
         </script>
     }
@@ -296,7 +297,7 @@
                         <input type="text" class="textbox" name="Phone_like" style="width: 200px;" />
                     </td>
                 </tr>
-                                  <tr>
+                <tr>
                     <td>
                         <label>省/市/区：</label></td>
                     <td>

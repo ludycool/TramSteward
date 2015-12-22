@@ -45,6 +45,8 @@
                     columns: [[
                         { field: 'ck', checkbox: true },
                         { field: 'TName', title: '名称', width: 100 },
+                         { field: 'UserName', title: '发布者', width: 100 },
+                            { field: 'TrueName', title: '姓名', width: 100 },
                         { field: 'Star', title: '星级', width: 100 },
                         { field: 'Phone', title: '电话', width: 100 },
                         { field: 'ProvinceName', title: '省', width: 100 },
@@ -224,7 +226,7 @@
                 _init_areaForSearch();//搜索省市区初始化
                 GetSonDictionaryNo("Category_like1", "07");
                 $('#States_eq').combobox('reload', '/httpHandle/DictionaryHandler.ashx?action=GetSysItem&ItemType=States');  // 使用新的URL重新载入列表数据
-              //  $("#fSearh").form("clear");
+                //  $("#fSearh").form("clear");
                 $("#Div_Searh").dialog('open').dialog('setTitle', '搜索').window('resize', { top: 100, left: 100 });
             }
             //删除

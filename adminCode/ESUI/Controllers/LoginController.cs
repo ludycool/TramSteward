@@ -41,7 +41,7 @@ namespace ESUI.Controllers
         //[ValidateAntiForgeryToken] 安全必须 外网出错 所需的防伪 Cookie“__RequestVerificationToken”不存在。 暂时去掉，待解决
         public ActionResult Index(LoginModel mode)
         {
-           // if (ModelState.IsValid)
+            // if (ModelState.IsValid)
 
             ViewData["UserType"] = GenerateList();
             if (Session["ValidateCode"] != null)
@@ -67,55 +67,82 @@ namespace ESUI.Controllers
                 {
 
                     UserData = null;
-                    List<V_UserRole> adminRole =null;
+                    List<V_UserRole> adminRole = null;
                     List<v_TS_ShopUserRole> shopRole = null;
+                    bool IsHaveP = false;//是否有权限登录
                     if (mode.UserType == "0")//根据用户类型去找数据
                     {
                         var sql = V_UserRoleSet.SelectAll().Where(V_UserRoleSet.LoginName.Equal(mode.LoginName).And(V_UserRoleSet.Password.Equal(mode.Password)));
                         adminRole = URBiz.GetOwnList<V_UserRole>(sql);
                     }
-                    else {
-                        var sql = v_TS_ShopUserRoleSet.SelectAll().Where(v_TS_ShopUserRoleSet.UserName.Equal(mode.LoginName).And(v_TS_ShopUserRoleSet.Pwd.Equal(mode.Password)));
+                    else
+                    {
+                        var sql = v_TS_ShopUserRoleSet.SelectAll().Where(v_TS_ShopUserRoleSet.UserName.Equal(mode.LoginName).And(v_TS_ShopUserRoleSet.Pwd.Equal(mode.Password)).And(v_TS_ShopUserRoleSet.isDeleted.Equal(0)));
                         shopRole = URBiz.GetOwnList<v_TS_ShopUserRole>(sql);
                     }
 
-                    if ((adminRole != null && adminRole.Count>0) ||( shopRole != null&&shopRole.Count>0)) // 账号是否存在，添加权限配置
+                    if ((adminRole != null && adminRole.Count > 0) || (shopRole != null && shopRole.Count > 0)) // 账号是否存在，添加权限配置
                     {
-                        UserData = new AdminUserInfo();
+                        #region 存用户数据
+                       
                         if (mode.UserType == "0")// 商家为1 管理员为0 缓存用户信息
                         {
+                            UserData = new AdminUserInfo();
                             UserData.UserTypes = UserType.admin;
-                           // UserData.adminUserInfo = adminRole[0];
+                            // UserData.adminUserInfo = adminRole[0];
                             UserData.Id = adminRole[0].Id;
                             UserData.UserName = adminRole[0].LoginName;
                             UserData.RoleId = adminRole[0].RoleId;
                             UserData.Password = adminRole[0].Password;
+                            IsHaveP = true;
                         }
-                        else {
-                            UserData.UserTypes = UserType.ShopUser;
-                          // UserData.shopUserInfo = shopRole[0];
-                            UserData.Id = shopRole[0].Id;
-                            UserData.UserName = shopRole[0].UserName;
-                            UserData.RoleId = shopRole[0].RoleId;
-                            UserData.Password = shopRole[0].Pwd;
-                        }
-                        List<V_RoleManus> manus = URBiz.GetOwnList<V_RoleManus>(V_RoleManusSet.SelectAll().Where(V_RoleManusSet.RoleId.Equal(UserData.RoleId)));//所有的菜单
-                        List<V_RoleManuButtons> buttons = URBiz.GetOwnList<V_RoleManuButtons>(V_RoleManuButtonsSet.SelectAll().Where(V_RoleManuButtonsSet.RoleId.Equal(UserData.RoleId)));//角色拥有的菜单的所有按钮
-                        List<V_MenuButtons> AllButtons = URBiz.GetOwnList<V_MenuButtons>(V_MenuButtonsSet.SelectAll());//所有菜单的所有按钮
-                        List<Manu> ListManus = new List<Manu>();
-                        if (manus != null && manus.Count > 0)
+                        else
                         {
-                            foreach (V_RoleManus item in manus)
+
+                            if (shopRole[0].States <= 0)
                             {
-                                Manu OneManu = new Manu();
-                                OneManu.manuInfo = item;
-                                OneManu.ListButtons = buttons.FindAll(p => p.ManuId.Equals(item.ManuId)).OrderBy(p => p.OrderNo).ToList();
-                                OneManu.ManuAllButton = AllButtons.FindAll(p => p.ManuId.Equals(item.ManuId));
-                                ListManus.Add(OneManu);
+                                ViewData["IsShowAlert"] = true;
+                                ViewData["Alert"] = "您的账号未审核通过，请联系管理员";
                             }
-                            UserData.ListManus = ListManus;
+                            else
+                            {
+                                UserData = new AdminUserInfo();
+                                IsHaveP = true;
+                                UserData.UserTypes = UserType.ShopUser;
+                                // UserData.shopUserInfo = shopRole[0];
+                                UserData.Id = shopRole[0].Id;
+                                UserData.UserName = shopRole[0].UserName;
+                                UserData.RoleId = shopRole[0].RoleId;
+                                UserData.Password = shopRole[0].Pwd;
+                            }
+
                         }
-                        return RedirectToAction("index", "home");
+                        #endregion
+
+                        #region  获取权限
+                        if (IsHaveP)//可以登录
+                        {
+
+                            List<V_RoleManus> manus = URBiz.GetOwnList<V_RoleManus>(V_RoleManusSet.SelectAll().Where(V_RoleManusSet.RoleId.Equal(UserData.RoleId)));//所有的菜单
+                            List<V_RoleManuButtons> buttons = URBiz.GetOwnList<V_RoleManuButtons>(V_RoleManuButtonsSet.SelectAll().Where(V_RoleManuButtonsSet.RoleId.Equal(UserData.RoleId)));//角色拥有的菜单的所有按钮
+                            List<V_MenuButtons> AllButtons = URBiz.GetOwnList<V_MenuButtons>(V_MenuButtonsSet.SelectAll());//所有菜单的所有按钮
+                            List<Manu> ListManus = new List<Manu>();
+                            if (manus != null && manus.Count > 0)
+                            {
+                                foreach (V_RoleManus item in manus)
+                                {
+                                    Manu OneManu = new Manu();
+                                    OneManu.manuInfo = item;
+                                    OneManu.ListButtons = buttons.FindAll(p => p.ManuId.Equals(item.ManuId)).OrderBy(p => p.OrderNo).ToList();
+                                    OneManu.ManuAllButton = AllButtons.FindAll(p => p.ManuId.Equals(item.ManuId));
+                                    ListManus.Add(OneManu);
+                                }
+                                UserData.ListManus = ListManus;
+                            }
+                            return RedirectToAction("index", "home");
+                        }
+
+                        #endregion
                     }
                     else
                     {
@@ -169,6 +196,6 @@ namespace ESUI.Controllers
 
             return generateList;
         }
-        
+
     }
 }

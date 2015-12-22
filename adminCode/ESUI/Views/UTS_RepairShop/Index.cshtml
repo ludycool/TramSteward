@@ -156,7 +156,7 @@
                         DataBaseFunction.BindForm("ff", result);
                         UM.getEditor('Details').setContent(result["Details"], false);
                         $("#imgLogo").attr('src', result.ImageUrl);
-                        $("#imgLogoM").attr('src', result.ImageUrlMax);
+                      //  $("#imgLogoM").attr('src', result.ImageUrlMax);
                         $('#Category').combotree('setValue', result['Category']);
 
                         change(1);
@@ -371,7 +371,7 @@
                 <table class="stripes" border="0" cellspacing="0" cellpadding="0">
                     <tr>
                         <td>
-                            <label>logo：</label></td>
+                            <label>图片logo：</label></td>
                         <td>
 
                             <img alt="" id="imgLogo" src="" style="width: 100px; height: 100px; margin-top: 10px;" />
@@ -379,7 +379,7 @@
                         </td>
 
                     </tr>
-                    <tr>
+                  @*  <tr>
                         <td>
                             <label>展示大图片：</label></td>
                         <td>
@@ -388,7 +388,7 @@
                             <input type="file" name="fileM" style="width: 50px;" onchange="FileHeadSaveM()" />
                         </td>
 
-                    </tr>
+                    </tr>*@
                     <tr>
                         <td style="width: 120px;">
                             <label>名称：</label></td>
@@ -426,7 +426,7 @@
                         <label>是否提供抢修：</label></td>
                     <td>
                         <input type="radio" value="1" name="IsRepair" />是
-                             <input type="radio" value="0" name="IsRepair" />否</td>
+                             <input type="radio" value="0" name="IsRepair" />否&nbsp;&nbsp;(是否提供外出维修)</td>
 
                     </tr>
                     <tr>
