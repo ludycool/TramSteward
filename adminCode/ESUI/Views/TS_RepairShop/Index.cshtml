@@ -44,14 +44,14 @@
                     url: BaseUrl + 'Search',
                     columns: [[
                         { field: 'ck', checkbox: true },
-                        { field: 'TName', title: '名称', width: 100 },
-                          { field: 'UserName', title: '发布者', width: 100 },
-                            { field: 'TrueName', title: '姓名', width: 100 },
+                        { field: 'UserName', title: '发布者', width: 100,sortable:true },
+                            { field: 'TrueName', title: '姓名', width: 100, sortable: true },
+                        { field: 'TName', title: '名称', width: 100, sortable: true },
                         { field: 'Star', title: '星级', width: 100 },
-                        { field: 'Phone', title: '电话', width: 100 },
-                        { field: 'ProvinceName', title: '省', width: 100 },
-                         { field: 'CityName', title: '市', width: 100 },
-                         { field: 'AreaName', title: '区', width: 100 },
+                        { field: 'Phone', title: '电话', width: 100, sortable: true },
+                        { field: 'ProvinceName', title: '省', width: 100, sortable: true },
+                         { field: 'CityName', title: '市', width: 100, sortable: true },
+                         { field: 'AreaName', title: '区', width: 100, sortable: true },
                           {
                               field: 'IsRepair', title: '是否提供抢修', width: 100, formatter: function (value, row, index) {
                                   if (value == '1') {
@@ -61,11 +61,11 @@
                                   }
                               }
                           },
-                         { field: 'CallCount', title: '呼叫量', width: 100 },
-                        { field: 'Praises', title: '赞', width: 100 },
-                        { field: 'StatesName', title: '状态', width: 100 },
-                        { field: 'CreateTime', title: '添加时间', width: 150 },
-                         { field: 'CategoryName', title: '类型', width: 100 },
+                         { field: 'CallCount', title: '呼叫量', width: 100, sortable: true },
+                        { field: 'Praises', title: '赞', width: 100, sortable: true },
+                        { field: 'StatesName', title: '状态', width: 100, sortable: true },
+                        { field: 'CreateTime', title: '添加时间', width: 150, sortable: true },
+                         { field: 'CategoryName', title: '类型', width: 100, sortable: true },
                         { field: 'Address', title: '地址', width: 300, align: 'right' }
                     ]],
                     iconCls: 'icon-save',
@@ -236,7 +236,7 @@
                 _init_areaForSearch();//搜索省市区初始化
                 GetSonDictionaryNo("Category_like1", "06");
                 $('#States_eq').combobox('reload', '/httpHandle/DictionaryHandler.ashx?action=GetSysItem&ItemType=States');  // 使用新的URL重新载入列表数据
-              //  $("#fSearh").form("clear");
+                //  $("#fSearh").form("clear");
                 $("#Div_Searh").dialog('open').dialog('setTitle', '搜索').window('resize', { top: 100, left: 100 });
             }
             //删除
