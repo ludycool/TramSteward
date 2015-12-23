@@ -218,6 +218,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="appweb\ServerHandle\RepairShopHandler.ashx.cs">
+      <DependentUpon>RepairShopHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -321,6 +324,41 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="appweb\Content\img\bg_publish_base.png" />
+    <Content Include="appweb\Content\img\icocry.png" />
+    <Content Include="appweb\Content\img\ic_news.png" />
+    <Content Include="appweb\Content\js\CommonFunction.js" />
+    <Content Include="appweb\meizi\css\admin.css" />
+    <Content Include="appweb\meizi\css\amazeui.css" />
+    <Content Include="appweb\meizi\css\amazeui.flat.css" />
+    <Content Include="appweb\meizi\css\amazeui.flat.min.css" />
+    <Content Include="appweb\meizi\css\amazeui.min.css" />
+    <Content Include="appweb\meizi\css\app.css" />
+    <Content Include="appweb\meizi\fonts\fontawesome-webfont.svg" />
+    <Content Include="appweb\meizi\i\app-icon72x72%402x.png" />
+    <Content Include="appweb\meizi\i\examples\admin-chrome.png" />
+    <Content Include="appweb\meizi\i\examples\admin-firefox.png" />
+    <Content Include="appweb\meizi\i\examples\admin-ie.png" />
+    <Content Include="appweb\meizi\i\examples\admin-opera.png" />
+    <Content Include="appweb\meizi\i\examples\admin-safari.png" />
+    <Content Include="appweb\meizi\i\examples\adminPage.png" />
+    <Content Include="appweb\meizi\i\examples\blogPage.png" />
+    <Content Include="appweb\meizi\i\examples\landing.png" />
+    <Content Include="appweb\meizi\i\examples\landingPage.png" />
+    <Content Include="appweb\meizi\i\examples\loginPage.png" />
+    <Content Include="appweb\meizi\i\examples\sidebarPage.png" />
+    <Content Include="appweb\meizi\i\favicon.png" />
+    <Content Include="appweb\meizi\i\startup-640x1096.png" />
+    <Content Include="appweb\meizi\js\amazeui.ie8polyfill.js" />
+    <Content Include="appweb\meizi\js\amazeui.ie8polyfill.min.js" />
+    <Content Include="appweb\meizi\js\amazeui.js" />
+    <Content Include="appweb\meizi\js\amazeui.min.js" />
+    <Content Include="appweb\meizi\js\amazeui.widgets.helper.js" />
+    <Content Include="appweb\meizi\js\amazeui.widgets.helper.min.js" />
+    <Content Include="appweb\meizi\js\app.js" />
+    <Content Include="appweb\meizi\js\handlebars.min.js" />
+    <Content Include="appweb\meizi\js\jquery.min.js" />
+    <Content Include="appweb\View\Information.html" />
     <Content Include="App_Data\QuestionsHelpData.xml" />
     <Content Include="App_Data\AdvertisingData.xml" />
     <Content Include="App_Data\ParameterData.xml" />
@@ -3484,6 +3522,12 @@
     <Content Include="httpSever\DictionaryHandler.ashx" />
     <Content Include="httpSever\CityAreaHandler.ashx" />
     <Content Include="httpSever\TS_ServiceNewHandler.ashx" />
+    <Content Include="appweb\meizi\fonts\fontawesome-webfont.eot" />
+    <Content Include="appweb\meizi\fonts\fontawesome-webfont.ttf" />
+    <Content Include="appweb\meizi\fonts\fontawesome-webfont.woff" />
+    <Content Include="appweb\meizi\fonts\fontawesome-webfont.woff2" />
+    <Content Include="appweb\meizi\fonts\FontAwesome.otf" />
+    <Content Include="appweb\ServerHandle\RepairShopHandler.ashx" />
     <None Include="Properties\PublishProfiles\ESUIConfig.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
@@ -3545,6 +3589,7 @@
     <Content Include="Views\Login_old\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="appweb\Content\css\" />
     <Folder Include="upload\image\20150319\" />
     <Folder Include="文档\" />
   </ItemGroup>
