@@ -628,40 +628,6 @@ namespace e3net.DAL
             string name = typeof(T).Name;
             return name;
         }
-        /// <summary>
-        /// 生成分页语句
-        /// </summary>
-        /// <param name="tableName">数据表名</param>
-        /// <param name="whereString">Where后面的条件</param>
-        /// <returns></returns>
-        public String GetPageString(string felds, string tableName, int _pagerIndex, int _pagerSize, string WhereString, string _orderString)
-        {
-            StringBuilder sql = new StringBuilder();
-            if (string.IsNullOrEmpty(_orderString))//排序不能为空
-            {
-
-                _orderString = " ID desc";
-            }
-            sql.Append("(select row_number() over (order by " + _orderString + ") as rowId," + felds + " from " + tableName);//查询语句
-            if (!string.IsNullOrEmpty(WhereString))
-            {
-                sql.Append(" where " + WhereString);
-            }
-            if (_pagerIndex > 0)
-            {
-                _pagerIndex = _pagerIndex - 1;
-            }
-            int StartRecord = (_pagerIndex) * _pagerSize + 1;
-            int EndRecord = StartRecord + _pagerSize - 1;
-            string dd = sql.ToString();
-            sql.Clear();
-            sql.Append(" select *  from " + dd + ") as t where rowId between " + StartRecord + " and " + EndRecord);
-            //if (!string.IsNullOrEmpty(_orderString))
-            //{
-            //    sql.Append(" ORDER BY " + _orderString);
-            //}
-            return sql.ToString();
-        }
 
         #endregion
 
