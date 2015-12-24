@@ -44,10 +44,6 @@ namespace ESUI.httpSever
                             resultMode.Data = "[]";
                         }
                         break;
-
-
-
-                        break;
                     case "HttpUploadImg":
                         #region  http上传返回路径
                         if (context.Request.Files.Count > 0)
@@ -76,8 +72,6 @@ namespace ESUI.httpSever
                                         //提示上传成功 
                                         FullRouteSet += FullRoute + "|";
                                     }
-
-                                   
                                 }
                             }
                             FullRouteSet = FullRouteSet.Substring(0, FullRouteSet.Length - 1);
@@ -96,6 +90,89 @@ namespace ESUI.httpSever
                         #endregion
 
                         break;
+                    case "UploadFileBase64":
+                        #region  字节方式上传文件
+                        string BtyeString = httpObject["jsonEntity"]["BtyeString"].ToString();
+                        string FileName64 = httpObject["jsonEntity"]["FileName"].ToString();
+                        string SourceTable = httpObject["jsonEntity"]["SourceTable"].ToString();
+                        string ShowName = httpObject["jsonEntity"]["ShowName"].ToString();
+                        Guid ToId = new Guid();
+                        ToId = Guid.Parse(httpObject["jsonEntity"]["ToId"].ToString());
+                        File_Image file = new File_Image();
+                        file.Id = Guid.NewGuid();
+                        file.ToId = ToId;
+                        file.AddTime = DateTime.Now;
+                        file.UpdateTime = DateTime.Now;
+                        file.SourceTable = SourceTable;
+                        file.ShowName = ShowName;
+                        file.Route = "/upload/image";
+
+                        file.FileName = DateTime.Now.ToString("yyyyMMddhhmmss") + "_" + FileName64;
+                        file.FullRoute = "/upload/image/" + file.FileName;
+                        string path64 = context.Server.MapPath(file.Route);
+                        byte[] bytes = Convert.FromBase64String(BtyeString);
+                        System.IO.MemoryStream ms = new System.IO.MemoryStream(bytes);
+                        System.Drawing.Bitmap b = (System.Drawing.Bitmap)System.Drawing.Image.FromStream(ms);
+                        //图片保存路径
+                        b.Save(path64 + "/" + file.FileName);
+
+                        object res = OPBiz.Add(file);
+
+                        resultMode.Code = 11;
+                        resultMode.Msg = "上传成功";
+                        resultMode.Data = file.FullRoute;
+                        #endregion
+                        break;
+                    case "HttpUploadFile":
+                        #region  http上传文件
+                        File_Image Rmodel = JsonHelper.FromJson<File_Image>(httpObject["jsonEntity"].ToString());
+                        Rmodel.AddTime = DateTime.Now;
+                        Rmodel.UpdateTime = DateTime.Now;
+                        Rmodel.Route = "/upload/image/";
+                        string idSet = "";
+                        if (context.Request.Files.Count > 0)
+                        {
+                            for (int i = 0; i < context.Request.Files.Count; i++)
+                            {
+
+                                HttpPostedFile hpFile = context.Request.Files[i];
+                                if (!String.IsNullOrEmpty(hpFile.FileName))
+                                {
+
+                                    Rmodel.Id = Guid.NewGuid();
+                                    #region
+                                    //给文件取随及名 
+                                    Random ran = new Random();
+                                    int RandKey = ran.Next(100, 999);
+                                    Rmodel.FileName = DateTime.Now.ToString("yyyyMMddhhmmss") + "_" + RandKey + "_" + hpFile.FileName.Substring(hpFile.FileName.LastIndexOf("\\") + 1);
+                                    Rmodel.FullRoute = Rmodel.Route + Rmodel.FileName;
+                                    //保存文件 
+                                    string uriString = System.Web.HttpContext.Current.Server.MapPath("~/upload/image/").ToString();
+                                    hpFile.SaveAs(uriString + Rmodel.FileName);
+                                    #endregion
+
+                                    //提示上传成功 
+                                    OPBiz.Add(Rmodel);
+                                    idSet += Rmodel.Id + "|";
+
+                                }
+
+                            }
+
+                            resultMode.Code = 11;
+                            resultMode.Msg = "成功添加";
+                            resultMode.Data = idSet;
+                        }
+                        else
+                        {
+                            resultMode.Code = 0;
+                            resultMode.Msg = "没有文件";
+                            resultMode.Data = Rmodel.Id.ToString();
+
+                        }
+                        #endregion
+                        break;
+
 
                 }
             }

@@ -10,6 +10,129 @@
     <TimeStampOfAssociatedLegacyPublishXmlFile />
   </PropertyGroup>
   <ItemGroup>
+    <File Include="appweb/Content/img/bg_publish_base.png">
+      <publishTime>12/23/2015 10:46:14</publishTime>
+    </File>
+    <File Include="appweb/Content/img/icocry.png">
+      <publishTime>12/23/2015 10:46:14</publishTime>
+    </File>
+    <File Include="appweb/Content/img/ic_news.png">
+      <publishTime>12/23/2015 10:46:14</publishTime>
+    </File>
+    <File Include="appweb/Content/js/CommonFunction.js">
+      <publishTime>12/23/2015 10:46:14</publishTime>
+    </File>
+    <File Include="appweb/meizi/css/admin.css">
+      <publishTime>06/30/2015 17:09:54</publishTime>
+    </File>
+    <File Include="appweb/meizi/css/amazeui.css">
+      <publishTime>11/30/2015 17:43:20</publishTime>
+    </File>
+    <File Include="appweb/meizi/css/amazeui.flat.css">
+      <publishTime>11/30/2015 17:43:20</publishTime>
+    </File>
+    <File Include="appweb/meizi/css/amazeui.flat.min.css">
+      <publishTime>11/30/2015 17:43:20</publishTime>
+    </File>
+    <File Include="appweb/meizi/css/amazeui.min.css">
+      <publishTime>11/30/2015 17:43:20</publishTime>
+    </File>
+    <File Include="appweb/meizi/css/app.css">
+      <publishTime>01/05/2015 10:45:22</publishTime>
+    </File>
+    <File Include="appweb/meizi/fonts/fontawesome-webfont.eot">
+      <publishTime>11/30/2015 17:43:20</publishTime>
+    </File>
+    <File Include="appweb/meizi/fonts/fontawesome-webfont.svg">
+      <publishTime>11/30/2015 17:43:20</publishTime>
+    </File>
+    <File Include="appweb/meizi/fonts/fontawesome-webfont.ttf">
+      <publishTime>11/30/2015 17:43:20</publishTime>
+    </File>
+    <File Include="appweb/meizi/fonts/fontawesome-webfont.woff">
+      <publishTime>11/30/2015 17:43:20</publishTime>
+    </File>
+    <File Include="appweb/meizi/fonts/fontawesome-webfont.woff2">
+      <publishTime>11/30/2015 17:43:20</publishTime>
+    </File>
+    <File Include="appweb/meizi/fonts/FontAwesome.otf">
+      <publishTime>11/30/2015 17:43:20</publishTime>
+    </File>
+    <File Include="appweb/meizi/i/app-icon72x72%402x.png">
+      <publishTime>01/05/2015 10:45:22</publishTime>
+    </File>
+    <File Include="appweb/meizi/i/examples/admin-chrome.png">
+      <publishTime>01/09/2015 17:35:28</publishTime>
+    </File>
+    <File Include="appweb/meizi/i/examples/admin-firefox.png">
+      <publishTime>01/09/2015 17:35:28</publishTime>
+    </File>
+    <File Include="appweb/meizi/i/examples/admin-ie.png">
+      <publishTime>01/09/2015 17:35:28</publishTime>
+    </File>
+    <File Include="appweb/meizi/i/examples/admin-opera.png">
+      <publishTime>01/09/2015 17:35:28</publishTime>
+    </File>
+    <File Include="appweb/meizi/i/examples/admin-safari.png">
+      <publishTime>01/09/2015 17:35:28</publishTime>
+    </File>
+    <File Include="appweb/meizi/i/examples/adminPage.png">
+      <publishTime>01/09/2015 17:35:28</publishTime>
+    </File>
+    <File Include="appweb/meizi/i/examples/blogPage.png">
+      <publishTime>01/05/2015 10:45:22</publishTime>
+    </File>
+    <File Include="appweb/meizi/i/examples/landing.png">
+      <publishTime>01/05/2015 10:45:22</publishTime>
+    </File>
+    <File Include="appweb/meizi/i/examples/landingPage.png">
+      <publishTime>01/05/2015 10:45:22</publishTime>
+    </File>
+    <File Include="appweb/meizi/i/examples/loginPage.png">
+      <publishTime>01/05/2015 10:45:22</publishTime>
+    </File>
+    <File Include="appweb/meizi/i/examples/sidebarPage.png">
+      <publishTime>01/05/2015 10:45:22</publishTime>
+    </File>
+    <File Include="appweb/meizi/i/favicon.png">
+      <publishTime>01/05/2015 10:45:22</publishTime>
+    </File>
+    <File Include="appweb/meizi/i/startup-640x1096.png">
+      <publishTime>01/05/2015 10:45:22</publishTime>
+    </File>
+    <File Include="appweb/meizi/js/amazeui.ie8polyfill.js">
+      <publishTime>11/30/2015 17:43:20</publishTime>
+    </File>
+    <File Include="appweb/meizi/js/amazeui.ie8polyfill.min.js">
+      <publishTime>11/30/2015 17:43:20</publishTime>
+    </File>
+    <File Include="appweb/meizi/js/amazeui.js">
+      <publishTime>11/30/2015 17:43:20</publishTime>
+    </File>
+    <File Include="appweb/meizi/js/amazeui.min.js">
+      <publishTime>11/30/2015 17:43:20</publishTime>
+    </File>
+    <File Include="appweb/meizi/js/amazeui.widgets.helper.js">
+      <publishTime>11/30/2015 17:43:20</publishTime>
+    </File>
+    <File Include="appweb/meizi/js/amazeui.widgets.helper.min.js">
+      <publishTime>11/30/2015 17:43:20</publishTime>
+    </File>
+    <File Include="appweb/meizi/js/app.js">
+      <publishTime>06/01/2015 10:15:54</publishTime>
+    </File>
+    <File Include="appweb/meizi/js/handlebars.min.js">
+      <publishTime>11/30/2015 17:43:20</publishTime>
+    </File>
+    <File Include="appweb/meizi/js/jquery.min.js">
+      <publishTime>11/30/2015 17:43:20</publishTime>
+    </File>
+    <File Include="appweb/ServerHandle/RepairShopHandler.ashx">
+      <publishTime>12/23/2015 16:27:41</publishTime>
+    </File>
+    <File Include="appweb/View/Information.html">
+      <publishTime>12/23/2015 10:47:51</publishTime>
+    </File>
     <File Include="App_Data/AdvertisingData.xml">
       <publishTime>11/30/2015 14:37:34</publishTime>
     </File>
@@ -38,7 +161,7 @@
       <publishTime>11/30/2015 14:42:03</publishTime>
     </File>
     <File Include="bin/App.Core.dll">
-      <publishTime>12/22/2015 16:11:37</publishTime>
+      <publishTime>12/24/2015 11:54:07</publishTime>
     </File>
     <File Include="bin/App_Data/AdvertisingData.xml">
       <publishTime>04/07/2015 15:02:29</publishTime>
@@ -74,19 +197,19 @@
       <publishTime>11/30/2015 14:41:22</publishTime>
     </File>
     <File Include="bin/e3net.BLL.dll">
-      <publishTime>12/22/2015 16:11:36</publishTime>
+      <publishTime>12/24/2015 11:54:07</publishTime>
     </File>
     <File Include="bin/e3net.common.dll">
       <publishTime>12/08/2015 09:19:03</publishTime>
     </File>
     <File Include="bin/e3net.DAL.dll">
-      <publishTime>12/22/2015 16:11:35</publishTime>
+      <publishTime>12/24/2015 11:54:06</publishTime>
     </File>
     <File Include="bin/e3net.IDAL.dll">
-      <publishTime>12/22/2015 16:11:35</publishTime>
+      <publishTime>12/24/2015 11:54:05</publishTime>
     </File>
     <File Include="bin/e3net.Mode.dll">
-      <publishTime>12/22/2015 16:11:34</publishTime>
+      <publishTime>12/24/2015 11:54:05</publishTime>
     </File>
     <File Include="bin/e3net.tools.dll">
       <publishTime>12/22/2015 16:11:34</publishTime>
@@ -95,13 +218,13 @@
       <publishTime>11/30/2015 14:41:31</publishTime>
     </File>
     <File Include="bin/ESUI.dll">
-      <publishTime>12/22/2015 16:11:40</publishTime>
+      <publishTime>12/24/2015 11:54:10</publishTime>
     </File>
     <File Include="bin/ICSharpCode.SharpZipLib.dll">
       <publishTime>11/30/2015 14:41:16</publishTime>
     </File>
     <File Include="bin/jpush-api.dll">
-      <publishTime>12/22/2015 16:11:37</publishTime>
+      <publishTime>12/24/2015 11:54:07</publishTime>
     </File>
     <File Include="bin/log4net.dll">
       <publishTime>11/30/2015 14:41:16</publishTime>
@@ -9917,7 +10040,7 @@
       <publishTime>02/12/2015 16:19:58</publishTime>
     </File>
     <File Include="Views/Home/Index.cshtml">
-      <publishTime>12/21/2015 15:17:53</publishTime>
+      <publishTime>12/24/2015 11:49:58</publishTime>
     </File>
     <File Include="Views/HospitalData/Index.cshtml">
       <publishTime>11/23/2015 19:06:35</publishTime>
@@ -9929,7 +10052,7 @@
       <publishTime>02/12/2015 16:21:23</publishTime>
     </File>
     <File Include="Views/Login/Index.cshtml">
-      <publishTime>12/22/2015 10:30:52</publishTime>
+      <publishTime>12/24/2015 11:49:30</publishTime>
     </File>
     <File Include="Views/Login_old/Index.cshtml">
       <publishTime>12/22/2015 10:30:52</publishTime>
@@ -9950,7 +10073,7 @@
       <publishTime>11/30/2015 14:37:29</publishTime>
     </File>
     <File Include="Views/Role/Index.cshtml">
-      <publishTime>12/22/2015 15:35:21</publishTime>
+      <publishTime>12/24/2015 11:42:29</publishTime>
     </File>
     <File Include="Views/Shared/Error.cshtml">
       <publishTime>11/30/2015 14:37:29</publishTime>
@@ -9989,7 +10112,7 @@
       <publishTime>12/22/2015 15:44:29</publishTime>
     </File>
     <File Include="Views/TS_ShopUser/Index.cshtml">
-      <publishTime>12/21/2015 15:45:07</publishTime>
+      <publishTime>12/24/2015 11:44:43</publishTime>
     </File>
     <File Include="Views/TS_Transaction/Index.cshtml">
       <publishTime>12/22/2015 15:47:09</publishTime>
@@ -9998,7 +10121,7 @@
       <publishTime>03/22/2015 10:50:26</publishTime>
     </File>
     <File Include="Views/User/Index.cshtml">
-      <publishTime>12/16/2015 16:10:32</publishTime>
+      <publishTime>12/24/2015 11:44:15</publishTime>
     </File>
     <File Include="Views/UTS_Car/Index.cshtml">
       <publishTime>12/22/2015 14:30:01</publishTime>
@@ -10064,7 +10187,7 @@
       <publishTime>11/30/2015 14:37:29</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/22/2015 16:11:52</publishTime>
+      <publishTime>12/24/2015 11:54:24</publishTime>
     </File>
     <File Include="文档/HospitalAssistant.pdm">
       <publishTime>04/03/2015 17:40:53</publishTime>
