@@ -9,31 +9,32 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.Practices.Unity;
+using e3net.Mode.HttpView;
 
 namespace ESUI.Controllers
 {
-      //[Export]
+    //[Export]
     public class RoleController : BaseController
     {
         //[Import(typeof(IRMS_RoleDao))]
-      //  public IRMS_RoleDao RDBiz { get; set; }
+        //  public IRMS_RoleDao RDBiz { get; set; }
 
         [Dependency]
         public RMS_RoleBiz RDBiz { get; set; }
-       // public RMS_RoleBiz RDBiz = new RMS_RoleBiz();
+        // public RMS_RoleBiz RDBiz = new RMS_RoleBiz();
         //[Import(typeof(IRMS_RoleManusDao))]
-      //  public IRMS_RoleManusDao RMBiz { get; set; }
+        //  public IRMS_RoleManusDao RMBiz { get; set; }
         [Dependency]
         public RMS_RoleManusBiz RMBiz { get; set; }
-    //    public RMS_RoleManusBiz RMBiz = new RMS_RoleManusBiz();
+        //    public RMS_RoleManusBiz RMBiz = new RMS_RoleManusBiz();
         //[Import(typeof(IRMS_RoleManuButtonsDao))]
-       // public IRMS_RoleManuButtonsDao RMBBiz { get; set; }
-      //  public RMS_RoleManuButtonsBiz RMBBiz = new RMS_RoleManuButtonsBiz();
+        // public IRMS_RoleManuButtonsDao RMBBiz { get; set; }
+        //  public RMS_RoleManuButtonsBiz RMBBiz = new RMS_RoleManuButtonsBiz();
         [Dependency]
         public RMS_RoleManuButtonsBiz RMBBiz { get; set; }
         //[Import(typeof(IRMS_MenuButtonsDao))]
-     //   public IRMS_MenuButtonsDao MBBiz { get; set; }
-     //   public RMS_MenuButtonsBiz MBBiz = new RMS_MenuButtonsBiz();
+        //   public IRMS_MenuButtonsDao MBBiz { get; set; }
+        //   public RMS_MenuButtonsBiz MBBiz = new RMS_MenuButtonsBiz();
 
         [Dependency]
         public RMS_MenuButtonsBiz MBBiz { get; set; }
@@ -56,7 +57,7 @@ namespace ESUI.Controllers
             pc.sys_Key = "Id";
             pc.sys_PageIndex = pageIndex;
             pc.sys_PageSize = pageSize;
-            pc.sys_Table = "RMS_Role";
+            pc.sys_Table = "V_Role";
             pc.sys_Where = "1=1";
             pc.sys_Order = "Id";
             if (!UserData.RoleId.ToString().Equals("fb38f312-0078-4f44-9cda-1183c8042db8"))//不是系统管理员，不请允许显示系统管理员
@@ -64,7 +65,7 @@ namespace ESUI.Controllers
                 pc.sys_Where += " and Id!='fb38f312-0078-4f44-9cda-1183c8042db8'";
             }
 
-            List<RMS_Role> list2 = RDBiz.GetPagingData(pc);
+            List<V_Role> list2 = RDBiz.GetPagingData<V_Role>(pc);
             Dictionary<string, object> dic = new Dictionary<string, object>();
 
 
@@ -74,19 +75,68 @@ namespace ESUI.Controllers
 
             return Json(dic, JsonRequestBehavior.AllowGet);
         }
-
-        public JsonResult AddInfo(RMS_Role RMS_RoleModle)
+        public JsonResult EditInfo(RMS_Role RMS_RoleModle)
         {
-            RMS_RoleModle.Id = Guid.NewGuid();
-            RMS_RoleModle.ModifyBy = "1";
-            RMS_RoleModle.ModifyTime = DateTime.Now;
-            RMS_RoleModle.CreateBy = "1";
-            RMS_RoleModle.CreateTime = DateTime.Now;
-            RDBiz.Add(RMS_RoleModle);
+            HttpReSultMode ReSultMode = new HttpReSultMode();
+            bool IsAdd = false;
 
-            return Json("ok", JsonRequestBehavior.AllowGet);
+            RMS_RoleModle.ModifyTime = DateTime.Now;
+            if (!(RMS_RoleModle.Id != null && !RMS_RoleModle.Id.ToString().Equals("00000000-0000-0000-0000-000000000000")))//id为空，是添加
+            {
+                IsAdd = true;
+                RMS_RoleModle.CreateTime = DateTime.Now;
+                RMS_RoleModle.Id = Guid.NewGuid();
+            }
+            if (IsAdd)
+            {
+
+                RMS_RoleModle.ModifyBy = "1";
+                RMS_RoleModle.CreateBy = "1";
+
+                try
+                {
+                    RDBiz.Add(RMS_RoleModle);
+
+                    ReSultMode.Code = 11;
+                    ReSultMode.Data = RMS_RoleModle.Id.ToString();
+                    ReSultMode.Msg = "添加成功";
+                }
+                catch (Exception e)
+                {
+
+                    ReSultMode.Code = -11;
+                    ReSultMode.Data = e.ToString();
+                    ReSultMode.Msg = "添加失败";
+                }
+
+            }
+            else
+            {
+                RMS_RoleModle.WhereExpression = RMS_RoleSet.Id.Equal(RMS_RoleModle.Id);
+                RMS_RoleModle.ChangedMap.Remove("id");//移除主键值
+                if (RDBiz.Update(RMS_RoleModle) > 0)
+                {
+                    ReSultMode.Code = 11;
+                    ReSultMode.Data = "";
+                    ReSultMode.Msg = "修改成功";
+                }
+                else
+                {
+                    ReSultMode.Code = -13;
+                    ReSultMode.Data = "";
+                    ReSultMode.Msg = "修改失败";
+                }
+            }
+
+            return Json(ReSultMode, JsonRequestBehavior.AllowGet);
+
+
+
 
         }
+
+
+
         public JsonResult GetInfo(string ID)
         {
             var mql2 = RMS_RoleSet.SelectAll().Where(RMS_RoleSet.Id.Equal(ID));
@@ -94,19 +144,7 @@ namespace ESUI.Controllers
             //  groupsBiz.Add(rol);
             return Json(Rmodel, JsonRequestBehavior.AllowGet);
         }
-        public JsonResult UpdateInfo(RMS_Role RolesModle)
-        {
-            RolesModle.WhereExpression = RMS_RoleSet.Id.Equal(RolesModle.Id);
-            //  spmodel.GroupId = GroupId;
-            if (RDBiz.Update(RolesModle) > 0)
-            {
-                return Json("ok", JsonRequestBehavior.AllowGet);
-            }
-            else
-            {
-                return Json("Nok", JsonRequestBehavior.AllowGet);
-            }
-        }
+
 
         public JsonResult DeleteInfo(string ID)
         {
@@ -150,18 +188,18 @@ namespace ESUI.Controllers
                     {
 
                         string Ishave = "0";
-                     
-                            
-                            V_RoleManuButtons rmbItem = listRoleMenuButtons.Find(p => p.Id.Equals(dd.Id) && p.ManuId.Equals(list[i].Id));
 
-                            if (rmbItem != null)
-                            {
-                                Ishave = "1";//如果角色有此按钮存在
 
-                            }
-                      
+                        V_RoleManuButtons rmbItem = listRoleMenuButtons.Find(p => p.Id.Equals(dd.Id) && p.ManuId.Equals(list[i].Id));
+
+                        if (rmbItem != null)
+                        {
+                            Ishave = "1";//如果角色有此按钮存在
+
+                        }
+
                         menus += string.Format("\"ControlId_{0}\":\"{1}\",", dd.Id, Ishave);
-                      
+
                     }
                     menus += GetSonTreeManu(list, list[i], listControlButtons, listRoleColumns, listRoleMenuButtons);//添加children
                     menus += "},";
@@ -175,7 +213,7 @@ namespace ESUI.Controllers
         private string GetSonTreeManu(List<RMS_Menus> listAll, RMS_Menus SonItem, List<RMS_Buttons> listControlButtons, List<RMS_RoleManus> listRoleColumns, List<V_RoleManuButtons> listRoleMenuButtons)
         {
             string menus = "\"children\":[";
-            List<RMS_Menus> list=listAll.FindAll(p=>p.ParentManuId.Equals(SonItem.Id));
+            List<RMS_Menus> list = listAll.FindAll(p => p.ParentManuId.Equals(SonItem.Id));
             if (list != null && list.Count > 0)
             {
                 for (int i = 0; i < list.Count; i++)
@@ -198,15 +236,15 @@ namespace ESUI.Controllers
                     {
 
                         string Ishave = "0";
-                    
-                            V_RoleManuButtons rmbItem = listRoleMenuButtons.Find(p => p.Id.Equals(dd.Id) && p.ManuId.Equals(list[i].Id));
 
-                            if (rmbItem != null)
-                            {
-                                Ishave = "1";//如果角色有此按钮存在
+                        V_RoleManuButtons rmbItem = listRoleMenuButtons.Find(p => p.Id.Equals(dd.Id) && p.ManuId.Equals(list[i].Id));
 
-                            }
-                     
+                        if (rmbItem != null)
+                        {
+                            Ishave = "1";//如果角色有此按钮存在
+
+                        }
+
                         menus += string.Format("\"ControlId_{0}\":\"{1}\",", dd.Id, Ishave);
 
                     }
@@ -257,10 +295,10 @@ namespace ESUI.Controllers
 
         }
 
-          /// <summary>
+        /// <summary>
         /// 获取每个菜单有的按钮
-          /// </summary>
-          /// <returns></returns>
+        /// </summary>
+        /// <returns></returns>
         public JsonResult GetMenuButtonsData()
         {
             List<RMS_MenuButtons> listMenuButtons = RDBiz.GetOwnList<RMS_MenuButtons>(RMS_MenuButtonsSet.SelectAll());//所有的菜单的按钮
@@ -274,7 +312,8 @@ namespace ESUI.Controllers
             int res = 0;
             var mql2 = RMS_RoleManusSet.RoleId.Equal(roleid);
             int f = RMBiz.Remove<RMS_RoleManusSet>(mql2);
-            for (int i = 0; i < manu.Count; i++) {
+            for (int i = 0; i < manu.Count; i++)
+            {
 
                 if (!string.IsNullOrEmpty(manu[i]))
                 {
@@ -316,7 +355,8 @@ namespace ESUI.Controllers
             {
                 return "ok";
             }
-            else {
+            else
+            {
                 return "Nok";
             }
         }

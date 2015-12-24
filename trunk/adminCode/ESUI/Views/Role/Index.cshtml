@@ -14,6 +14,8 @@
             var RoleId;
             jQuery(document).ready(function () {//获取每个菜单有的按钮
                 AutoWH("#body", 40, 42);//自适应宽度
+                FormStripes();//表单样式
+                $('#RoleTypes').combobox('reload', '/httpHandle/DictionaryHandler.ashx?action=GetSysItem&ItemType=RoleTypes');  // 使用新的URL重新载入列表数据
                 $.ajax({
                     url: BaseUrl + 'GetMenuButtonsData',
                     type: 'POST',
@@ -30,6 +32,7 @@
                     columns: [[
                         { field: 'ck', checkbox: true },
                         { field: 'RoleName', title: '角色名称', width: 100 },
+                          { field: 'RoleTypesName', title: '类型', width: 100 },
                         { field: 'Remarks', title: '描述', width: 300, align: 'right' }
                     ]],
                     iconCls: 'icon-save',
@@ -50,7 +53,7 @@
                         iconCls: 'icon-add',
                         handler: function () {
                             //实现弹出注册信息的页面
-                            ShowAddDialog();
+                            AddInfo();
                         }
                     }, '-', {
                         id: 'btncut',
@@ -58,7 +61,7 @@
                         iconCls: 'icon-cut',
                         handler: function () {
                             //实现修改的方法
-                            UpdateInfo();
+                            EditInfo();
                         }
                     }, '-', {
                         id: 'btnCancle',
@@ -91,100 +94,80 @@
                     }]
                 });
             });
-            //easyUI 弹出添加用户的对话框
-            function ShowAddDialog() {
+
+
+
+            //easyUI 弹出添加的对话框
+            function AddInfo() {
                 //弹出层
-                // $("#DivAdd").dialog('open').dialog('setTitle', '添加用户信息');
-                $('#DivAdd').dialog({
-                    title: '添加用户信息',
+                // $("#DivEditor").dialog('open').dialog('setTitle', '添加信息');
+                $('#DivEditor').dialog({
+                    title: '添加信息',
                     //width: 400,
                     //height: 200,
                     closed: false,
                     cache: false,
                     // href: 'get_content.php',
-                    modal: true, top: 100,
+                    modal: true, top: 50, left: 50,
                     onClose: function () {
                         //解决弹出窗口关闭后，验证消息还显示在最上面
 
                     }
                 });
-                //$('#DivAdd').dialog({
-                //    onClose: function () {
-                //        //解决弹出窗口关闭后，验证消息还显示在最上面
-                //        $('.validatebox-tip').remove();
-                //    }
-                //});
-                //在弹出层的时候删除掉文本框中的信息
-                //ClearTxtInfo();
+                $(".validatebox-tip").remove();//清除验证样式
+                DataBaseFunction.ClearForm("ff");
             }
-            //实现角色的添加
-            function AddInfoBind() {
 
-                //判断用户的信息是否通过验证
+
+            //绑定修改显示详细信息的方法
+            function EditInfo() {
+                var rows = $("#dg").datagrid('getSelected');
+                //首先取出来值判断只能选择一个
+                if (rows == null) {
+                    $.messager.alert("友情提示", "请选择", "error");
+                    return;
+                }
+                $("#DivEditor").dialog('open').dialog('setTitle', '修改-' + rows.TName).window('resize', { top: 50, left: 50 });
+
+                $(".validatebox-tip").remove();//清除验证样式
+                var ID = rows.Id;  //获取到了用选择的ID
+                $.ajax({
+                    url: BaseUrl + 'GetInfo',
+                    type: 'POST',
+                    data: { ID: ID },
+                    cache: false,
+                    error: function () { alert('Error $.ajax'); },
+                    success: function (data) {
+                     //   var result = eval('(' + data + ')');
+                        DataBaseFunction.BindForm("ff", data);
+                        $('#RoleTypes').combobox('select', data.RoleTypes);
+                    }
+                });
+
+            }
+
+            //实现的编辑，包括增查改
+            function SaveInfo() {
+
+                //判断的信息是否通过验证
                 var validate = $("#ff").form('validate');
                 if (validate == false) {
                     return false;
                 }
                 //获取需要传递的参数传递给前台
-                var postData = $("#ff").serializeArray();
-
-                //发送异步请求到后台保存用户数据
-                $.post(BaseUrl + 'AddInfo', postData, function (data) {
-                    if (data = "OK") {
-                        //添加成功  1.关闭弹出层，2.刷新DataGird
-                        alert("添加角色成功");
-                        $('#DivAdd').dialog('close');
+                var data = DataBaseFunction.GetFormData("ff")
+                //发送异步请求到后台保存数据
+                $.post(BaseUrl + 'EditInfo', data, function (data) {
+                    alerts(data.Msg, 2);
+                    if (data.Code > 0) {
+                        $('#DivEditor').dialog('close');
                         $(".validatebox-tip").remove();
-                        // $("#DivAdd").dialog("close");
                         $("#dg").datagrid("reload");
-                        $("#ff").form("clear");
-                    }
-                    else {
-                        alert("添加角色失败，请您检查");
                     }
                 });
-            }
-
-            //修改用户的信息
-            function UpdateInfo(browse) {
-                //首先取出来用户选择的数据的ID
-                var rows = $("#dg").datagrid("getSelections");
-                //首先取出来值判断用户只能选择一个
-                if (rows.length != 1) {
-                    $.messager.alert("友情提示", "每次只能修改/浏览一条，你已经选择了<font color='red'  size='6'>" + rows.length + "</font>条", "error");
-                    return;
-                }
-                if (browse == null) {
-                    //处理修改的信息，弹出修改的对话框,然后显示选择的用户的详细信息
-                    $("#DivUpdate").dialog('open').dialog('setTitle', '修改角色信息').window('resize', { top: 100 });
-                    //绑定修改显示详细信息的方法
-                    BindShowUpdateInfo();
-                }
-                else {
-                    //处理浏览的信息，弹出浏览狂，然后显示浏览信息的相信信息
-                    $("#DivBrowerRole").dialog('open').dialog('setTitle', '角色浏览').window('resize', { top: 100 });
-                    //绑定用户的浏览信息
-                    BindBrowerRoleInfo();
-                }
-            }
-
-            //绑定修改显示详细信息的方法
-            function BindShowUpdateInfo() {
-                //首先用户发送一个异步请求去后台实现方法
-                var ID = $("#dg").datagrid("getSelections")[0].Id;  //获取到了用用户选择的ID
-                $.post(BaseUrl + 'GetInfo', { ID: ID }, function (roleInfo) {
-                    $("#Id").val(roleInfo.Id);
-                    $("#RoleName1").val(roleInfo.RoleName);
-                    $("#RoleOrder1").val(roleInfo.RoleOrder);
-
-                    $("#Remarks1").val(roleInfo.Remarks);
-                });
-            }
-
-            //绑定浏览详细信息的方法
-            function BindBrowerRoleInfo() {
 
             }
+
             //实现直接删除数据和伪删除数据的方法
             function deleteInfo(not) {
                 //得到用户选择的数据的ID
@@ -243,28 +226,6 @@
                 }
             }
 
-            //修改用户的相信信息
-            function BindUpdateInfo() {
-
-                //首先也是对用户进行检测
-                var validate = $("#ffUpdate").form("validate");
-                if (validate == false) {
-                    return false;
-                }
-                //构造参数发送给后台
-                var posData = $("#ffUpdate").serializeArray();
-                $.get(BaseUrl + "UpdateInfo", posData, function (date) {
-                    if (date == "ok") {
-                        //修改成功，关闭弹出层，刷新DataGird
-                        alert("修改成功");
-                        $("#DivUpdate").dialog('close');
-                        $("#dg").datagrid("reload");
-                    } else {
-                        $.messager.alert("友情提示", "修改失败，请您检查");
-                    }
-                });
-
-            }
             //显示权限
             function ShowSetRoleDiv(data) {
                 $('#DivSetRole').window({
@@ -540,80 +501,51 @@
         <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="adddiv();">Add</a>
        <a href="#" class="easyui-linkbutton" data-options="iconCls:'icon-add'" onclick="$('#del').window('open');">delte</a>
     </div>*@
-     <div id="body">
-    <table id="dg"></table>
-         </div>
-    <div id="DivAdd" class="easyui-dialog" style="width: 580px; padding: 10px 20px"
-        closed="true" resizable="true" modal="true" buttons="#dlg-buttons">
-        <form id="ff" method="post" novalidate="novalidate">
-            <fieldset>
-                <legend>角色信息填写栏</legend>
-                <table id="tblAdd">
-                    <tr>
-                        <td>
-                            <label for="UserName">角色名称：</label></td>
-                        <td>
-                            <input class="easyui-validatebox" type="text" id="RoleName" name="RoleName" data-options="required:true,validType:'length[1,32]'" />
-                        </td>
-
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <label for="Description">角色描述：</label></td>
-                        <td colspan="3">
-                            <textarea style="height: 50px; width: 406px;" id="Remarks" name="Remarks"></textarea>
-                        </td>
-                    </tr>
-                </table>
-            </fieldset>
-
-        </form>
-        <div style="text-align: center; width: 100%">
-            <a href="javascript:void(0)" class="easyui-linkbutton" id="btnAddRole" iconcls="icon-ok" onclick="AddInfoBind();">确定</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" onclick="$('#DivAdd').dialog('close')">关闭</a>
-        </div>
+    <div id="body">
+        <table id="dg"></table>
     </div>
-
     <!------------------------弹出修改角色信息的弹出层---------------------------------->
-    <div id="DivUpdate" class="easyui-dialog" style="width: 580px; padding: 10px 20px"
+    <div id="DivEditor" class="easyui-dialog" style="width: 600px;"
         closed="true" resizable="true" modal="true" buttons="#dlg-buttons">
-        <form id="ffUpdate" method="post" novalidate="novalidate">
-            <fieldset>
-                <legend>角色信息的修改</legend>
-                <table id="tblUpdate">
-                    <tr>
-                        <input type="hidden" id="Id" name="Id" />
-                        <td>
-                            <label for="UserName">角色名称：</label></td>
-                        <td>
-                            <input class="easyui-validatebox" type="text" id="RoleName1" name="RoleName" data-options="required:true,validType:'length[1,32]'" />
-                        </td>
+        <div id="Div_form" class="easyui-panel" style="padding: 10px 20px; overflow-x: hidden;" data-options=" border:false">
+            <form id="ff" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="Id" />
+                <input type="hidden" name="CreateBy" />
+                <input type="hidden" name="CreateTime" />
+                <input type="hidden" name="ModifyBy" />
+                <input type="hidden" name="ModifyTime" />
+                <table class="stripes" style="table-layout: fixed;" border="0" cellspacing="0" cellpadding="0">
 
+                    <tr>
+                        <td>
+                            <label>名称：</label></td>
+                        <td>
+                            <input class="easyui-validatebox textbox" type="text" name="RoleName" /></td>
                     </tr>
                     <tr>
                         <td>
-                            <label for="SortCode">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;排序码：</label></td>
+                            <label>备注：</label></td>
                         <td>
-                            <input class="easyui-validatebox" type="text" id="RoleOrder1" name="RoleOrder" />
-                        </td>
+                            <textarea class="areabox" name="Remarks"></textarea></td>
                     </tr>
                     <tr>
                         <td>
-                            <label for="Description">角色描述：</label></td>
-                        <td colspan="3">
-                            <textarea style="height: 50px; width: 406px;" id="Remarks1" name="Remarks"></textarea>
-                        </td>
+                            <label>角色类型：</label></td>
+                        <td>
+                            <input id="RoleTypes" class="easyui-combobox" name="RoleTypes"
+                                data-options="valueField:'ItemValue',textField:'ItemName',required:true" /></td>
                     </tr>
                 </table>
-            </fieldset>
+            </form>
+        </div>
 
-        </form>
-        <div style="text-align: center; width: 100%">
-            <a href="javascript:void(0)" class="easyui-linkbutton" id="btnAddRole" iconcls="icon-ok" onclick="BindUpdateInfo();">确定</a>
-            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" onclick="$('#DivUpdate').dialog('close')">关闭</a>
+        <div style="text-align: center; width: 100%; margin-bottom: 5px;">
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-ok" onclick="SaveInfo();">确定</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" onclick="$('#DivEditor').dialog('close')">关闭</a>
         </div>
     </div>
+
+
 
     <div id="DivSetRole" class="easyui-window" style="width: 1000px; height: 700px;"
         closed="true" resizable="true" modal="true" buttons="#dlg-buttons">

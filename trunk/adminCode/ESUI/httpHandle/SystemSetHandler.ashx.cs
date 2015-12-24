@@ -28,8 +28,8 @@ namespace ESUI.httpHandle
             switch (action)
             {
                 case "GetList":
-
-                    context.Response.Write(GetList());
+                    string RoleTypes = context.Request["RoleTypes"];
+                    context.Response.Write(GetList( RoleTypes));
                     context.Response.End();
                     break;
             
@@ -37,7 +37,13 @@ namespace ESUI.httpHandle
             }
 
         }
-        public String GetList()
+        /// <summary>
+        /// 角色类型
+        /// 
+        /// </summary>
+        /// <param name="RoleTypes"></param>
+        /// <returns></returns>
+        public String GetList(string RoleTypes)
         {
 
             int pageIndex = 1;
@@ -51,7 +57,7 @@ namespace ESUI.httpHandle
             pc.sys_PageIndex = pageIndex;
             pc.sys_PageSize = pageSize;
             pc.sys_Table = "RMS_Role";
-            pc.sys_Where = "1=1";
+            pc.sys_Where = "RoleTypes=" + RoleTypes;
             pc.sys_Order = "Id";
             if (!UserData.RoleId.ToString().Equals("fb38f312-0078-4f44-9cda-1183c8042db8"))//不是系统管理员，不请允许显示系统管理员
             {

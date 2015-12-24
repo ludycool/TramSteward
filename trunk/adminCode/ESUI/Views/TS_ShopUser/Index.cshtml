@@ -98,7 +98,7 @@
             function BindRole() {
 
                 $('#tbRole').datagrid({
-                    url: '/httpHandle/SystemSetHandler.ashx?action=GetList',
+                    url: '/httpHandle/SystemSetHandler.ashx?action=GetList&RoleTypes=0',
                     columns: [[
                         { field: 'RoleName', title: '角色名称', width: 100 },
                         { field: 'Remarks', title: '描述', width: 370, align: 'right' }
