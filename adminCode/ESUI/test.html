@@ -9,7 +9,7 @@
           var json = '?json={"jsonEntity":{"":""},"action":"appreg"}';
           function go() {
 
-              var dd = '?json={"jsonEntity":{"":""},"action":"HttpUploadImg"}';
+              var dd = '?json={"jsonEntity":{"":""},"action":"HttpUploadFile"}';
               var postData = $("#form1").serializeArray();
               //发送异步请求到后台保存数据
               $.post("/httpSever/File_ImageHandler.ashx" + dd, postData, function (result) {
@@ -18,7 +18,7 @@
               });
           }
           function UPimg() {
-              var json = '?json={"jsonEntity":{"":""},"action":"HttpUploadImg"}';
+              var json = '?json={"jsonEntity":{"":""},"action":"HttpUploadFile"}';
               //----上传头像
               $("#form1").form('submit', {
                   url: "/httpSever/File_ImageHandler.ashx" + json,
