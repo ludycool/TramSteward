@@ -6,7 +6,8 @@
 <head id="Head1" runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
-  <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+  <%--<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>--%>
+    <script src="Content/JqueryEasyUI/jquery1.9.min.js"></script>
       <script/ type="text/javascript">
           var BaseUrl = "/PatServer/AppUser.ashx";
           var json = '?json={"jsonEntity":{"":""},"action":"appreg"}';

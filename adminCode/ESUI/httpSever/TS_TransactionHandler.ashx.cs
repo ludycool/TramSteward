@@ -70,6 +70,7 @@ namespace ESUI.httpSever
                         Rmodel.Praises = 0;
                         Rmodel.CallCount = 0;
                         Rmodel.States = 0;
+                        Rmodel.isTop = 0;
                         OPBiz.Add(Rmodel);
                         resultMode.Code = 11;
                         resultMode.Msg = "添加成功";
@@ -249,16 +250,16 @@ namespace ESUI.httpSever
                 {
                     float minKM = float.Parse(httpObject["jsonEntity"]["minKM"].ToString());
                     float maxKM = float.Parse(httpObject["jsonEntity"]["maxKM"].ToString());
-                    ds = OPBiz.GetByDistancesOrderByLL(Where.ToString(), minKM, maxKM, Longitude, Latitude);
+                    ds = OPBiz.GetByDistancesOrderByLL("v_TS_Transaction", Where.ToString(), minKM, maxKM, Longitude, Latitude);
                 }
                 else //分页 按距离排序
                 {
-                    ds = OPBiz.GetPagingOrderByLL(Where.ToString(), pageIndex, pageSize, Longitude, Latitude);
+                    ds = OPBiz.GetPagingOrderByLL("v_TS_Transaction", Where.ToString(), pageIndex, pageSize, Longitude, Latitude);
                 }
             }
             else //简单分页无排序
             {
-                ds = OPBiz.GetPagingDataSet(Where.ToString(), pageIndex, pageSize, "CreateTime desc");
+                ds = OPBiz.GetPagingDataSet("v_TS_Transaction", Where.ToString(), pageIndex, pageSize, "CreateTime desc");
             }
             #endregion
             if (ds != null && ds.Tables[0].Rows.Count > 0)

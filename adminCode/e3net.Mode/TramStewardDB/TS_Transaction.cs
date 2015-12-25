@@ -56,6 +56,7 @@ namespace e3net.Mode.TramStewardDB
             get { return GetPropertyValue<String>("Brand"); }
             set { SetPropertyValue("Brand", value); }
         }
+
         /// <summary>
         /// 电话
         /// </summary>
@@ -64,6 +65,7 @@ namespace e3net.Mode.TramStewardDB
             get { return GetPropertyValue<String>("Phone"); }
             set { SetPropertyValue("Phone", value); }
         }
+
         /// <summary>
         /// 详情
         /// </summary>
@@ -209,6 +211,15 @@ namespace e3net.Mode.TramStewardDB
         }
 
         /// <summary>
+        /// 是否置顶（1是、0否）
+        /// </summary>
+        public Int32? isTop
+        {
+            get { return GetPropertyValue<Int32?>("isTop"); }
+            set { SetPropertyValue("isTop", value); }
+        }
+
+        /// <summary>
         /// 状态（2已审核、开启1，未审核0，关闭-1）
         /// </summary>
         public Int32? States
@@ -276,7 +287,7 @@ namespace e3net.Mode.TramStewardDB
         /// <summary>
         /// 电话
         /// </summary>
-        public static readonly FieldBase Phone = new FieldBase(DbType.SqlServer, "[v_TS_Transaction]", FieldType.Common, "[Phone]");
+        public static readonly FieldBase Phone = new FieldBase(DbType.SqlServer, "[TS_Transaction]", FieldType.Common, "[Phone]");
 
         /// <summary>
         /// 详情
@@ -359,7 +370,12 @@ namespace e3net.Mode.TramStewardDB
         public static readonly FieldBase Latitude = new FieldBase(DbType.SqlServer, "[TS_Transaction]", FieldType.Common, "[Latitude]");
 
         /// <summary>
-        /// 状态（2已审核、开启1，未审核0，关闭-1）
+        /// 是否删除
+        /// </summary>
+        public static readonly FieldBase isTop = new FieldBase(DbType.SqlServer, "[TS_Transaction]", FieldType.Common, "[isTop]");
+
+        /// <summary>
+        /// 是否置顶（1是、0否）
         /// </summary>
         public static readonly FieldBase States = new FieldBase(DbType.SqlServer, "[TS_Transaction]", FieldType.Common, "[States]");
 

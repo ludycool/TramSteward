@@ -51,9 +51,18 @@
                              { field: 'Price', title: '价格', width: 100, sortable: true },
                         { field: 'TrueName', title: '联系人', width: 100, sortable: true },
                         { field: 'Phone', title: '电话', width: 100, sortable: true },
-                         { field: 'CallCount', title: '呼叫量', width: 100, sortable: true },
-                        { field: 'Praises', title: '赞', width: 100, sortable: true },
                         { field: 'StatesName', title: '状态', width: 100, sortable: true },
+                           {
+                               field: 'isTop', title: '置顶', width: 100, sortable: true, formatter: function (value, row, index) {
+                                   if (value == 1) {
+                                       return ' <span style=" color:red">是</span>';
+                                   } else {
+                                       return '否';
+                                   }
+                               }
+                           },
+                        { field: 'CallCount', title: '呼叫量', width: 100, sortable: true },
+                        { field: 'Praises', title: '赞', width: 100, sortable: true },
                         { field: 'CreateTime', title: '添加时间', width: 100, sortable: true },
                          { field: 'CategoryName', title: '类型', width: 100, sortable: true },
                           { field: 'ProvinceName', title: '省', width: 100, sortable: true },
@@ -155,7 +164,7 @@
                         $("#imgLogoM").attr('src', result.ImageUrlMax);
                         $('#Category').combotree('setValue', result['Category']);
                         $('#States').combobox('select', result.States);
-
+                        $('#isTop').combobox('select', result.isTop);
                         change(1);
                         $('#CityCode').val(result.CityCode);
                         change(2);
@@ -284,6 +293,7 @@
             <table class="stripes" style="table-layout: fixed; margin: 0 auto; width: 320px;" border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td style="width: 60px;">
+
                         <label>名称：</label></td>
                     <td>
                         <input type="text" class="textbox" name="Title_like" style="width: 200px;" />
@@ -326,6 +336,17 @@
                         <input id="States_eq" class="easyui-combobox" name="States_eq"
                             data-options="valueField:'ItemValue',textField:'ItemName'" />
 
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <label>置顶：</label></td>
+                    <td>
+                        <select id="isTop_eq" name="isTop_eq" class="easyui-combobox">
+                            <option value="0">否</option>
+                            <option value="1">是</option>
+                        </select>
                     </td>
                 </tr>
             </table>
@@ -457,6 +478,16 @@
                             <input id="States" class="easyui-combobox" name="States"
                                 data-options="valueField:'ItemValue',textField:'ItemName',required:true" />
 
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>是否置顶：</label></td>
+                        <td>
+                            <select id="isTop" name="isTop" class="easyui-combobox" data-options="required:true">
+                                <option value="0">否</option>
+                                <option value="1">是</option>
+                            </select>
                         </td>
                     </tr>
                     <tr>

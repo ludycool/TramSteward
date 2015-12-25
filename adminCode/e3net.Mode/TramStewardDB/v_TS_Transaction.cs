@@ -60,15 +60,6 @@ namespace e3net.Mode.TramStewardDB
         /// <summary>
         /// 
         /// </summary>
-        public String ImageUrl
-        {
-            get { return GetPropertyValue<String>("ImageUrl"); }
-            set { SetPropertyValue("ImageUrl", value); }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
         public String Brand
         {
             get { return GetPropertyValue<String>("Brand"); }
@@ -285,19 +276,28 @@ namespace e3net.Mode.TramStewardDB
         /// <summary>
         /// 
         /// </summary>
-        public String Expr1
+        public String UserName
         {
-            get { return GetPropertyValue<String>("Expr1"); }
-            set { SetPropertyValue("Expr1", value); }
+            get { return GetPropertyValue<String>("UserName"); }
+            set { SetPropertyValue("UserName", value); }
         }
 
         /// <summary>
         /// 
         /// </summary>
-        public String UserName
+        public String ImageUrl
         {
-            get { return GetPropertyValue<String>("UserName"); }
-            set { SetPropertyValue("UserName", value); }
+            get { return GetPropertyValue<String>("ImageUrl"); }
+            set { SetPropertyValue("ImageUrl", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Int32? isTop
+        {
+            get { return GetPropertyValue<Int32?>("isTop"); }
+            set { SetPropertyValue("isTop", value); }
         }
     }
 
@@ -337,11 +337,6 @@ namespace e3net.Mode.TramStewardDB
         /// 
         /// </summary>
         public static readonly FieldBase TrueName = new FieldBase(DbType.SqlServer, "[v_TS_Transaction]", FieldType.Common, "[TrueName]");
-
-        /// <summary>
-        /// 
-        /// </summary>
-        public static readonly FieldBase ImageUrl = new FieldBase(DbType.SqlServer, "[v_TS_Transaction]", FieldType.Common, "[ImageUrl]");
 
         /// <summary>
         /// 
@@ -466,12 +461,17 @@ namespace e3net.Mode.TramStewardDB
         /// <summary>
         /// 
         /// </summary>
-        public static readonly FieldBase Expr1 = new FieldBase(DbType.SqlServer, "[v_TS_Transaction]", FieldType.Common, "[Expr1]");
+        public static readonly FieldBase UserName = new FieldBase(DbType.SqlServer, "[v_TS_Transaction]", FieldType.Common, "[UserName]");
 
         /// <summary>
         /// 
         /// </summary>
-        public static readonly FieldBase UserName = new FieldBase(DbType.SqlServer, "[v_TS_Transaction]", FieldType.Common, "[UserName]");
+        public static readonly FieldBase ImageUrl = new FieldBase(DbType.SqlServer, "[v_TS_Transaction]", FieldType.Common, "[ImageUrl]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase isTop = new FieldBase(DbType.SqlServer, "[v_TS_Transaction]", FieldType.Common, "[isTop]");
     }
 
 }

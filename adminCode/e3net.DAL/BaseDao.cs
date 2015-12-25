@@ -397,7 +397,7 @@ namespace e3net.DAL
             }
         }
 
-        
+
 
         public List<T> GetPagingData(PageClass pc)
         {
@@ -501,19 +501,36 @@ namespace e3net.DAL
                 }
             }
         }
+
         /// <summary>
         /// 简单的分页
         /// </summary>
-        /// <param name="WhereStr"></param>
-        /// <param name="pageIndex"></param>
-        /// <param name="pageSize"></param>
-        /// <param name="OrderStr"></param>
-        /// <returns></returns>
+        /// <param name="WhereStr">条件，不用加where</param>
+        /// <param name="pageIndex">第几页</param>
+        /// <param name="pageSize">每页数量</param>
+        /// <param name="OrderStr">排序，不用加order by</param>
+        /// <returns>DataSet</returns>
         public DataSet GetPagingDataSet(string WhereStr, int pageIndex, int pageSize, string OrderStr)
         {
 
-            string Fields = "*";
             string Table = GetTableName();
+            return GetPagingDataSet(Table, WhereStr, pageIndex, pageSize, OrderStr);
+        }
+
+
+        /// <summary>
+        /// 简单的分页
+        /// </summary>
+        /// <param name="tableName">表名</param>
+        /// <param name="WhereStr">条件，不用加where</param>
+        /// <param name="pageIndex">第几页</param>
+        /// <param name="pageSize">每页数量</param>
+        /// <param name="OrderStr">排序，不用加order by</param>
+        /// <returns>DataSet</returns>
+        public DataSet GetPagingDataSet(string tableName, string WhereStr, int pageIndex, int pageSize, string OrderStr)
+        {
+            string Fields = "*";
+
             DbParameter[] parameters = {
 			           new SqlParameter("@tableName", SqlDbType.NVarChar,200) ,            
                         new SqlParameter("@strGetFields", SqlDbType.NVarChar,200) ,   
@@ -524,7 +541,7 @@ namespace e3net.DAL
                         new SqlParameter("@strWhere", SqlDbType.NVarChar,200)         
               
             };
-            parameters[0].Value = Table;
+            parameters[0].Value = tableName;
             parameters[1].Value = Fields;
             parameters[2].Value = OrderStr;
             parameters[3].Value = pageSize;
@@ -535,7 +552,6 @@ namespace e3net.DAL
             using (var db = GetDb())
             {
                 //  db.DebugEnabled = true;
-
                 DataSet ds = db.ExecuteProToDataSet("sp_PaginationEx", parameters);
                 return ds;
             }
@@ -553,9 +569,23 @@ namespace e3net.DAL
         public DataSet GetPagingOrderByLL(string WhereStr, int pageIndex, int pageSize, string Longitude, string Latitude)
         {
 
-            string Fields = "*,dbo.fnGetDistance(" + Latitude + "," + Longitude + ",[Latitude],[Longitude]) as distance";
-            string OrderStr=" dbo.fnGetDistance(" + Latitude + "," + Longitude + ",[Latitude],[Longitude]) asc ";
             string Table = GetTableName();
+            return GetPagingOrderByLL(Table, WhereStr, pageIndex, pageSize, Longitude, Latitude);
+        }
+        /// <summary>
+        ///  分页 根据坐标排序从近到运 并添加距离字段distance
+        /// </summary>
+        /// <param name="WhereStr">where后面的语句</param>
+        /// <param name="pageIndex">页index</param>
+        /// <param name="pageSize">一页的数量</param>
+        /// <param name="Longitude">经度</param>
+        /// <param name="Latitude">纬度</param>
+        /// <returns></returns>
+        public DataSet GetPagingOrderByLL(string table, string WhereStr, int pageIndex, int pageSize, string Longitude, string Latitude)
+        {
+
+            string Fields = "*,dbo.fnGetDistance(" + Latitude + "," + Longitude + ",[Latitude],[Longitude]) as distance";
+            string OrderStr = " dbo.fnGetDistance(" + Latitude + "," + Longitude + ",[Latitude],[Longitude]) asc ";
             DbParameter[] parameters = {
 			           new SqlParameter("@tableName", SqlDbType.NVarChar,200) ,            
                         new SqlParameter("@strGetFields", SqlDbType.NVarChar,200) ,   
@@ -564,9 +594,8 @@ namespace e3net.DAL
                         new SqlParameter("@PageIndex", SqlDbType.Int,16) ,            
                      new SqlParameter("@TotalCount", SqlDbType.Int,16 ) ,            
                         new SqlParameter("@strWhere", SqlDbType.NVarChar,200)         
-              
             };
-            parameters[0].Value = Table;
+            parameters[0].Value = table;
             parameters[1].Value = Fields;
             parameters[2].Value = OrderStr;
             parameters[3].Value = pageSize;
@@ -582,6 +611,7 @@ namespace e3net.DAL
                 return ds;
             }
         }
+
         /// <summary>
         /// 指定范围内 根据坐标排序从近到运 并添加距离字段distance 
         /// </summary>
@@ -593,9 +623,23 @@ namespace e3net.DAL
         /// <returns></returns>
         public DataSet GetByDistancesOrderByLL(string WhereStr, float minKM, float MaxKM, string Longitude, string Latitude)
         {
+            string Table = GetTableName();
+            return GetByDistancesOrderByLL(Table, WhereStr, minKM, MaxKM, Longitude, Latitude);
+        }
+
+        /// <summary>
+        /// 指定范围内 根据坐标排序从近到运 并添加距离字段distance 
+        /// </summary>
+        /// <param name="WhereStr">where后面的语句</param>
+        /// <param name="minKM">至少距离</param>
+        /// <param name="MaxKM">最多距离</param>
+        /// <param name="Longitude">经度</param>
+        /// <param name="Latitude">纬度</param>
+        /// <returns></returns>
+        public DataSet GetByDistancesOrderByLL(string Table, string WhereStr, float minKM, float MaxKM, string Longitude, string Latitude)
+        {
             string Fields = "*,dbo.fnGetDistance(" + Latitude + "," + Longitude + ",[Latitude],[Longitude]) as distance";
             string OrderStr = " dbo.fnGetDistance(" + Latitude + "," + Longitude + ",[Latitude],[Longitude]) asc ";
-            string Table = GetTableName();
             DbParameter[] parameters = {
 			           new SqlParameter("@tableName", SqlDbType.NVarChar,200) ,            
                         new SqlParameter("@strGetFields", SqlDbType.NVarChar,1000) ,   
@@ -616,7 +660,6 @@ namespace e3net.DAL
             using (var db = GetDb())
             {
                 //  db.DebugEnabled = true;
-
                 DataSet ds = db.ExecuteProToDataSet("sp_GetByDistancesOrderByLL", parameters);
                 return ds;
             }
@@ -631,7 +674,7 @@ namespace e3net.DAL
 
         #endregion
 
-      
+
 
         public DbDataReader GetDbDataReader(string commandText, CommandType type)
         {
