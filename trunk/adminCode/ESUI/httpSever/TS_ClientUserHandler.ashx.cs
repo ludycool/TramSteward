@@ -60,7 +60,7 @@ namespace ESUI.httpSever
 
                             if (Rmodel.Longitude != null && Rmodel.Latitude != null)//geohash编码
                             {
-                                double Latitude = double.Parse(Rmodel.Longitude.ToString());
+                                double Latitude = double.Parse(Rmodel.Latitude.ToString());
                                 double Longitude = double.Parse(Rmodel.Longitude.ToString());
                                 Rmodel.geohash = Geohash.Encode(Latitude, Longitude);
                             }
@@ -158,7 +158,7 @@ namespace ESUI.httpSever
 
             if (Rmodel2.Longitude != null && Rmodel2.Latitude != null)//geohash编码
             {
-                double Latitude = double.Parse(Rmodel2.Longitude.ToString());
+                double Latitude = double.Parse(Rmodel2.Latitude.ToString());
                 double Longitude = double.Parse(Rmodel2.Longitude.ToString());
                 Rmodel2.geohash = Geohash.Encode(Latitude, Longitude);
             }

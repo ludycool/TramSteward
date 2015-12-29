@@ -84,7 +84,7 @@ namespace ESUI.Controllers
             TS_ShopModle.UpdateTime = DateTime.Now;
             if (TS_ShopModle.Longitude != null && TS_ShopModle.Latitude != null)//geohash编码
             {
-                double Latitude = double.Parse(TS_ShopModle.Longitude.ToString());
+                double Latitude = double.Parse(TS_ShopModle.Latitude.ToString());
                 double Longitude = double.Parse(TS_ShopModle.Longitude.ToString());
                 TS_ShopModle.geohash = Geohash.Encode(Latitude, Longitude);
             }

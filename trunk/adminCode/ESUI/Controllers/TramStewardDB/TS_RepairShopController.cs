@@ -73,7 +73,7 @@ namespace ESUI.Controllers
             HttpReSultMode ReSultMode = new HttpReSultMode();
             if (TS_RepairShopModle.Longitude != null && TS_RepairShopModle.Latitude != null)//geohash编码
             {
-                double Latitude = double.Parse(TS_RepairShopModle.Longitude.ToString());
+                double Latitude = double.Parse(TS_RepairShopModle.Latitude.ToString());
                 double Longitude = double.Parse(TS_RepairShopModle.Longitude.ToString());
                 TS_RepairShopModle.geohash = Geohash.Encode(Latitude, Longitude);
             }

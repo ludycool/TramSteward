@@ -80,7 +80,7 @@ namespace ESUI.Controllers
             DitModle.UpdateTime = DateTime.Now;
             if (DitModle.Longitude != null && DitModle.Latitude != null)//geohash编码
             {
-                double Latitude = double.Parse(DitModle.Longitude.ToString());
+                double Latitude = double.Parse(DitModle.Latitude.ToString());
                 double Longitude = double.Parse(DitModle.Longitude.ToString());
                 DitModle.geohash = Geohash.Encode(Latitude, Longitude);
             }

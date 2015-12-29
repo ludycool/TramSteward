@@ -69,7 +69,7 @@ namespace ESUI.Controllers
 
             if(TS_ClientUserModle.Longitude!=null&&TS_ClientUserModle.Latitude!=null)//geohash编码
             {
-                double Latitude=double.Parse( TS_ClientUserModle.Longitude.ToString());
+                double Latitude = double.Parse(TS_ClientUserModle.Latitude.ToString());
                  double Longitude=double.Parse( TS_ClientUserModle.Longitude.ToString());
                  TS_ClientUserModle.geohash = Geohash.Encode(Latitude, Longitude);
             }

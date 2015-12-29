@@ -52,7 +52,7 @@ namespace ESUI.httpSever
                             pageSize = int.Parse(httpObject["pageSize"].ToString());
                         }
                          ShopId =FilterTools.FilterSpecial( httpObject["jsonEntity"]["ShopId"].ToString());
-                         string Where = " ShopId='" + ShopId + "'";
+                         string Where = " ShopId='" + ShopId + "' and (isDeleted=0) ";
                          if (httpObject["jsonEntity"]["Category"] != null)
                          {
                              string Category = FilterTools.FilterSpecial(httpObject["jsonEntity"]["Category"].ToString());
