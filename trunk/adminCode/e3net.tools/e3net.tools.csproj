@@ -103,6 +103,7 @@
     <Compile Include="FilterHelper\FilterRule.cs" />
     <Compile Include="FilterHelper\FilterTranslator.cs" />
     <Compile Include="FilterTools.cs" />
+    <Compile Include="Geohash.cs" />
     <Compile Include="IsUniqueness.cs" />
     <Compile Include="JsonHelper\AjaxResult.cs" />
     <Compile Include="JsonHelper\FormatToJson.cs" />
