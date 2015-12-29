@@ -6,9 +6,7 @@ using Moon.Orm;
 
 namespace e3net.Mode.TramStewardDB
 {
-    /// <summary>
-    /// 便民信息
-    /// </summary>
+
     [Table("[TS_ServiceNew]", DbType.SqlServer)]
     [TablesPrimaryKey(PrimaryKeyType.CustomerGUID, typeof(Guid), "Id")]
     public partial class TS_ServiceNew : EntityBase

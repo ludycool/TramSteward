@@ -299,6 +299,15 @@ namespace e3net.Mode.TramStewardDB
             get { return GetPropertyValue<Int32?>("isTop"); }
             set { SetPropertyValue("isTop", value); }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String geohash
+        {
+            get { return GetPropertyValue<String>("geohash"); }
+            set { SetPropertyValue("geohash", value); }
+        }
     }
 
     [Table("[v_TS_Transaction]", DbType.SqlServer)]
@@ -472,6 +481,11 @@ namespace e3net.Mode.TramStewardDB
         /// 
         /// </summary>
         public static readonly FieldBase isTop = new FieldBase(DbType.SqlServer, "[v_TS_Transaction]", FieldType.Common, "[isTop]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase geohash = new FieldBase(DbType.SqlServer, "[v_TS_Transaction]", FieldType.Common, "[geohash]");
     }
 
 }

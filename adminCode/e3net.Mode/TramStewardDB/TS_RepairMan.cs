@@ -209,6 +209,15 @@ namespace e3net.Mode.TramStewardDB
             get { return GetPropertyValue<Boolean?>("isDeleted"); }
             set { SetPropertyValue("isDeleted", value); }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String geohash
+        {
+            get { return GetPropertyValue<String>("geohash"); }
+            set { SetPropertyValue("geohash", value); }
+        }
     }
 
     [Table("[TS_RepairMan]", DbType.SqlServer)]
@@ -332,6 +341,11 @@ namespace e3net.Mode.TramStewardDB
         /// 是否删除
         /// </summary>
         public static readonly FieldBase isDeleted = new FieldBase(DbType.SqlServer, "[TS_RepairMan]", FieldType.Common, "[isDeleted]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase geohash = new FieldBase(DbType.SqlServer, "[TS_RepairMan]", FieldType.Common, "[geohash]");
     }
 
 }

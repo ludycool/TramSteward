@@ -15,6 +15,7 @@ using e3net.BLL;
 using e3net.BLL.TramStewardDB;
 using e3net.Mode.TramStewardDB;
 using e3net.Mode.HttpView;
+using sharonjl.utils;
 
 namespace ESUI.Controllers
 {
@@ -65,6 +66,14 @@ namespace ESUI.Controllers
         public JsonResult EditInfo(TS_ClientUser TS_ClientUserModle)
         {
             HttpReSultMode ReSultMode = new HttpReSultMode();
+
+            if(TS_ClientUserModle.Longitude!=null&&TS_ClientUserModle.Latitude!=null)//geohash编码
+            {
+                double Latitude=double.Parse( TS_ClientUserModle.Longitude.ToString());
+                 double Longitude=double.Parse( TS_ClientUserModle.Longitude.ToString());
+                 TS_ClientUserModle.geohash = Geohash.Encode(Latitude, Longitude);
+            }
+
             bool IsAdd = false;
             if (TS_ClientUserModle.Details != null)
             {

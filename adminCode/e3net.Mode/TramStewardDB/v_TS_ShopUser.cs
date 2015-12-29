@@ -236,6 +236,15 @@ namespace e3net.Mode.TramStewardDB
             get { return GetPropertyValue<String>("AreaName"); }
             set { SetPropertyValue("AreaName", value); }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String geohash
+        {
+            get { return GetPropertyValue<String>("geohash"); }
+            set { SetPropertyValue("geohash", value); }
+        }
     }
 
     [Table("[v_TS_ShopUser]", DbType.SqlServer)]
@@ -374,6 +383,11 @@ namespace e3net.Mode.TramStewardDB
         /// 
         /// </summary>
         public static readonly FieldBase AreaName = new FieldBase(DbType.SqlServer, "[v_TS_ShopUser]", FieldType.Common, "[AreaName]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase geohash = new FieldBase(DbType.SqlServer, "[v_TS_ShopUser]", FieldType.Common, "[geohash]");
     }
 
 }

@@ -103,6 +103,24 @@ namespace e3net.Mode
         }
 
         /// <summary>
+        /// 文章的Id
+        /// </summary>
+        public String ToId
+        {
+            get { return GetPropertyValue<String>("ToId"); }
+            set { SetPropertyValue("ToId", value); }
+        }
+
+        /// <summary>
+        /// 类别 0为网页广告连接,1为店铺,2为服务站,3为维修店4为便民信息
+        /// </summary>
+        public Int32? CType
+        {
+            get { return GetPropertyValue<Int32?>("CType"); }
+            set { SetPropertyValue("CType", value); }
+        }
+
+        /// <summary>
         /// 状态1启用2禁用
         /// </summary>
         public Int32? States
@@ -182,6 +200,16 @@ namespace e3net.Mode
         /// 过期时间
         /// </summary>
         public static readonly FieldBase DeadLine = new FieldBase(DbType.SqlServer, "[Sys_Advertising]", FieldType.Common, "[DeadLine]");
+
+        /// <summary>
+        /// 文章的Id
+        /// </summary>
+        public static readonly FieldBase ToId = new FieldBase(DbType.SqlServer, "[Sys_Advertising]", FieldType.Common, "[ToId]");
+
+        /// <summary>
+        /// 类别 0为网页广告连接,1为店铺,2为服务站,3为维修店4为便民信息
+        /// </summary>
+        public static readonly FieldBase CType = new FieldBase(DbType.SqlServer, "[Sys_Advertising]", FieldType.Common, "[CType]");
 
         /// <summary>
         /// 状态1启用2禁用

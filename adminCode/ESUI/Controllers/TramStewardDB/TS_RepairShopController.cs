@@ -16,6 +16,7 @@ using e3net.BLL.TramStewardDB;
 using e3net.Mode.TramStewardDB;
 using e3net.Mode.HttpView;
 using e3net.Mode.V_mode;
+using sharonjl.utils;
 
 namespace ESUI.Controllers
 {
@@ -70,6 +71,12 @@ namespace ESUI.Controllers
         public JsonResult EditInfo(TS_RepairShop TS_RepairShopModle)
         {
             HttpReSultMode ReSultMode = new HttpReSultMode();
+            if (TS_RepairShopModle.Longitude != null && TS_RepairShopModle.Latitude != null)//geohash编码
+            {
+                double Latitude = double.Parse(TS_RepairShopModle.Longitude.ToString());
+                double Longitude = double.Parse(TS_RepairShopModle.Longitude.ToString());
+                TS_RepairShopModle.geohash = Geohash.Encode(Latitude, Longitude);
+            }
             bool IsAdd = false;
             if (TS_RepairShopModle.Details != null)
             {
