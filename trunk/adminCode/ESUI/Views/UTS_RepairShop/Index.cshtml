@@ -43,7 +43,7 @@
                     url: BaseUrl + 'Search',
                     columns: [[
                         { field: 'ck', checkbox: true },
-                        { field: 'TName', title: '名称', width: 100 },
+                        { field: 'TName', title: '名称', width: 150 },
                         { field: 'Star', title: '星级', width: 100 },
                         { field: 'Phone', title: '电话', width: 100 },
                         { field: 'ProvinceName', title: '省', width: 100 },
@@ -58,18 +58,18 @@
                                   }
                               }
                           },
-                         { field: 'CallCount', title: '呼叫量', width: 100 },
-                        { field: 'Praises', title: '赞', width: 100 },
+                         { field: 'CallCount', title: '呼叫量', width: 50},
+                        { field: 'Praises', title: '赞', width: 50 },
                         { field: 'StatesName', title: '状态', width: 100 },
                         { field: 'CreateTime', title: '添加时间', width: 150 },
                          { field: 'CategoryName', title: '类型', width: 100 },
-                        { field: 'Address', title: '地址', width: 300, align: 'right' }
+                        { field: 'Address', title: '地址', width: 200, align: 'right' }
                     ]],
                     iconCls: 'icon-save',
                     title: '维修店',
                     nowrap: true,
                     fit: true,
-                    fitColumns: true,
+                    //fitColumns: true,
                     singleSelect: true,
                     striped: true,
                     collapsible: true,

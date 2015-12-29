@@ -128,6 +128,24 @@ namespace e3net.Mode.V_mode
             get { return GetPropertyValue<Boolean?>("isDeleted"); }
             set { SetPropertyValue("isDeleted", value); }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public Int32? CType
+        {
+            get { return GetPropertyValue<Int32?>("CType"); }
+            set { SetPropertyValue("CType", value); }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String ToId
+        {
+            get { return GetPropertyValue<String>("ToId"); }
+            set { SetPropertyValue("ToId", value); }
+        }
     }
 
     [Table("[v_Sys_Advertising]", DbType.SqlServer)]
@@ -206,6 +224,16 @@ namespace e3net.Mode.V_mode
         /// 
         /// </summary>
         public static readonly FieldBase isDeleted = new FieldBase(DbType.SqlServer, "[v_Sys_Advertising]", FieldType.Common, "[isDeleted]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase CType = new FieldBase(DbType.SqlServer, "[v_Sys_Advertising]", FieldType.Common, "[CType]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase ToId = new FieldBase(DbType.SqlServer, "[v_Sys_Advertising]", FieldType.Common, "[ToId]");
     }
 
 }

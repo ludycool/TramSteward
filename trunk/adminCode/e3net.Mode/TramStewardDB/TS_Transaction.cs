@@ -245,6 +245,15 @@ namespace e3net.Mode.TramStewardDB
             get { return GetPropertyValue<Boolean?>("isDeleted"); }
             set { SetPropertyValue("isDeleted", value); }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public String geohash
+        {
+            get { return GetPropertyValue<String>("geohash"); }
+            set { SetPropertyValue("geohash", value); }
+        }
     }
 
     [Table("[TS_Transaction]", DbType.SqlServer)]
@@ -370,12 +379,12 @@ namespace e3net.Mode.TramStewardDB
         public static readonly FieldBase Latitude = new FieldBase(DbType.SqlServer, "[TS_Transaction]", FieldType.Common, "[Latitude]");
 
         /// <summary>
-        /// 是否删除
+        /// 是否置顶（1是、0否）
         /// </summary>
         public static readonly FieldBase isTop = new FieldBase(DbType.SqlServer, "[TS_Transaction]", FieldType.Common, "[isTop]");
 
         /// <summary>
-        /// 是否置顶（1是、0否）
+        /// 状态（2已审核、开启1，未审核0，关闭-1）
         /// </summary>
         public static readonly FieldBase States = new FieldBase(DbType.SqlServer, "[TS_Transaction]", FieldType.Common, "[States]");
 
@@ -388,6 +397,11 @@ namespace e3net.Mode.TramStewardDB
         /// 是否删除
         /// </summary>
         public static readonly FieldBase isDeleted = new FieldBase(DbType.SqlServer, "[TS_Transaction]", FieldType.Common, "[isDeleted]");
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public static readonly FieldBase geohash = new FieldBase(DbType.SqlServer, "[TS_Transaction]", FieldType.Common, "[geohash]");
     }
 
 }

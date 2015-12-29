@@ -16,6 +16,7 @@ using e3net.BLL.TramStewardDB;
 using e3net.Mode.TramStewardDB;
 using e3net.Mode.HttpView;
 using e3net.Mode.V_mode;
+using sharonjl.utils;
 
 namespace ESUI.Controllers
 {
@@ -80,6 +81,12 @@ namespace ESUI.Controllers
                 TS_ServiceModle.Details = "";
             }
             TS_ServiceModle.UpdateTime = DateTime.Now;
+            if (TS_ServiceModle.Longitude != null && TS_ServiceModle.Latitude != null)//geohash编码
+            {
+                double Latitude = double.Parse(TS_ServiceModle.Longitude.ToString());
+                double Longitude = double.Parse(TS_ServiceModle.Longitude.ToString());
+                TS_ServiceModle.geohash = Geohash.Encode(Latitude, Longitude);
+            }
             if (!(TS_ServiceModle.Id != null && !TS_ServiceModle.Id.ToString().Equals("00000000-0000-0000-0000-000000000000")))//id为空，是添加
             {
                 IsAdd = true;

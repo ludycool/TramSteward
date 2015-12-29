@@ -4,6 +4,7 @@ using e3net.Mode.HttpView;
 using e3net.Mode.TramStewardDB;
 using e3net.tools;
 using Newtonsoft.Json.Linq;
+using sharonjl.utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -71,6 +72,15 @@ namespace ESUI.httpSever
                         Rmodel.CallCount = 0;
                         Rmodel.States = 0;
                         Rmodel.isTop = 0;
+
+                        if (Rmodel.Longitude != null && Rmodel.Latitude != null)//geohash编码
+                        {
+                            double Latitude = double.Parse(Rmodel.Longitude.ToString());
+                            double Longitude = double.Parse(Rmodel.Longitude.ToString());
+                            Rmodel.geohash = Geohash.Encode(Latitude, Longitude);
+                        }
+
+
                         OPBiz.Add(Rmodel);
                         resultMode.Code = 11;
                         resultMode.Msg = "添加成功";
@@ -92,6 +102,12 @@ namespace ESUI.httpSever
                         Rmodel2.CallCount = modelu.CallCount;
                         Rmodel2.States = modelu.States;
 
+                        if (Rmodel2.Longitude != null && Rmodel2.Latitude != null)//geohash编码
+                        {
+                            double Latitude = double.Parse(Rmodel2.Longitude.ToString());
+                            double Longitude = double.Parse(Rmodel2.Longitude.ToString());
+                            Rmodel2.geohash = Geohash.Encode(Latitude, Longitude);
+                        }
 
 
                         Rmodel2.WhereExpression = TS_TransactionSet.Id.Equal(Rmodel2.Id);
