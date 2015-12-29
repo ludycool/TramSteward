@@ -218,9 +218,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="appweb\ServerHandle\File_ImageHandler.ashx.cs">
-      <DependentUpon>File_ImageHandler.ashx</DependentUpon>
-    </Compile>
     <Compile Include="appweb\ServerHandle\RepairShopHandler.ashx.cs">
       <DependentUpon>RepairShopHandler.ashx</DependentUpon>
     </Compile>
@@ -3535,7 +3532,6 @@
     <Content Include="appweb\meizi\fonts\fontawesome-webfont.woff2" />
     <Content Include="appweb\meizi\fonts\FontAwesome.otf" />
     <Content Include="appweb\ServerHandle\RepairShopHandler.ashx" />
-    <Content Include="appweb\ServerHandle\File_ImageHandler.ashx" />
     <None Include="Properties\PublishProfiles\ESUIConfig.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
