@@ -46,6 +46,29 @@
                                   }
                               }
                           },
+                           {
+                               field: 'CType', title: '类型', width: 150, formatter: function (value, row, index) {
+
+                                   switch (value) {
+                                       case 0:
+                                           return "网页连接";
+                                           break;
+                                       case 1:
+                                           return "店铺";
+                                           break;
+                                       case 2:
+                                           return "便民服务";
+                                           break;
+                                       case 3:
+                                           return "维修店";
+                                           break;
+                                       case 4:
+                                           return "便民信息";
+                                           break;
+                                   }
+
+                               }
+                           },
                         { field: 'AddTime', title: '添加时间', width: 150 },
                     { field: 'UpdateTime', title: '更新时间', width: 150 },
                          { field: 'DeadLine', title: '截止时间', width: 150 },
@@ -86,13 +109,14 @@
                 });
                 $(".validatebox-tip").remove();//清除验证样式
                 DataBaseFunction.ClearForm("ff");
+                $("#TName").html("");
                 $("#imgLogo").attr('src', "");
             }
 
 
             //绑定修改显示详细信息的方法
             function EditInfo() {
-              
+
 
                 var rows = $("#dg").datagrid('getSelected');
                 //首先取出来值判断只能选择一个
@@ -103,7 +127,7 @@
                 //处理修改的信息，弹出修改的对话框,然后显示选择的的详细信息
                 $("#DivEditor").dialog('open').dialog('setTitle', '修改' + rows.Title).window('resize', { top: 50, left: 50 });
                 //首先发送一个异步请求去后台实现方法
-
+                $("#TName").html("");
 
                 $(".validatebox-tip").remove();//清除验证样式
                 var ID = rows.Id;  //获取到了用选择的ID
@@ -117,11 +141,15 @@
                         var result = eval('(' + data + ')');
                         DataBaseFunction.BindForm("ff", result);
                         $('#States').combobox('select', result.States);
+                        $('#CType').combobox('select', result.CType);
                         $("#imgLogo").attr('src', result.ImageUrl);
                         $('#DeadLine').datebox('setValue', result.DeadLine);
                         $('#Category').combotree('setValue', result['Category']);
+                        if (result.CType > 0) {
+                            FindName(result.CType, result.ToId);//找绑定的信息
+                        }
                     }
-                });
+                    });
 
             }
 
@@ -175,6 +203,97 @@
                     }
                 })
             }
+
+            //弹出要绑定的信息窗口
+            function SetM() {
+
+                var types = $("input[name='CType']").val();
+                var titles = "";
+                switch (types) {
+                    case "0":
+                        titles = "网页连接";
+                        return;
+                        break;
+                    case "1":
+                        titles = "店铺";
+                        break;
+                    case "2":
+                        titles = "便民服务";
+                        break;
+                    case "3":
+                        titles = "维修店";
+                        break;
+                    case "4":
+                        titles = "便民信息";
+                        break;
+                }
+                $("#DivInfo").window('open');
+                $("#DivInfo").window('open').dialog('setTitle', '请选择-' + titles)
+                $('#tbInfo').datagrid({
+                    url: BaseUrl + 'GetSetInfo?types=' + types,
+                    columns: [[
+                           { field: 'TName', title: '名称', width: 150, sortable: true },
+                         { field: 'UserName', title: '发布者', width: 80, sortable: true },
+                            { field: 'TrueName', title: '姓名', width: 50, sortable: true },
+                             { field: 'Phone', title: '电话', width: 100, sortable: true },
+                             { field: 'StatesName', title: '状态', width: 50, sortable: true },
+                        { field: 'CreateTime', title: '添加时间', width: 100, sortable: true }
+                    ]],
+                    nowrap: true,
+                    //fit: true,
+                    fitColumns: true,
+                    singleSelect: true,
+                    striped: true,
+                    collapsible: true,
+                    pageSize: 10,
+                    pagination: true,
+                    rownumbers: true,
+                    sortName: 'CreateTime',
+                    sortOrder: 'desc',
+                });
+            }
+
+            //查找要绑定的信息
+            function BindSetInfo()
+            {
+                var Keys = $("#KeyWords").val();
+               
+
+                $('#tbInfo').datagrid('load', {
+                    KeyWords: Keys
+                });
+            }
+            //赋值
+            function SetInfo() {
+
+                var rows = $("#tbInfo").datagrid("getSelected");
+                if (rows) {
+                  
+                    $("#TName").html(rows.TName + "-" + rows.UserName);
+                    $("input[name='ToId']").val(rows.Id);
+                    $('#DivInfo').dialog('close');
+                }
+
+            }
+
+            //找信息
+            function FindName(CType, Id)
+            {
+
+                $.ajax({
+                    url: BaseUrl + 'GetBindInfo',
+                    type: 'POST',
+                    data: { ID: Id, CType: CType },
+                    cache: false,
+                    error: function () { alert('Error $.ajax'); },
+                    success: function (data) {
+                        var result = eval('(' + data + ')');
+                        $("#TName").html(result.TName);
+                    }
+                });
+
+            }
+
         </script>
     }
 
@@ -195,6 +314,7 @@
                 <input type="hidden" name="AddTime" />
                 <input type="hidden" name="UpdateTime" />
                 <input type="hidden" name="isDeleted" />
+                <input type="hidden" name="ToId" />
                 <table class="stripes" style="table-layout: fixed;" border="0" cellspacing="0" cellpadding="0">
 
 
@@ -203,13 +323,6 @@
                             <label>标题：</label></td>
                         <td>
                             <input class="easyui-validatebox textbox" type="text" name="Title" /></td>
-                    </tr>
-
-                    <tr>
-                        <td>
-                            <label>地址：</label></td>
-                        <td>
-                            <input class="easyui-validatebox textbox" type="text" name="Url" /></td>
                     </tr>
                     <tr>
                         <td>
@@ -223,7 +336,34 @@
                     </tr>
                     <tr>
                         <td>
-                            <label>类别：</label></td>
+                            <label>类型：</label></td>
+                        <td>
+                            <select class="easyui-combobox" id="CType" data-options="required:true" name="CType" style="width: 200px;">
+                                <option value="0">网页连接</option>
+                                <option value="1">店铺</option>
+                                <option value="2">便民服务</option>
+                                <option value="3">维修店</option>
+                                <option value="4">便民信息</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>绑定信息：</label></td>
+                        <td>
+                            <span id="TName"></span><a id="selecticon" onclick="SetM()" ref="javascript:;"
+                                plain="true" class="easyui-linkbutton" icon="icon-search" title="选择文章"></a></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Url地址：</label></td>
+                        <td>
+                            <input class="easyui-validatebox textbox" type="text" name="Url" /></td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label>位置类别：</label></td>
                         <td>
                             <select id="Category" name="Category" class="easyui-combotree" style="width: 200px;"
                                 data-options="required:true">
@@ -231,6 +371,7 @@
 
                         </td>
                     </tr>
+
                     <tr>
                         <td>
                             <label>简述：</label></td>
@@ -247,7 +388,8 @@
                         <td>
                             <label>过期时间：</label></td>
                         <td>
-                            <input name="DeadLine" id="DeadLine"  type="text" class="easyui-datebox" required="required"></input> </td>
+                            <input name="DeadLine" id="DeadLine" type="text" class="easyui-datebox" required="required"></input>
+                        </td>
                     </tr>
                     <tr>
                         <td>
@@ -267,6 +409,26 @@
             <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-ok" onclick="SaveInfo();">确定</a>
             <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" onclick="$('#DivEditor').dialog('close')">关闭</a>
         </div>
+    </div>
+
+    <!------------------------弹出绑定信息---------------------------------->
+    <div id="DivInfo" class="easyui-window" style="width: 680px; height: 600px; padding: 10px 20px" title="选择信息"
+        closed="true" resizable="true" modal="true" buttons="#dlg-buttons">
+
+        <div style="width: 100%; margin-top: 5px;">
+            关键词
+            <input class="easyui-validatebox textbox" type="text" id="KeyWords" /><a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-search" onclick="BindSetInfo();">搜索</a>
+
+        </div>
+        <table id="tbInfo"></table>
+
+        <div style="text-align: center; width: 100%; margin-bottom: 5px;">
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-ok" onclick="SetInfo();">确定</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" onclick="$('#DivInfo').dialog('close')">关闭</a>
+        </div>
+
+
+
     </div>
 </body>
 </html>
