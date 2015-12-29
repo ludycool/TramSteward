@@ -38,13 +38,13 @@ namespace sharonjl.utils
             Top = 0,
             Right = 1,
             Bottom = 2,
-            Left = 3 
+            Left = 3
         }
 
         #endregion
 
         private const string Base32 = "0123456789bcdefghjkmnpqrstuvwxyz";
-        private static readonly int[] Bits = new[] {16, 8, 4, 2, 1};
+        private static readonly int[] Bits = new[] { 16, 8, 4, 2, 1 };
 
         private static readonly string[][] Neighbors = {
                                                            new[]
@@ -77,13 +77,13 @@ namespace sharonjl.utils
             hash = hash.ToLower();
 
             char lastChr = hash[hash.Length - 1];
-            int type = hash.Length%2;
-            var dir = (int) direction;
+            int type = hash.Length % 2;
+            var dir = (int)direction;
             string nHash = hash.Substring(0, hash.Length - 1);
 
             if (Borders[type][dir].IndexOf(lastChr) != -1)
             {
-                nHash = CalculateAdjacent(nHash, (Direction) dir);
+                nHash = CalculateAdjacent(nHash, (Direction)dir);
             }
             return nHash + Base32[Neighbors[type][dir].IndexOf(lastChr)];
         }
@@ -97,11 +97,11 @@ namespace sharonjl.utils
         {
             if ((cd & mask) != 0)
             {
-                interval[0] = (interval[0] + interval[1])/2;
+                interval[0] = (interval[0] + interval[1]) / 2;
             }
             else
             {
-                interval[1] = (interval[0] + interval[1])/2;
+                interval[1] = (interval[0] + interval[1]) / 2;
             }
         }
 
@@ -113,8 +113,8 @@ namespace sharonjl.utils
         public static double[] Decode(String geohash)
         {
             bool even = true;
-            double[] lat = {-90.0, 90.0};
-            double[] lon = {-180.0, 180.0};
+            double[] lat = { -90.0, 90.0 };
+            double[] lon = { -180.0, 180.0 };
 
             foreach (char c in geohash)
             {
@@ -134,7 +134,7 @@ namespace sharonjl.utils
                 }
             }
 
-            return new[] {(lat[0] + lat[1])/2, (lon[0] + lon[1])/2};
+            return new[] { (lat[0] + lat[1]) / 2, (lon[0] + lon[1]) / 2 };
         }
         /// <summary>
         /// 编码
@@ -150,8 +150,8 @@ namespace sharonjl.utils
             int ch = 0;
             string geohash = "";
 
-            double[] lat = {-90.0, 90.0};
-            double[] lon = {-180.0, 180.0};
+            double[] lat = { -90.0, 90.0 };
+            double[] lon = { -180.0, 180.0 };
 
             if (precision < 1 || precision > 20) precision = 12;
 
@@ -161,7 +161,7 @@ namespace sharonjl.utils
 
                 if (even)
                 {
-                    mid = (lon[0] + lon[1])/2;
+                    mid = (lon[0] + lon[1]) / 2;
                     if (longitude > mid)
                     {
                         ch |= Bits[bit];
@@ -172,7 +172,7 @@ namespace sharonjl.utils
                 }
                 else
                 {
-                    mid = (lat[0] + lat[1])/2;
+                    mid = (lat[0] + lat[1]) / 2;
                     if (latitude > mid)
                     {
                         ch |= Bits[bit];
@@ -201,31 +201,34 @@ namespace sharonjl.utils
         /// <param name="geohash"></param>
         /// <returns></returns>
         public static String[] getGeoHashExpand(String geohash)
-        { 
-        
-        try {
-            String geohashTop = CalculateAdjacent(geohash, Direction.Top);//上
+        {
 
-            String geohashBottom = CalculateAdjacent(geohash, Direction.Bottom);//下
+            try
+            {
+                String geohashTop = CalculateAdjacent(geohash, Direction.Top);//上
 
-            String geohashLeft = CalculateAdjacent(geohash, Direction.Left);//左
+                String geohashBottom = CalculateAdjacent(geohash, Direction.Bottom);//下
 
-            String geohashRight = CalculateAdjacent(geohash, Direction.Right);//右
+                String geohashLeft = CalculateAdjacent(geohash, Direction.Left);//左
+
+                String geohashRight = CalculateAdjacent(geohash, Direction.Right);//右
 
 
-            String geohashTopLeft = CalculateAdjacent(geohashLeft, Direction.Top);//左上
+                String geohashTopLeft = CalculateAdjacent(geohashLeft, Direction.Top);//左上
 
-            String geohashTopRight = CalculateAdjacent(geohashRight, Direction.Top);//右上
+                String geohashTopRight = CalculateAdjacent(geohashRight, Direction.Top);//右上
 
-            String geohashBottomLeft = CalculateAdjacent(geohashLeft, Direction.Bottom);//左下
+                String geohashBottomLeft = CalculateAdjacent(geohashLeft, Direction.Bottom);//左下
 
-            String geohashBottomRight = CalculateAdjacent(geohashRight, Direction.Bottom);//右下
+                String geohashBottomRight = CalculateAdjacent(geohashRight, Direction.Bottom);//右下
 
-            String[] expand = { geohash, geohashTop, geohashBottom, geohashLeft, geohashRight, geohashTopLeft, geohashTopRight,  geohashBottomLeft, geohashBottomRight};
-			return expand;
-		} catch (Exception e) {
-			return null;
-		}
+                String[] expand = { geohash, geohashTop, geohashBottom, geohashLeft, geohashRight, geohashTopLeft, geohashTopRight, geohashBottomLeft, geohashBottomRight };
+                return expand;
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
         }
 
 
@@ -244,5 +247,41 @@ namespace sharonjl.utils
         //    /*获取所有的矩形geohash， 一共是九个 ，包含中心点,打印顺序请参考图2*/
         //    String[] result = Geohash.getGeoHashExpand(geohash);
         //}
+
+        /// <summary>
+        /// 生成查询 geohash 九个格子 的sql语句
+        /// </summary>
+        /// <param name="geohashLen">长度，5位是十平方千米（长 宽 3.3km），6位是3.3平方千米(长 宽 1点多km)</param>
+        /// <param name="lat">纬度</param>
+        /// <param name="lng">经度</param>
+        /// <param name="geoHashField">数据库存geohash的字段名</param>
+        /// <returns></returns>
+        public static String getsqlGeoHash(int geohashLen, string Latitude, string Longitude, string geoHashField)
+        {
+            double lat = double.Parse(Latitude);
+            double lon = double.Parse(Longitude);
+            string hash = Geohash.Encode(lat, lon);
+
+
+            /*获取中心点的geohash*/
+            String geohash = hash.Substring(0, geohashLen);
+            /*获取所有的矩形geohash， 一共是九个 ，包含中心点,打印顺序请参方法*/
+            String[] result = Geohash.getGeoHashExpand(geohash);
+            string where = "( ";
+            for (int i = 0; i < 9; i++)
+            {
+                if (i == 0)
+                {
+                    where += geoHashField + " like '" + result[i] + "%' ";
+                }
+                else
+                {
+                    where += " or " + geoHashField + " like '" + result[i] + "%' ";
+                }
+            }
+            where += ") ";
+            return where;
+        }
+
     }
 }

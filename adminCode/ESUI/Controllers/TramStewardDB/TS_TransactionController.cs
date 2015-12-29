@@ -83,7 +83,7 @@ namespace ESUI.Controllers
             TS_TransactionModle.UpdateTime = DateTime.Now;
             if (TS_TransactionModle.Longitude != null && TS_TransactionModle.Latitude != null)//geohash编码
             {
-                double Latitude = double.Parse(TS_TransactionModle.Longitude.ToString());
+                double Latitude = double.Parse(TS_TransactionModle.Latitude.ToString());
                 double Longitude = double.Parse(TS_TransactionModle.Longitude.ToString());
                 TS_TransactionModle.geohash = Geohash.Encode(Latitude, Longitude);
             }

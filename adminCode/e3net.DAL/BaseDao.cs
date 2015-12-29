@@ -409,12 +409,12 @@ namespace e3net.DAL
         {
             DbParameter[] parameters = {
 			           new SqlParameter("@tableName", SqlDbType.NVarChar,200) ,            
-                        new SqlParameter("@strGetFields", SqlDbType.NVarChar,200) ,   
-                         new SqlParameter("@strOrder", SqlDbType.NVarChar,200) ,  
+                        new SqlParameter("@strGetFields", SqlDbType.NVarChar,1000) ,   
+                         new SqlParameter("@strOrder", SqlDbType.NVarChar,1000) ,  
                         new SqlParameter("@PageSize", SqlDbType.Int,16) ,            
                         new SqlParameter("@PageIndex", SqlDbType.Int,16) ,            
                      new SqlParameter("@TotalCount", SqlDbType.Int,16 ) ,            
-                        new SqlParameter("@strWhere", SqlDbType.NVarChar,200)         
+                        new SqlParameter("@strWhere", SqlDbType.NVarChar,4000)         
               
             };
             parameters[0].Value = pc.sys_Table;
@@ -441,12 +441,12 @@ namespace e3net.DAL
         {
             DbParameter[] parameters = {
 			           new SqlParameter("@tableName", SqlDbType.NVarChar,200) ,            
-                        new SqlParameter("@strGetFields", SqlDbType.NVarChar,200) ,   
-                         new SqlParameter("@strOrder", SqlDbType.NVarChar,200) ,  
+                        new SqlParameter("@strGetFields", SqlDbType.NVarChar,1000) ,   
+                         new SqlParameter("@strOrder", SqlDbType.NVarChar,1000) ,  
                         new SqlParameter("@PageSize", SqlDbType.Int,16) ,            
                         new SqlParameter("@PageIndex", SqlDbType.Int,16) ,            
                      new SqlParameter("@TotalCount", SqlDbType.Int,16 ) ,            
-                        new SqlParameter("@strWhere", SqlDbType.NVarChar,200)         
+                        new SqlParameter("@strWhere", SqlDbType.NVarChar,4000)         
               
             };
 
@@ -533,12 +533,12 @@ namespace e3net.DAL
 
             DbParameter[] parameters = {
 			           new SqlParameter("@tableName", SqlDbType.NVarChar,200) ,            
-                        new SqlParameter("@strGetFields", SqlDbType.NVarChar,200) ,   
-                         new SqlParameter("@strOrder", SqlDbType.NVarChar,200) ,  
+                        new SqlParameter("@strGetFields", SqlDbType.NVarChar,1000) ,   
+                         new SqlParameter("@strOrder", SqlDbType.NVarChar,1000) ,  
                         new SqlParameter("@PageSize", SqlDbType.Int,16) ,            
                         new SqlParameter("@PageIndex", SqlDbType.Int,16) ,            
                      new SqlParameter("@TotalCount", SqlDbType.Int,16 ) ,            
-                        new SqlParameter("@strWhere", SqlDbType.NVarChar,200)         
+                        new SqlParameter("@strWhere", SqlDbType.NVarChar,4000)         
               
             };
             parameters[0].Value = tableName;
@@ -588,12 +588,12 @@ namespace e3net.DAL
             string OrderStr = " dbo.fnGetDistance(" + Latitude + "," + Longitude + ",[Latitude],[Longitude]) asc ";
             DbParameter[] parameters = {
 			           new SqlParameter("@tableName", SqlDbType.NVarChar,200) ,            
-                        new SqlParameter("@strGetFields", SqlDbType.NVarChar,200) ,   
-                         new SqlParameter("@strOrder", SqlDbType.NVarChar,200) ,  
+                        new SqlParameter("@strGetFields", SqlDbType.NVarChar,1000) ,   
+                         new SqlParameter("@strOrder", SqlDbType.NVarChar,1000) ,  
                         new SqlParameter("@PageSize", SqlDbType.Int,16) ,            
                         new SqlParameter("@PageIndex", SqlDbType.Int,16) ,            
                      new SqlParameter("@TotalCount", SqlDbType.Int,16 ) ,            
-                        new SqlParameter("@strWhere", SqlDbType.NVarChar,200)         
+                        new SqlParameter("@strWhere", SqlDbType.NVarChar,4000)         
             };
             parameters[0].Value = table;
             parameters[1].Value = Fields;

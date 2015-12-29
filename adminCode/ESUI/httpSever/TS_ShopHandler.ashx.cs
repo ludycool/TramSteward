@@ -4,6 +4,7 @@ using e3net.Mode.HttpView;
 using e3net.Mode.TramStewardDB;
 using e3net.tools;
 using Newtonsoft.Json.Linq;
+using sharonjl.utils;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -146,7 +147,7 @@ namespace ESUI.httpSever
             }
             #region 条件
             StringBuilder Where = new StringBuilder();
-            Where.Append(" isDeleted=0 ");
+            Where.Append(" isDeleted=0 and States>0 ");
             //if (httpObject["jsonEntity"]["KeyWords"] != null)//关键词
             //{
             //    string KeyWords = FilterTools.FilterSpecial(httpObject["jsonEntity"]["KeyWords"].ToString());
@@ -183,15 +184,18 @@ namespace ESUI.httpSever
             {
                 string Longitude = httpObject["jsonEntity"]["Longitude"].ToString();
                 string Latitude = httpObject["jsonEntity"]["Latitude"].ToString();
+                string geohashWhere = Geohash.getsqlGeoHash(5, Latitude, Longitude, "geohash");
+                string sqlWhere = Where.ToString() + " and " + geohashWhere;//条件加geohash
+
                 if (httpObject["jsonEntity"]["minKM"] != null && httpObject["jsonEntity"]["maxKM"] != null)//有最小最大距离约定 不分页
                 {
                     float minKM = float.Parse(httpObject["jsonEntity"]["minKM"].ToString());
                     float maxKM = float.Parse(httpObject["jsonEntity"]["maxKM"].ToString());
-                    ds = OPBiz.GetByDistancesOrderByLL(Where.ToString(), minKM, maxKM, Longitude, Latitude);
+                    ds = OPBiz.GetByDistancesOrderByLL(sqlWhere, minKM, maxKM, Longitude, Latitude);
                 }
                 else //分页 按距离排序
                 {
-                    ds = OPBiz.GetPagingOrderByLL(Where.ToString(), pageIndex, pageSize, Longitude, Latitude);
+                    ds = OPBiz.GetPagingOrderByLL(sqlWhere, pageIndex, pageSize, Longitude, Latitude);
                 }
             }
             else //简单分页无排序
