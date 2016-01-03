@@ -76,7 +76,7 @@
             //}, { enableHighAccuracy: true });
             //定位结束
             GetClass();//加载分类
-            GetData();
+           // GetData();
         });
         //加载数据
         function GetData() {
@@ -142,6 +142,7 @@
             result += '<h3 class="am-list-item-hd">';
             result += '<a  class="">' + data.TName + '</a>';
             result += '</h3>';
+            result += '<div class="am-list-item-text">' + data.Details + '</div>'
             result += '</li>';
             return result;
 
@@ -191,7 +192,7 @@
 
 
         function slectClass(id) {
-
+            $("#keyWords").val("");//清空
             var currentClass;//当前分类
             for (var i = 0; i < ClassAll.length; i++) {
                 if (ClassAll[i].Id == id) {

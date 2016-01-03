@@ -29,7 +29,7 @@ var plug = {
         var html = "<div class=\"am-modal am-modal-alert\" tabindex=\"-1\" id=\"atom-loading\">" +
 					  "<div class=\"am-modal-dialog\">" +
 						"<div class=\"am-modal-hd\"></div>" +
-						"<div class=\"am-modal-bd\"><img src=\"/img/loading.gif\" />  " +
+						"<div class=\"am-modal-bd\"><i class=\"am-icon-spinner am-icon-pulse\"></i> " +
 						  msg +
 						"</div>" +
 					  "</div>" +

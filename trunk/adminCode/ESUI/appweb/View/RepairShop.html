@@ -131,18 +131,30 @@
         }
         function createList(data) {
             dataAll.push(data);//添加到数据集
-            var result = '<li class="am-g am-list-item-dated" onclick="showDetails(\'' + data.Id + '\')">'
+           
 
+            var result = '<li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left" onclick="showDetails(\'' + data.Id + '\')">';
+            result += '<div class="am-u-sm-4 am-list-thumb">';
+            result += '<a>';
+            result += '<img src="' + data.ImageUrl + '" />';
+            result += '</a>';
+            result += '</div>';
+            result += '<div class=" am-u-sm-8 am-list-main">';
+            result += '<h3 class="am-list-item-hd">';
             if (data.IsRepair > 0) {//提供强修
-                result += '<a  class="am-list-item-hd">' + data.TName + '&nbsp;&nbsp; <span  class=" am-icon-bicycle am-text-danger"></span></a>';
+                result += '<a  class="">' + data.TName + '&nbsp;&nbsp; <span  class=" am-icon-bicycle am-text-danger"></span></a>';
             } else {
-                result += '<a  class="am-list-item-hd">' + data.TName + '</a>';
+                result += '<a  class="">' + data.TName + '</a>';
 
             }
-            result += '<span class="am-list-date">(' + changeTwoDecimal(data.distance) + '千米)</span>';
-            result += '<div class="am-list-item-text am-text-truncate" style=" color:#757575; display:block;">' + data.Details + '</div>';
-            result += ' </li>';
+
+
+            result += '<span style=" float: right; margin-right: 20px;" class="am-list-date">(' + changeTwoDecimal(data.distance) + '千米)</span>';
+            result += '</h3>';
+            result += '<div class="am-list-item-text">' + data.Details + '</div>'
+            result += '</li>';
             return result;
+
 
         }
 

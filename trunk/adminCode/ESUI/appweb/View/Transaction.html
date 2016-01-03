@@ -7,7 +7,7 @@
     <meta name="keywords" content="">
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>便民信息</title>
+    <title>二手车</title>
 
     <!-- Set render engine for 360 browser -->
     <meta name="renderer" content="webkit">
@@ -35,7 +35,7 @@
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=WI89dvdLg32uIprVCY2oCdrX"></script>
     <script type="text/javascript">
 
-        var Category = "07";
+        var Category = "09";
         var dataAll = new Array();//全部数据
         var ClassAll = new Array();//全部分类
         var Pageindex = 1;
@@ -82,7 +82,7 @@
         //加载数据
         function GetData() {
             $.ajax({
-                url: "/appweb/ServerHandle/ServiceHandler.ashx",
+                url: "/appweb/ServerHandle/TransactionHandler.ashx",
                 cache: false,
                 data: {
                     t: Math.random(),
@@ -133,6 +133,8 @@
         }
         function createList(data) {
             dataAll.push(data);//添加到数据集
+         
+
             var result = '<li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left" onclick="showDetails(\'' + data.Id + '\')">';
             result += '<div class="am-u-sm-4 am-list-thumb">';
             result += '<a>';
@@ -141,11 +143,12 @@
             result += '</div>';
             result += '<div class=" am-u-sm-8 am-list-main">';
             result += '<h3 class="am-list-item-hd">';
-            result += '<a  class="">' + data.TName + '</a><span style=" float: right; margin-right: 20px;" class="am-list-date">(' + changeTwoDecimal(data.distance) + '千米)</span>';
+            result += '<a  class="">' + data.Title + '</a><span style=" float: right; margin-right: 20px;" class="am-list-date">(' + changeTwoDecimal(data.distance) + '千米)</span>';
             result += '</h3>';
-            result += '<div class="am-list-item-text">' + data.Details + '</div>'
+            result += '<div class="am-list-item-text">'+data.Details+'</div>'
             result += '</li>';
             return result;
+
 
         }
         //加载分类 只加载一次
@@ -308,7 +311,7 @@
                 var marker1 = new BMap.Marker(point);  //创建标注
                 map.addOverlay(marker1);                 // 将标注添加到地图中
                 //创建信息窗口
-                var infoWindow1 = new BMap.InfoWindow(data.TName);
+                var infoWindow1 = new BMap.InfoWindow(data.Title);
                 marker1.addEventListener("click", function () { this.openInfoWindow(infoWindow1, map.getCenter()); });
                 window.setTimeout(function () { map.panTo(point); marker1.openInfoWindow(infoWindow1, map.getCenter()); }, 500);
 
@@ -324,7 +327,7 @@
         //点击增加浏览数
         function addClick(id) {
             var result = $.ajax({
-                url: "/appweb/ServerHandle/ServiceHandler.ashx",
+                url: "/appweb/ServerHandle/TransactionHandler.ashx",
                 data: {
                     t: Math.random(),
                     action: "ClickCount",
@@ -336,7 +339,7 @@
         //呼叫量增加
         function addCall(id) {
             var result = $.ajax({
-                url: "/appweb/ServerHandle/ServiceHandler.ashx",
+                url: "/appweb/ServerHandle/TransactionHandler.ashx",
                 data: {
                     t: Math.random(),
                     action: "CallCount",
@@ -367,7 +370,7 @@
                     var objs = eval("(" + data + ")");     //string转对象;
                     if (objs.Code > 0) {
                         var imgAll = eval("(" + objs.Data + ")");//所有的数据
-                        var imgul = ' <div data-am-widget="slider" class="am-slider am-slider-default" id="' + id + '"><ul class="am-slides">';
+                        var imgul = ' <div data-am-widget="slider" class="am-slider am-slider-a2" id="' + id + '"><ul class="am-slides">';
                         for (var i = 0; i < imgAll.length; i++) {
 
                             imgul += ' <li><img src="' + imgAll[i].FullRoute + '"></li>';
@@ -398,7 +401,7 @@
                 </a>
             </div>
             <h1 class="am-header-title" id="header_title">
-                <a href="#" class="">附近服务</a>
+                <a href="#" class="">附近二手</a>
             </h1>
             <div class="am-header-right am-header-nav">
                 <a href="#" class="" data-am-offcanvas="{target: '#div_right', effect: 'push'}">
@@ -464,7 +467,7 @@
              <div class="am-panel" id="div_img">
             </div>
             <div class="am-container" style="height: 30px; line-height: 30px;">
-                <span name="TName" style="font-size: larger;"></span>
+                <span name="Title" style="font-size: larger;"></span>
 
             </div>
             <div class="am-container">
