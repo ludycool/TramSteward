@@ -233,6 +233,12 @@
     <Compile Include="appweb\ServerHandle\ServiceNewHandler.ashx.cs">
       <DependentUpon>ServiceNewHandler.ashx</DependentUpon>
     </Compile>
+    <Compile Include="appweb\ServerHandle\ShopHandler.ashx.cs">
+      <DependentUpon>ShopHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="appweb\ServerHandle\TransactionHandler.ashx.cs">
+      <DependentUpon>TransactionHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -382,6 +388,8 @@
     <Content Include="appweb\View\RepairShop2.html" />
     <Content Include="appweb\View\Service.html" />
     <Content Include="appweb\View\ServiceNew.html" />
+    <Content Include="appweb\View\Shop.html" />
+    <Content Include="appweb\View\Transaction.html" />
     <Content Include="App_Data\QuestionsHelpData.xml" />
     <Content Include="App_Data\AdvertisingData.xml" />
     <Content Include="App_Data\ParameterData.xml" />
@@ -3555,6 +3563,8 @@
     <Content Include="appweb\ServerHandle\File_ImageHandler.ashx" />
     <Content Include="appweb\ServerHandle\DictionaryHandler.ashx" />
     <Content Include="appweb\ServerHandle\ServiceNewHandler.ashx" />
+    <Content Include="appweb\ServerHandle\ShopHandler.ashx" />
+    <Content Include="appweb\ServerHandle\TransactionHandler.ashx" />
     <None Include="Properties\PublishProfiles\ESUIConfig.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />

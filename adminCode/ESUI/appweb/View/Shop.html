@@ -7,7 +7,7 @@
     <meta name="keywords" content="">
     <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>便民信息</title>
+    <title>新车信息</title>
 
     <!-- Set render engine for 360 browser -->
     <meta name="renderer" content="webkit">
@@ -35,7 +35,7 @@
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=WI89dvdLg32uIprVCY2oCdrX"></script>
     <script type="text/javascript">
 
-        var Category = "07";
+        var Category = "05";
         var dataAll = new Array();//全部数据
         var ClassAll = new Array();//全部分类
         var Pageindex = 1;
@@ -66,8 +66,8 @@
                     plug.closeLoading();
                     Lng = r.point.lng;
                     Lat = r.point.lat;
-                    //  GetData();
-                    GetClass();//加载分类
+                   GetData();
+                   // GetClass();//加载分类
                 }
                 else {
                     plug.closeLoading();
@@ -82,7 +82,7 @@
         //加载数据
         function GetData() {
             $.ajax({
-                url: "/appweb/ServerHandle/ServiceHandler.ashx",
+                url: "/appweb/ServerHandle/ShopHandler.ashx",
                 cache: false,
                 data: {
                     t: Math.random(),
@@ -133,6 +133,7 @@
         }
         function createList(data) {
             dataAll.push(data);//添加到数据集
+
             var result = '<li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left" onclick="showDetails(\'' + data.Id + '\')">';
             result += '<div class="am-u-sm-4 am-list-thumb">';
             result += '<a>';
@@ -324,7 +325,7 @@
         //点击增加浏览数
         function addClick(id) {
             var result = $.ajax({
-                url: "/appweb/ServerHandle/ServiceHandler.ashx",
+                url: "/appweb/ServerHandle/ShopHandler.ashx",
                 data: {
                     t: Math.random(),
                     action: "ClickCount",
@@ -336,7 +337,7 @@
         //呼叫量增加
         function addCall(id) {
             var result = $.ajax({
-                url: "/appweb/ServerHandle/ServiceHandler.ashx",
+                url: "/appweb/ServerHandle/ShopHandler.ashx",
                 data: {
                     t: Math.random(),
                     action: "CallCount",
@@ -345,15 +346,15 @@
                 async: false
             }).responseText;
         }
-        //图片
+        //电车图片
         function GetImg(id) {
             $.ajax({
-                url: "/appweb/ServerHandle/File_ImageHandler.ashx",
+                url: "/appweb/ServerHandle/ShopHandler.ashx",
                 cache: false,
                 data: {
-                    action: "GetFileList",
+                    action: "GetCarList",
                     t: Math.random(),
-                    ToId: id
+                    ShopId: id
                 },
                 beforeSend: function () {
                     $("#div_img").html("");
@@ -367,12 +368,15 @@
                     var objs = eval("(" + data + ")");     //string转对象;
                     if (objs.Code > 0) {
                         var imgAll = eval("(" + objs.Data + ")");//所有的数据
-                        var imgul = ' <div data-am-widget="slider" class="am-slider am-slider-default" id="' + id + '"><ul class="am-slides">';
+                        var imgul = ' <div data-am-widget="slider" class="am-slider am-slider-c3" data-am-slider="{&quot;controlNav&quot;:false}" id="' + id + '"><ul class="am-slides">';
                         for (var i = 0; i < imgAll.length; i++) {
 
-                            imgul += ' <li><img src="' + imgAll[i].FullRoute + '"></li>';
+                            imgul += ' <li><img src="' + imgAll[i].ImageUrl + '">';
 
-
+                            imgul += '<div class="am-slider-desc"><div class="am-slider-counter"><span class="am-active">' + (i + 1).toString() + '</span>/' + imgAll.length + '</div>';
+                            
+                            imgul += imgAll[i].TName + '&nbsp;&nbsp;<span style=" float: right; margin-right: 20px;" class="am-text-warning">' + imgAll[i].Price + '元</span>';
+                            imgul += '</div></li>';
                         }
                         imgul += '</ul></div>';
                         $("#div_img").html(imgul);
@@ -398,7 +402,7 @@
                 </a>
             </div>
             <h1 class="am-header-title" id="header_title">
-                <a href="#" class="">附近服务</a>
+                <a href="#" class="">附近车行</a>
             </h1>
             <div class="am-header-right am-header-nav">
                 <a href="#" class="" data-am-offcanvas="{target: '#div_right', effect: 'push'}">
@@ -457,7 +461,7 @@
                         <span class="am-header-nav-title">列表</span>
                     </a>
                 </div>
-                <h1 class="am-header-title" id="mytitle">服务商家详情</h1>
+                <h1 class="am-header-title" id="mytitle">车店信息</h1>
             </header>
 
           <!--  <img src="" id="ImageUrl" class="am-img-responsive" style="width: 100%;" alt="" />-->
