@@ -1,7 +1,5 @@
 ﻿using e3net.BLL.TramStewardDB;
-using e3net.common.SysMode;
 using e3net.Mode.HttpView;
-using e3net.Mode.TramStewardDB;
 using e3net.tools;
 using sharonjl.utils;
 using System;
@@ -15,12 +13,12 @@ using TZHSWEET.Common;
 namespace ESUI.appweb.ServerHandle
 {
     /// <summary>
-    /// RepairShopHandler 的摘要说明
+    /// ServiceHandler 的摘要说明
     /// </summary>
-    public class RepairShopHandler : IHttpHandler
+    public class ServiceHandler : IHttpHandler
     {
 
-        TS_RepairShopBiz OPBiz = new TS_RepairShopBiz();
+        TS_ServiceBiz OPBiz = new TS_ServiceBiz();
         public void ProcessRequest(HttpContext context)
         {
             string action = context.Request["action"];
@@ -96,10 +94,10 @@ namespace ESUI.appweb.ServerHandle
             HttpReSultMode resultMode = new HttpReSultMode();
             try
             {
-               
+
                 int pageIndex = int.Parse(context.Request["Pageindex"]);
                 int pageSize = int.Parse(context.Request["Pagesize"]);
-                  DataSet ds;
+                DataSet ds;
                 #region 条件
                 StringBuilder Where = new StringBuilder();
                 Where.Append(" isDeleted=0 and States>0");
@@ -124,8 +122,9 @@ namespace ESUI.appweb.ServerHandle
                     //分页 按距离排序
                     string geohashWhere = Geohash.getsqlGeoHash(5, Latitude, Longitude, "geohash");
                     string sqlWhere = Where.ToString() + " and " + geohashWhere;//条件加geohash
+
                     ds = OPBiz.GetPagingOrderByLL(sqlWhere, pageIndex, pageSize, Longitude, Latitude);
-                    
+
                 }
                 else //简单分页无排序
                 {
@@ -154,6 +153,7 @@ namespace ESUI.appweb.ServerHandle
             return result;
             ;
         }
+
 
         public bool IsReusable
         {

@@ -218,8 +218,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="appweb\ServerHandle\DictionaryHandler.ashx.cs">
+      <DependentUpon>DictionaryHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="appweb\ServerHandle\File_ImageHandler.ashx.cs">
+      <DependentUpon>File_ImageHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="appweb\ServerHandle\RepairShopHandler.ashx.cs">
       <DependentUpon>RepairShopHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="appweb\ServerHandle\ServiceHandler.ashx.cs">
+      <DependentUpon>ServiceHandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -368,6 +377,7 @@
     <Content Include="appweb\View\Information.html" />
     <Content Include="appweb\View\RepairShop.html" />
     <Content Include="appweb\View\RepairShop2.html" />
+    <Content Include="appweb\View\Service.html" />
     <Content Include="App_Data\QuestionsHelpData.xml" />
     <Content Include="App_Data\AdvertisingData.xml" />
     <Content Include="App_Data\ParameterData.xml" />
@@ -3537,6 +3547,9 @@
     <Content Include="appweb\meizi\fonts\fontawesome-webfont.woff2" />
     <Content Include="appweb\meizi\fonts\FontAwesome.otf" />
     <Content Include="appweb\ServerHandle\RepairShopHandler.ashx" />
+    <Content Include="appweb\ServerHandle\ServiceHandler.ashx" />
+    <Content Include="appweb\ServerHandle\File_ImageHandler.ashx" />
+    <Content Include="appweb\ServerHandle\DictionaryHandler.ashx" />
     <None Include="Properties\PublishProfiles\ESUIConfig.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />
