@@ -325,8 +325,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="appweb\Content\img\bg_publish_base.png" />
+    <Content Include="appweb\Content\img\call_phone_24.png" />
     <Content Include="appweb\Content\img\icocry.png" />
     <Content Include="appweb\Content\img\ic_news.png" />
+    <Content Include="appweb\Content\img\star24.png" />
+    <Content Include="appweb\Content\img\star32.png" />
+    <Content Include="appweb\Content\img\telephone_24.png" />
     <Content Include="appweb\Content\img\welcome.jpg" />
     <Content Include="appweb\Content\js\CommonFunction.js" />
     <Content Include="appweb\meizi\css\admin.css" />
@@ -363,6 +367,7 @@
     <Content Include="appweb\View\index.html" />
     <Content Include="appweb\View\Information.html" />
     <Content Include="appweb\View\RepairShop.html" />
+    <Content Include="appweb\View\RepairShop2.html" />
     <Content Include="App_Data\QuestionsHelpData.xml" />
     <Content Include="App_Data\AdvertisingData.xml" />
     <Content Include="App_Data\ParameterData.xml" />
