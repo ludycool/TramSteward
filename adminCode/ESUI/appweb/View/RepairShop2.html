@@ -57,7 +57,7 @@
             map.centerAndZoom(new BMap.Point(Lng, Lat), 9);
             map.addControl(new BMap.NavigationControl());
             //定位开始
-
+          
             plug.showLoading("正在定位.......");
             geolocation.getCurrentPosition(function (r) {
                 if (this.getStatus() == BMAP_STATUS_SUCCESS) {
@@ -132,20 +132,13 @@
         function createList(data) {
             dataAll.push(data);//添加到数据集
             var result = '<li class="am-g am-list-item-dated" onclick="showDetails(\'' + data.Id + '\')">'
-
-            if (data.IsRepair > 0) {//提供强修
-                result += '<a  class="am-list-item-hd">' + data.TName + '&nbsp;&nbsp; <span  class=" am-icon-bicycle am-text-danger"></span></a>';
-            } else {
-                result += '<a  class="am-list-item-hd">' + data.TName + '</a>';
-
-            }
-            result += '<span class="am-list-date">(' + changeTwoDecimal(data.distance) + '千米)</span>';
+            result += '<a  class="am-list-item-hd">' + data.TName + '</a><span class="am-list-date">(' + changeTwoDecimal(data.distance) + '千米)</span>';
             result += '<div class="am-list-item-text am-text-truncate" style=" color:#757575; display:block;">' + data.Details + '</div>';
             result += ' </li>';
             return result;
 
         }
-
+    
         function Searh() {
 
             keyWords = $("#keyWords").val();
@@ -168,7 +161,8 @@
                 }
             });
         }
-        function types() {
+        function types()
+        {
 
 
         }
@@ -200,29 +194,34 @@
                 }
                 DataBaseFunction.BindForm("ff", data);
 
+
+                var date;
+                if (data.CreateTime != undefined) {
+                    var str = data.CreateTime;
+                    date = new Date(str);
+                } else {
+                    date = new Date();
+                }
+
+                var year = date.getFullYear();
+                var month = date.getMonth();
+                var date = date.getDate();
+                var AddTime = year + "年" + month + "月" + date + "日";
+                $(".times").html(AddTime);//发布时间
+                $(".clicks").html(data.Clicks);//点击量
+
                 $("#star").html("");//星级
                 for (var i = 0; i < data.Star; i++) {
-                    $("#star").append('<img src="../Content/img/star24.png" />');
+                    $("#star").append('<span class="am-icon-star am-text-warning"></span>');
                 }
                 $("#IsRepair").html("");//星级
                 if (data.IsRepair > 0) {
                     $("#IsRepair").append('是');
-                    $("#SIsRepair").show();
                 } else {
                     $("#IsRepair").append('否');
-                    $("#SIsRepair").hide();
-                }
-                if (data.ImageUrl != undefined && data.ImageUrl != '') {
-                    $("#ImageUrl").show();
-                    $("#ImageUrl").attr('src', data.ImageUrl);//图片
-                } else {
-                    $("#ImageUrl").hide();
                 }
                 $("#call").attr("href", "tel:" + data.Phone)//拨打电话
-                $('#call').click(function () {
-                    addCall(id);
 
-                });
                 map.clearOverlays();
                 var point = new BMap.Point(data.Longitude, data.Latitude);  // 创建点坐标  
 
@@ -232,6 +231,7 @@
                 //创建信息窗口
                 var infoWindow1 = new BMap.InfoWindow(data.TName);
                 marker1.addEventListener("click", function () { this.openInfoWindow(infoWindow1, map.getCenter()); });
+
                 window.setTimeout(function () { map.panTo(point); marker1.openInfoWindow(infoWindow1, map.getCenter()); }, 500);
 
 
@@ -240,7 +240,7 @@
                 $("#context_box").hide();
                 $("#details").show();
                 addClick(id); //点击增加浏览数
-                // GetImg(id);
+                GetImg(id);
             }
         }
         //点击增加浏览数
@@ -250,18 +250,6 @@
                 data: {
                     t: Math.random(),
                     action: "ClickCount",
-                    Id: id
-                },
-                async: false
-            }).responseText;
-        }
-        //呼叫量增加
-        function addCall(id) {
-            var result = $.ajax({
-                url: "/appweb/ServerHandle/RepairShopHandler.ashx",
-                data: {
-                    t: Math.random(),
-                    action: "CallCount",
                     Id: id
                 },
                 async: false
@@ -320,7 +308,7 @@
                 </a>
             </div>
             <h1 class="am-header-title" id="header_title">
-                <a href="#" class="">附近维修</a>
+                <a href="#" class="">电车维修</a>
             </h1>
             <!--<div class="am-header-right am-header-nav">
                 <a href="#" class="" data-am-offcanvas="{target: '#div_right', effect: 'push'}">
@@ -380,29 +368,31 @@
                 <h1 class="am-header-title" id="mytitle">维修商家详情</h1>
             </header>
 
-            <img src="" id="ImageUrl" class="am-img-responsive" style="width: 100%;" alt="" />
-            <div class="am-container" style="height: 30px; line-height: 30px;">
-                <span name="TName" style="font-size: larger;"></span><span id="SIsRepair" style="font-size: small; float: right; margin-right: 20px;" class="am-icon-bicycle am-text-danger">路上抢修</span>
-
-            </div>
-            <div class="am-container">
-                <span id="star"></span>
-            </div>
-            <div class="am-container">
-                <span name="Details"></span>
-            </div>
+            <div style="width: 100%; height: 5px;"></div>
+            发布时间：<a class="times"> </a>&nbsp;&nbsp; 
+        浏览数量：<a class="clicks" name="Clicks"> </a>
             <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
 
-            <div class="am-container">
-                <p class="am-text-primary">地址：<span name="Address" class="am-text-warning"></span></p>
-                <p class="am-text-primary">联系电话：<span name="Phone" class="am-text-warning"></span>&nbsp;&nbsp;&nbsp;&nbsp;<a id="call" href="tel:18688888888" title="拨打电话"><img src="../Content/img/call_phone_24.png" /></a></p>
-
-                <p class="am-text-primary">是否提供抢修：<span id="IsRepair" class="am-text-warning"></span></p>
+            <div class="am-panel" id="div_img">
             </div>
-            <div class="am-container">
-                <div id="allmap" class="am-container" style="height: 320px;" onclick="tobottom();">
+
+            <div class="am-container" style="text-align: center"><span name="Title"></span></div>
+            <div class="am-panel am-panel-warning" style="margin: 3px;">
+
+                <div class="am-panel-hd" id="div_DetailsData">
+
+                    <p>&nbsp;&nbsp;&nbsp;&nbsp;<span name="Details"></span></p>
+                    <p class="am-text-primary">名称：<span name="TName" class="am-text-warning"></span></p>
+                    <p class="am-text-primary">星级：<span id="star"><span class="am-icon-star am-text-warning"></span><span/></p>
+                    <p class="am-text-primary">是否提供抢修：<span id="IsRepair" class="am-text-warning"></span></p>
+                      <p class="am-text-primary">地址：<span name="Address" class="am-text-warning"></span></p>
+                    <p class="am-text-primary">联系电话：<span name="Phone" class="am-text-warning"></span>&nbsp;<a id="call" href="tel:18688888888" title="拨打电话"><span class="am-icon-phone-square"></span></a></p>
                 </div>
 
+                <div class="am-panel-bd" id="details_str">
+                </div>
+                <div id="allmap" class="am-container" style="height: 320px;" onclick="tobottom();">
+                </div>
             </div>
         </form>
     </div>
