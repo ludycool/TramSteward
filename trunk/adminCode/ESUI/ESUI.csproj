@@ -230,6 +230,9 @@
     <Compile Include="appweb\ServerHandle\ServiceHandler.ashx.cs">
       <DependentUpon>ServiceHandler.ashx</DependentUpon>
     </Compile>
+    <Compile Include="appweb\ServerHandle\ServiceNewHandler.ashx.cs">
+      <DependentUpon>ServiceNewHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\AuthConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -378,6 +381,7 @@
     <Content Include="appweb\View\RepairShop.html" />
     <Content Include="appweb\View\RepairShop2.html" />
     <Content Include="appweb\View\Service.html" />
+    <Content Include="appweb\View\ServiceNew.html" />
     <Content Include="App_Data\QuestionsHelpData.xml" />
     <Content Include="App_Data\AdvertisingData.xml" />
     <Content Include="App_Data\ParameterData.xml" />
@@ -3550,6 +3554,7 @@
     <Content Include="appweb\ServerHandle\ServiceHandler.ashx" />
     <Content Include="appweb\ServerHandle\File_ImageHandler.ashx" />
     <Content Include="appweb\ServerHandle\DictionaryHandler.ashx" />
+    <Content Include="appweb\ServerHandle\ServiceNewHandler.ashx" />
     <None Include="Properties\PublishProfiles\ESUIConfig.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />

@@ -1,0 +1,505 @@
+﻿<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>便民信息</title>
+
+    <!-- Set render engine for 360 browser -->
+    <meta name="renderer" content="webkit">
+
+    <!-- No Baidu Siteapp-->
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+    <!-- Add to homescreen for Chrome on Android -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <!-- Add to homescreen for Safari on iOS -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+
+    <!-- Tile icon for Win8 (144x144 + tile color) -->
+    <meta name="msapplication-TileColor" content="#0e90d2">
+
+    <link rel="stylesheet" href="/appweb/meizi/css/amazeui.min.css">
+    <script src="/appweb/meizi/js/jquery.min.js"></script>
+    <script src="/appweb/meizi/js/amazeui.min.js"></script>
+    <script src="/appweb/meizi/js/plug.js"></script>
+    <script src="/appweb/Content/js/CommonFunction.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=WI89dvdLg32uIprVCY2oCdrX"></script>
+    <script type="text/javascript">
+
+        var Category = "01";
+        var dataAll = new Array();//全部数据
+        var ClassAll = new Array();//全部分类
+        var Pageindex = 1;
+        var Pagesize = 10;
+        var keyWords = "";
+        var Lng = "107.45";//南宁开始
+        var Lat = "22";
+        var map;
+        var geolocation;
+
+
+
+
+        //页面加载后执行
+        jQuery(document).ready(function () {
+            //geolocation = new BMap.Geolocation();
+            //map = new BMap.Map("allmap");
+            //map.centerAndZoom(new BMap.Point(Lng, Lat), 9);
+            //map.addControl(new BMap.NavigationControl());
+            ////定位开始
+
+            //plug.showLoading("正在定位.......");
+            //geolocation.getCurrentPosition(function (r) {
+            //    if (this.getStatus() == BMAP_STATUS_SUCCESS) {
+            //        var mk = new BMap.Marker(r.point);
+            //        // alert('您的位置：' + r.point.lng + ',' + r.point.lat);
+            //        plug.closeLoading();
+            //        Lng = r.point.lng;
+            //        Lat = r.point.lat;
+            //        GetData();
+            //    }
+            //    else {
+            //        plug.closeLoading();
+            //        Lng = "0";
+            //        Lat = "0";
+            //        //  getData();
+            //    }
+            //}, { enableHighAccuracy: true });
+            //定位结束
+            GetClass();//加载分类
+            GetData();
+        });
+        //加载数据
+        function GetData() {
+            $.ajax({
+                url: "/appweb/ServerHandle/ServiceNewHandler.ashx",
+                cache: false,
+                data: {
+                    t: Math.random(),
+                    action: "GetData",
+                    Pageindex: Pageindex,
+                    Pagesize: Pagesize,
+                    //Lng: Lng,
+                    //Lat: Lat,
+                    Category: Category,
+                    keyWords: keyWords
+                },
+                beforeSend: function () {
+                    $.AMUI.progress.start();
+                    $("#div_emtype").hide();
+                },
+                error: function () {
+                    $.AMUI.progress.done();
+                    plug.alerts("网络异常，请稍后再试.");
+                },
+                success: function (data) {
+                    $.AMUI.progress.done();
+                    var objs = eval("(" + data + ")");     //string转对象;
+                    if (objs.Code > 0) {
+                        var datas = eval("(" + objs.Data + ")");
+                        var ul = "";
+                        for (var i = 0; i < datas.length; i++) {
+                            ul += createList(datas[i]);
+                        }
+                        $("#item_list").append(ul);
+                        if (datas.length < Pagesize) {
+                            $(".am-list-news-ft").hide();
+                        } else {
+                            $(".am-list-news-ft").show();
+                        }
+                    } else {
+                        $(".am-list-news-ft").hide();
+                        $("#keyWords").val("");
+                        $("#div_emtype").show();
+                    }
+                }
+            });
+        }
+
+        //分页
+        function nextPage() {
+            Pageindex += 1;
+            GetData();
+        }
+        function createList(data) {
+            dataAll.push(data);//添加到数据集
+            var result = '<li class="am-g am-list-item-desced am-list-item-thumbed am-list-item-thumb-left" onclick="showDetails(\'' + data.Id + '\')">';
+            result += '<div class="am-u-sm-4 am-list-thumb">';
+            result += '<a>';
+            result += '<img src="' + data.ImageUrl + '" />';
+            result += '</a>';
+            result += '</div>';
+            result += '<div class=" am-u-sm-8 am-list-main">';
+            result += '<h3 class="am-list-item-hd">';
+            result += '<a  class="">' + data.TName + '</a>';
+            result += '</h3>';
+            result += '</li>';
+            return result;
+
+        }
+        //加载分类 只加载一次
+        function GetClass() {
+            $.ajax({
+                url: "/appweb/ServerHandle/DictionaryHandler.ashx",
+                cache: false,
+                data: {
+                    action: "GetSonDictionary",
+                    t: Math.random(),
+                    ValueName: Category
+                },
+                beforeSend: function () {
+
+                },
+                error: function () {
+
+                },
+                success: function (data) {
+                    var objs = eval("(" + data + ")");     //string转对象;
+                    if (objs.Code > 0) {
+                        ClassAll = eval("(" + objs.Data + ")");//所有的数据
+                        var FistClass;//第一次分类
+                        for (var i = 0; i < ClassAll.length; i++) {
+                            if (ClassAll[i].ValueName == Category) {
+                                FistClass = ClassAll[i];
+                                var fist = ' <li onclick=\'slectTitleClass("' + FistClass.Id + '")\'  id="' + FistClass.Id + '"><a  class="am-icon-home">分类</a></li>';
+                                $("#div_Title_class").html(fist);
+                                slectTitleClass(FistClass.Id);
+                                break;
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        //选择分类
+        function ClassLi(data) {
+            result = " <a  onclick=\"slectClass('" + data.Id + "');\">" + data.Name + "</a><hr data-am-widget=\"divider\" class=\"am-divider am-divider-default\" />";
+
+            return result;
+
+        }
+
+
+        function slectClass(id) {
+
+            var currentClass;//当前分类
+            for (var i = 0; i < ClassAll.length; i++) {
+                if (ClassAll[i].Id == id) {
+                    currentClass = ClassAll[i];
+                    Category = currentClass.ValueName;
+                    break;
+                }
+            }
+            var fist = ' <li onclick=\'slectTitleClass("' + currentClass.Id + '")\'  id="' + currentClass.Id + '"><a >' + currentClass.Name + '</a></li>';
+            $("#div_Title_class").append(fist);
+
+            slectTitleClass(id);
+            $("#header_title").html(currentClass.Name);
+            //window.setTimeout(function () { $('#div_right').offCanvas('open'); }, 400);
+        }
+        function slectTitleClass(id) {
+            $("#" + id).nextAll().remove();
+
+            var currentClass;//当前分类
+            for (var i = 0; i < ClassAll.length; i++) {
+                if (ClassAll[i].Id == id) {
+                    currentClass = ClassAll[i];
+                    Category = currentClass.ValueName;
+                    break;
+                }
+            }
+            var lis = "";
+            for (var i = 0; i < ClassAll.length; i++) {//子分类
+                if (ClassAll[i].ParentId == id) {
+
+                    lis += ClassLi(ClassAll[i])
+                }
+            }
+            $("#div_class_list").html(lis);
+            $("#header_title").html(currentClass.Name);
+            Searh();
+        }
+        function Searh() {
+
+            keyWords = $("#keyWords").val();
+            Pageindex = 1;
+            $(".am-list-news-ft").show();
+            $("#item_list").html("");
+            closeSearh();
+            GetData();
+
+        }
+        function SearWord() {
+            $('#my-prompt').modal({
+                relatedTarget: this,
+                onConfirm: function (e) {
+                    $("#keyWords").val(e.data);
+                    $("#header_title").html(e.data);
+                    Searh();
+                },
+                onCancel: function (e) {
+                }
+            });
+        }
+        function types() {
+
+
+        }
+
+        //关闭左侧
+        function closeSearh() {
+            $('#div_right').offCanvas('close');
+        }
+        //关闭显示单条信息
+        function closeDetails() {
+            $("#context_box").show();
+            $("#details").hide();
+        }
+        //打开显示单条信息
+        function showDetails(id) {
+            var data;
+            for (var i = 0; i < dataAll.length; i++) {
+                if (dataAll[i].Id == id) {
+
+                    data = dataAll[i];
+                    break;
+                }
+            }
+            if (data != undefined) {
+                if (data.Clicks != undefined & data.Clicks != "") {
+                    data.Clicks = data.Clicks + 1
+                } else {
+                    data.Clicks = 0;
+                }
+                DataBaseFunction.BindForm("ff", data);
+
+                $("#star").html("");//星级
+                for (var i = 0; i < data.Star; i++) {
+                    $("#star").append('<img src="../Content/img/star24.png" />');
+                }
+
+                //if (data.ImageUrl != undefined && data.ImageUrl != '') {
+                //    $("#ImageUrl").show();
+                //    $("#ImageUrl").attr('src', data.ImageUrl);//图片
+                //} else {
+                //    $("#ImageUrl").hide();
+                //}
+                $("#call").attr("href", "tel:" + data.Phone)//拨打电话
+                $('#call').click(function () {
+                    addCall(id);
+
+                });
+                //map.clearOverlays();
+                //var point = new BMap.Point(data.Longitude, data.Latitude);  // 创建点坐标  
+                //var marker1 = new BMap.Marker(point);  //创建标注
+                //map.addOverlay(marker1);                 // 将标注添加到地图中
+                ////创建信息窗口
+                //var infoWindow1 = new BMap.InfoWindow(data.TName);
+                //marker1.addEventListener("click", function () { this.openInfoWindow(infoWindow1, map.getCenter()); });
+                //window.setTimeout(function () { map.panTo(point); marker1.openInfoWindow(infoWindow1, map.getCenter()); }, 500);
+
+
+                var $w = $(window);//滑到顶部
+                $w.smoothScroll({ position: 0 });
+                $("#context_box").hide();
+                $("#details").show();
+                addClick(id); //点击增加浏览数
+                GetImg(id);
+            }
+        }
+        //点击增加浏览数
+        function addClick(id) {
+            var result = $.ajax({
+                url: "/appweb/ServerHandle/ServiceNewHandler.ashx",
+                data: {
+                    t: Math.random(),
+                    action: "ClickCount",
+                    Id: id
+                },
+                async: false
+            }).responseText;
+        }
+        //呼叫量增加
+        function addCall(id) {
+            var result = $.ajax({
+                url: "/appweb/ServerHandle/ServiceNewHandler.ashx",
+                data: {
+                    t: Math.random(),
+                    action: "CallCount",
+                    Id: id
+                },
+                async: false
+            }).responseText;
+        }
+        //图片
+        function GetImg(id) {
+            $.ajax({
+                url: "/appweb/ServerHandle/File_ImageHandler.ashx",
+                cache: false,
+                data: {
+                    action: "GetFileList",
+                    t: Math.random(),
+                    ToId: id
+                },
+                beforeSend: function () {
+                    $("#div_img").html("");
+                },
+                error: function () {
+
+                    $("#div_img").hide();
+                },
+                success: function (data) {
+
+                    var objs = eval("(" + data + ")");     //string转对象;
+                    if (objs.Code > 0) {
+                        var imgAll = eval("(" + objs.Data + ")");//所有的数据
+                        var imgul = ' <div data-am-widget="slider" class="am-slider am-slider-default" id="' + id + '"><ul class="am-slides">';
+                        for (var i = 0; i < imgAll.length; i++) {
+
+                            imgul += ' <li><img src="' + imgAll[i].FullRoute + '"></li>';
+
+
+                        }
+                        imgul += '</ul></div>';
+                        $("#div_img").html(imgul);
+                        $("#div_img").show();
+                        $('#' + id).flexslider();
+
+                    } else {
+                        $("#div_img").hide();
+
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div id="context_box">
+        <!-- 头部 -->
+        <header data-am-widget="header" class="am-header am-header-default">
+            <div class="am-header-left am-header-nav">
+                <a href="index.html" class="">
+                    <i class="am-header-icon am-icon-home am-icon-sm"></i>
+                </a>
+            </div>
+            <h1 class="am-header-title" id="header_title">
+                <a href="#" class="">附近服务</a>
+            </h1>
+            <div class="am-header-right am-header-nav">
+                <a href="#" class="" data-am-offcanvas="{target: '#div_right', effect: 'push'}">
+                    <i class="am-header-icon am-icon-qrcode am-icon-sm"></i>
+                </a>
+            </div>
+        </header>
+        <!-- 列表 -->
+        <div data-am-widget="list_news" class="am-list-news am-list-news-default">
+            <div class="am-list-news-bd">
+                <ul class="am-list" id="item_list">
+                </ul>
+            </div>
+            <!--更多在底部-->
+            <div class="am-list-news-ft" id="am-list-news-ft">
+                <a class="am-list-news-more am-btn am-btn-default " onclick='nextPage();' href="###">查看更多 &raquo;</a>
+            </div>
+        </div>
+        <!-- 侧边栏内容 -->
+        <div id="div_right" class="am-offcanvas">
+            <div class="am-offcanvas-bar am-offcanvas-bar-flip " style="width: 200px;">
+
+                <div class="am-container">
+                    <div class="col-sm-12 am-margin-top-xs">
+                        <a onclick="closeSearh()" class="am-close am-close-alt am-fr  am-close-spin">&times;</a>
+                    </div>
+                    <div class="col-sm-12 am-margin-top-xl">
+                        <input type="text" id="keyWords" class="am-form-field am-round" onfocus="SearWord()" placeholder="搜索关键词" />
+                    </div>
+                    <div class="col-sm-12">
+                        <ol class="am-breadcrumb" id="div_Title_class">
+                        </ol>
+                    </div>
+                    <div class="col-sm-12 " id="div_class_list">
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <!-- 无数据时显示 -->
+        <div id="div_emtype" class="am-container" style="text-align: center; display: none; ">
+
+            <img src="/appweb/Content/img/icocry.png" />
+            <p class="am-text-warning">暂无数据，请修改搜索条件吧。。</p>
+        </div>
+    </div>
+
+    <!-- 单条数据展示 -->
+    <div id="details" style="display: none;">
+        <form id="ff">
+            <header data-am-widget="header" class="am-header am-header-default">
+                <div class="am-header-left am-header-nav">
+                    <a onclick="closeDetails();">
+                        <i class="am-header-icon  am-icon-reply"></i>
+                        <span class="am-header-nav-title">列表</span>
+                    </a>
+                </div>
+                <h1 class="am-header-title" id="mytitle">服务商家详情</h1>
+            </header>
+
+            <!--  <img src="" id="ImageUrl" class="am-img-responsive" style="width: 100%;" alt="" />-->
+            <div class="am-panel" id="div_img">
+            </div>
+            <div class="am-container" style="height: 30px; line-height: 30px;">
+                <span name="TName" style="font-size: larger;"></span>
+
+            </div>
+            <div class="am-container">
+                <span id="star"></span>
+            </div>
+            <div class="am-container">
+                <span name="Details"></span>
+            </div>
+            <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
+
+            <div class="am-container">
+                <p class="am-text-primary">地址：<span name="Address" class="am-text-warning"></span></p>
+                <p class="am-text-primary">联系电话：<span name="Phone" class="am-text-warning"></span>&nbsp;&nbsp;&nbsp;&nbsp;<a id="call" href="tel:18688888888" title="拨打电话"><img src="../Content/img/call_phone_24.png" /></a></p>
+            </div>
+            <!--<div class="am-container">
+                <div id="allmap" class="am-container" style="height: 320px;" onclick="tobottom();">
+                </div>
+
+            </div>-->
+        </form>
+    </div>
+    <!-- 搜索弹框 -->
+    <div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
+        <div class="am-modal-dialog">
+            <div class="am-modal-hd">搜索</div>
+            <div class="am-modal-bd">
+                来来来，输点东西吧
+      <input type="text" class="am-modal-prompt-input">
+            </div>
+            <div class="am-modal-footer">
+                <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+                <span class="am-modal-btn" data-am-modal-confirm>提交</span>
+            </div>
+        </div>
+    </div>
+
+    <!--[if (gte IE 9)|!(IE)]><!-->
+    <!--<![endif]-->
+    <!--[if lte IE 8 ]>
+<![endif]-->
+</body>
+</html>
