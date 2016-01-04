@@ -1,0 +1,162 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>天下电车 – 电车好帮手</title>
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+<link type="text/css" href="css/phone.min.css"  rel="stylesheet">
+<meta name="format-detection" content="telephone=no">
+<script>
+        var ua = navigator.userAgent;
+        var getUrlParameter = function(sParam) {
+            var sPageURL = window.location.search.substring(1);
+            var sURLVariables = sPageURL.split('&');
+
+            for (var i = 0; i < sURLVariables.length; i++) {
+                var sParameterName = sURLVariables[i].split('=');
+                if (sParameterName[0] == sParam) {
+                    return decodeURI(sParameterName[1]);
+                }
+            }
+
+        };
+        var from = getUrlParameter('from');
+
+    </script>
+<script src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+        /*
+    * 智能机浏览器版本信息:
+    *
+    */
+        //判断访问终端
+        var browser = {
+            versions: function () {
+                var u = navigator.userAgent, app = navigator.appVersion;
+                return {
+                    trident: u.indexOf('Trident') > -1, //IE内核
+                    presto: u.indexOf('Presto') > -1, //opera内核
+                    webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+                    gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1,//火狐内核
+                    mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+                    ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+                    android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+                    iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+                    iPad: u.indexOf('iPad') > -1, //是否iPad
+                    webApp: u.indexOf('Safari') == -1, //是否web应该程序，没有头部与底部
+                    weixin: u.indexOf('MicroMessenger') > -1, //是否微信 （2015-01-22新增）
+                    qq: u.match(/\sQQ/i) == " qq" //是否QQ
+                };
+            }(),
+            language: (navigator.browserLanguage || navigator.language).toLowerCase()
+        }
+        // document.writeln("语言版本: " + browser.language);
+        // document.writeln(" 是否为移动终端: " + browser.versions.mobile);
+        // document.writeln(" ios终端: " + browser.versions.ios);
+        // document.writeln(" android终端: " + browser.versions.android);
+        // document.writeln(" 是否为iPhone: " + browser.versions.iPhone);
+        // document.writeln(" 是否iPad: " + browser.versions.iPad);
+        // document.writeln(navigator.userAgent);
+        $(function () {
+
+        });
+        $(window).on("load", function () {
+            var $winHeight = $(window).height();
+            var $btn = $('#btns>a');
+            var $tip = $('#weixin-tip');
+            var $close = $('#close');
+
+            function is_weixin() {
+                var ua = navigator.userAgent.toLowerCase();
+                if (ua.match(/MicroMessenger/i) == "micromessenger" ) {
+				           if (browser.versions.ios || browser.versions.iPhone || browser.versions.iPad) {
+                              $("#img_tip").attr("src", "live_ios.png");}
+							  else if (browser.versions.android) { $("#img_tip").attr("src", "live_android.png");}
+                    return true;
+                }else if ( ua.match(/\sQQ/i) == " qq") {
+					 if (browser.versions.ios || browser.versions.iPhone || browser.versions.iPad) {$("#img_tip").attr("src", "qq_ios.png");}
+            else if (browser.versions.android) {$("#img_tip").attr("src", "qq_android.png");}
+                    return true;
+                }else {
+                    return false;
+                }
+            }
+            var isWeixin = is_weixin();
+            if (isWeixin) {
+                $btn.click(function () {
+                    $tip.css("height", $winHeight);
+                    $tip.show();
+                    return false;
+                });
+                $close.click(function () {
+                    $tip.hide();
+                });
+                $tip.click(function () {
+                    $tip.hide();
+                });
+            }
+        });
+    </script>
+<script type="text/javascript" src="js/libs/zepto.min.js" ></script>
+<script type="text/javascript" src="js/libs/tongji.js" ></script>
+<script type="text/javascript" src="js/libs/jweixin-1.0.0.js" ></script>
+<script type="text/javascript" src="js/libs/wx.js" ></script>
+<style type="text/css">
+        #weixin-tip {
+            display: none;
+            position: fixed;
+            left: 0;
+            top: 0;
+            background: rgba(0,0,0,0.8);
+            filter: alpha(opacity=80);
+            width: 100%;
+            height: 100%;
+            z-index: 100;
+        }
+
+            #weixin-tip p {
+                text-align: center;
+                margin-top: 10%;
+                padding: 0 5%;
+                position: relative;
+            }
+
+                #weixin-tip p img {
+                    max-width: 100%;
+                    height: auto;
+                }
+
+            #weixin-tip .close {
+                color: #fff;
+                padding: 5px;
+                font: bold 20px/24px simsun;
+                text-shadow: 0 1px 0 #ddd;
+                position: absolute;
+                top: 0;
+                left: 5%;
+            }
+    </style>
+</head>
+<body>
+<header id="phone-header">
+  <!--        <div class="logo"></div>-->
+  <!--<div class="more-info"></div>-->
+</header>
+<article class="acticle">
+  <div id="weixin-tip">
+    <p> <img src="live_android.png" id="img_tip" alt="微信打开" /><span id="close" title="关闭" class="close">×</span></p>
+  </div>
+  <section class="part" id="part1">
+    <div class="content"></div>
+    <!--            <div class="words"></div>-->
+    <span id="btns"> <a class="android-btn download " href="http://cdn.sinacloud.net/diancheguan/DianCheEGuanJia_v0_0_9_201601032200.apk?KID=sina,181q8iiJkQh8R2BqDw4x&Expires=1451880511&ssig=gmFgyOifz6" >下载</a> </span> <div class="bac-img" 
+    </div>
+    <div class="bottom-icon"></div>
+  </section>
+</article>
+<script type="text/javascript" src="js/require.min.js" ></script>
+<script type="text/javascript" src="js/phone.min.js" ></script>
+</body>
+</html>

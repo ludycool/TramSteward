@@ -13,11 +13,38 @@
     <File Include="appweb/Content/img/bg_publish_base.png">
       <publishTime>12/23/2015 10:46:14</publishTime>
     </File>
+    <File Include="appweb/Content/img/call_phone_24.png">
+      <publishTime>01/04/2016 10:00:53</publishTime>
+    </File>
     <File Include="appweb/Content/img/icocry.png">
       <publishTime>12/23/2015 10:46:14</publishTime>
     </File>
     <File Include="appweb/Content/img/ic_news.png">
       <publishTime>12/23/2015 10:46:14</publishTime>
+    </File>
+    <File Include="appweb/Content/img/mainbg.jpg">
+      <publishTime>01/04/2016 10:00:53</publishTime>
+    </File>
+    <File Include="appweb/Content/img/repair.png">
+      <publishTime>01/04/2016 10:00:53</publishTime>
+    </File>
+    <File Include="appweb/Content/img/server.png">
+      <publishTime>01/04/2016 10:00:53</publishTime>
+    </File>
+    <File Include="appweb/Content/img/shop.png">
+      <publishTime>01/04/2016 10:00:53</publishTime>
+    </File>
+    <File Include="appweb/Content/img/star24.png">
+      <publishTime>01/04/2016 10:00:53</publishTime>
+    </File>
+    <File Include="appweb/Content/img/star32.png">
+      <publishTime>01/04/2016 10:00:53</publishTime>
+    </File>
+    <File Include="appweb/Content/img/telephone_24.png">
+      <publishTime>01/04/2016 10:00:53</publishTime>
+    </File>
+    <File Include="appweb/Content/img/Transaction.png">
+      <publishTime>01/04/2016 10:00:53</publishTime>
     </File>
     <File Include="appweb/Content/img/welcome.jpg">
       <publishTime>12/24/2015 15:31:55</publishTime>
@@ -131,7 +158,10 @@
       <publishTime>11/30/2015 17:43:20</publishTime>
     </File>
     <File Include="appweb/meizi/js/plug.js">
-      <publishTime>12/24/2015 15:39:25</publishTime>
+      <publishTime>01/04/2016 10:00:54</publishTime>
+    </File>
+    <File Include="appweb/ServerHandle/DictionaryHandler.ashx">
+      <publishTime>01/04/2016 10:00:54</publishTime>
     </File>
     <File Include="appweb/ServerHandle/File_ImageHandler.ashx">
       <publishTime>12/24/2015 16:05:23</publishTime>
@@ -139,14 +169,41 @@
     <File Include="appweb/ServerHandle/RepairShopHandler.ashx">
       <publishTime>12/23/2015 16:27:41</publishTime>
     </File>
+    <File Include="appweb/ServerHandle/ServiceHandler.ashx">
+      <publishTime>01/04/2016 10:00:54</publishTime>
+    </File>
+    <File Include="appweb/ServerHandle/ServiceNewHandler.ashx">
+      <publishTime>01/04/2016 10:00:54</publishTime>
+    </File>
+    <File Include="appweb/ServerHandle/ShopHandler.ashx">
+      <publishTime>01/04/2016 10:00:54</publishTime>
+    </File>
+    <File Include="appweb/ServerHandle/TransactionHandler.ashx">
+      <publishTime>01/04/2016 10:00:55</publishTime>
+    </File>
     <File Include="appweb/View/index.html">
-      <publishTime>12/24/2015 15:32:26</publishTime>
+      <publishTime>01/04/2016 10:00:54</publishTime>
     </File>
     <File Include="appweb/View/Information.html">
       <publishTime>12/23/2015 10:47:51</publishTime>
     </File>
     <File Include="appweb/View/RepairShop.html">
-      <publishTime>12/24/2015 17:24:12</publishTime>
+      <publishTime>01/04/2016 10:00:54</publishTime>
+    </File>
+    <File Include="appweb/View/RepairShop2.html">
+      <publishTime>01/04/2016 10:00:54</publishTime>
+    </File>
+    <File Include="appweb/View/Service.html">
+      <publishTime>01/04/2016 10:00:54</publishTime>
+    </File>
+    <File Include="appweb/View/ServiceNew.html">
+      <publishTime>01/04/2016 10:00:54</publishTime>
+    </File>
+    <File Include="appweb/View/Shop.html">
+      <publishTime>01/04/2016 10:00:54</publishTime>
+    </File>
+    <File Include="appweb/View/Transaction.html">
+      <publishTime>01/04/2016 10:00:54</publishTime>
     </File>
     <File Include="App_Data/AdvertisingData.xml">
       <publishTime>11/30/2015 14:37:34</publishTime>
@@ -176,7 +233,7 @@
       <publishTime>11/30/2015 14:42:03</publishTime>
     </File>
     <File Include="bin/App.Core.dll">
-      <publishTime>12/25/2015 15:51:39</publishTime>
+      <publishTime>01/04/2016 10:07:50</publishTime>
     </File>
     <File Include="bin/App_Data/AdvertisingData.xml">
       <publishTime>04/07/2015 15:02:29</publishTime>
@@ -212,34 +269,34 @@
       <publishTime>11/30/2015 14:41:22</publishTime>
     </File>
     <File Include="bin/e3net.BLL.dll">
-      <publishTime>12/25/2015 15:51:39</publishTime>
+      <publishTime>01/04/2016 10:07:49</publishTime>
     </File>
     <File Include="bin/e3net.common.dll">
       <publishTime>12/08/2015 09:19:03</publishTime>
     </File>
     <File Include="bin/e3net.DAL.dll">
-      <publishTime>12/25/2015 15:51:38</publishTime>
+      <publishTime>01/04/2016 10:07:49</publishTime>
     </File>
     <File Include="bin/e3net.IDAL.dll">
-      <publishTime>12/25/2015 15:51:37</publishTime>
+      <publishTime>01/04/2016 10:07:48</publishTime>
     </File>
     <File Include="bin/e3net.Mode.dll">
-      <publishTime>12/25/2015 15:51:36</publishTime>
+      <publishTime>01/04/2016 10:07:47</publishTime>
     </File>
     <File Include="bin/e3net.tools.dll">
-      <publishTime>12/22/2015 16:11:34</publishTime>
+      <publishTime>01/04/2016 10:07:47</publishTime>
     </File>
     <File Include="bin/EntityFramework.dll">
       <publishTime>11/30/2015 14:41:31</publishTime>
     </File>
     <File Include="bin/ESUI.dll">
-      <publishTime>12/25/2015 15:51:42</publishTime>
+      <publishTime>01/04/2016 10:07:54</publishTime>
     </File>
     <File Include="bin/ICSharpCode.SharpZipLib.dll">
       <publishTime>11/30/2015 14:41:16</publishTime>
     </File>
     <File Include="bin/jpush-api.dll">
-      <publishTime>12/25/2015 15:51:39</publishTime>
+      <publishTime>01/04/2016 10:07:50</publishTime>
     </File>
     <File Include="bin/log4net.dll">
       <publishTime>11/30/2015 14:41:16</publishTime>
@@ -10067,7 +10124,7 @@
       <publishTime>02/12/2015 16:21:23</publishTime>
     </File>
     <File Include="Views/Login/Index.cshtml">
-      <publishTime>12/24/2015 14:12:34</publishTime>
+      <publishTime>12/29/2015 09:53:32</publishTime>
     </File>
     <File Include="Views/Login_old/Index.cshtml">
       <publishTime>12/22/2015 10:30:52</publishTime>
@@ -10100,7 +10157,7 @@
       <publishTime>02/10/2015 14:52:52</publishTime>
     </File>
     <File Include="Views/Sys_Advertising/Index.cshtml">
-      <publishTime>12/21/2015 15:48:53</publishTime>
+      <publishTime>01/04/2016 10:00:55</publishTime>
     </File>
     <File Include="Views/Sys_AppVerSion/Index.cshtml">
       <publishTime>12/21/2015 15:48:36</publishTime>
@@ -10115,22 +10172,22 @@
       <publishTime>12/21/2015 15:43:58</publishTime>
     </File>
     <File Include="Views/TS_RepairShop/Index.cshtml">
-      <publishTime>12/25/2015 10:06:10</publishTime>
+      <publishTime>12/29/2015 17:17:32</publishTime>
     </File>
     <File Include="Views/TS_Service/Index.cshtml">
-      <publishTime>12/22/2015 15:45:57</publishTime>
+      <publishTime>12/29/2015 17:21:45</publishTime>
     </File>
     <File Include="Views/TS_ServiceNew/Index.cshtml">
-      <publishTime>12/22/2015 15:48:01</publishTime>
+      <publishTime>12/29/2015 17:27:33</publishTime>
     </File>
     <File Include="Views/TS_Shop/Index.cshtml">
-      <publishTime>12/22/2015 15:44:29</publishTime>
+      <publishTime>12/29/2015 17:19:15</publishTime>
     </File>
     <File Include="Views/TS_ShopUser/Index.cshtml">
       <publishTime>12/24/2015 11:44:43</publishTime>
     </File>
     <File Include="Views/TS_Transaction/Index.cshtml">
-      <publishTime>12/25/2015 15:48:17</publishTime>
+      <publishTime>12/29/2015 17:26:29</publishTime>
     </File>
     <File Include="Views/Ueditor/Create.cshtml">
       <publishTime>03/22/2015 10:50:26</publishTime>
@@ -10142,13 +10199,13 @@
       <publishTime>12/22/2015 14:30:01</publishTime>
     </File>
     <File Include="Views/UTS_RepairShop/Index.cshtml">
-      <publishTime>12/22/2015 15:11:53</publishTime>
+      <publishTime>12/29/2015 17:29:44</publishTime>
     </File>
     <File Include="Views/UTS_Service/Index.cshtml">
-      <publishTime>12/22/2015 15:30:04</publishTime>
+      <publishTime>12/29/2015 17:30:12</publishTime>
     </File>
     <File Include="Views/UTS_Shop/Index.cshtml">
-      <publishTime>12/21/2015 17:14:43</publishTime>
+      <publishTime>12/29/2015 17:32:05</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>11/30/2015 14:37:29</publishTime>
@@ -10202,7 +10259,7 @@
       <publishTime>11/30/2015 14:37:29</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>12/25/2015 15:51:55</publishTime>
+      <publishTime>01/04/2016 10:08:07</publishTime>
     </File>
     <File Include="文档/HospitalAssistant.pdm">
       <publishTime>04/03/2015 17:40:53</publishTime>
