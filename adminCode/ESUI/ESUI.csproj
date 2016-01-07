@@ -344,8 +344,11 @@
   <ItemGroup>
     <Content Include="appweb\Content\img\bg_publish_base.png" />
     <Content Include="appweb\Content\img\call_phone_24.png" />
+    <Content Include="appweb\Content\img\chongdian.png" />
+    <Content Include="appweb\Content\img\fabu.png" />
     <Content Include="appweb\Content\img\icocry.png" />
     <Content Include="appweb\Content\img\ic_news.png" />
+    <Content Include="appweb\Content\img\logo.png" />
     <Content Include="appweb\Content\img\mainbg.jpg" />
     <Content Include="appweb\Content\img\repair.png" />
     <Content Include="appweb\Content\img\server.png" />
