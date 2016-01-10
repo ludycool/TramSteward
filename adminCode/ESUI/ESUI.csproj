@@ -283,6 +283,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="httpHandle\CommentHandler.ashx.cs">
+      <DependentUpon>CommentHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="httpHandle\DictionaryHandler.ashx.cs">
       <DependentUpon>DictionaryHandler.ashx</DependentUpon>
     </Compile>
@@ -3629,6 +3632,7 @@
     <Content Include="appweb\ServerHandle\TransactionHandler.ashx" />
     <Content Include="appweb\dowlown\live_ios.psd" />
     <Content Include="httpSever\CommentHandler.ashx" />
+    <Content Include="httpHandle\CommentHandler.ashx" />
     <None Include="Properties\PublishProfiles\ESUIConfig.pubxml" />
     <None Include="Scripts\jquery-1.7.1.intellisense.js" />
     <Content Include="Scripts\jquery-1.7.1.js" />

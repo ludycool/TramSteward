@@ -32,6 +32,7 @@ namespace ESUI.httpSever
                 JObject httpObject = JsonHelper.FromJson(context.Request["json"]);
                 int pageIndex = 1;
                 int pageSize = 10000;
+                int res = 0;
                 switch (httpObject["action"].ToString())
                 {
 
@@ -95,13 +96,13 @@ namespace ESUI.httpSever
                     case "GetByPostId":
                         #region
                         string IdG = httpObject["jsonEntity"]["PostId"].ToString();
-                        var mqlG = CommentSet.SelectAll().Where(CommentSet.PostId.Equal(IdG).And(CommentSet.isDeleted.Equal(0)).And(CommentSet.isValid.Equal(1)));
-                       List<Comment> modelG = OPBiz.GetEntities(mqlG);
-                        if (modelG != null)
+                        var mqlG2 = CommentSet.SelectAll().Where(CommentSet.PostId.Equal(IdG).And(CommentSet.isDeleted.Equal(0)).And(CommentSet.isValid.Equal(1)));
+                       List<Comment> modelG2 = OPBiz.GetEntities(mqlG2);
+                        if (modelG2 != null)
                         {
                             resultMode.Code = 11;
                             resultMode.Msg = "获取成功";
-                            resultMode.Data = JsonHelper.ToJson(modelG, true);
+                            resultMode.Data = JsonHelper.ToJson(modelG2, true);
                         }
                         else
                         {
@@ -191,6 +192,40 @@ namespace ESUI.httpSever
                             resultMode.Data = "";
                         }
                         #endregion
+                        break;
+                    case "PraiseCount"://点赞量加1
+                        Id = FilterTools.FilterSpecial(httpObject["jsonEntity"]["Id"].ToString());
+                        res = OPBiz.SetCout("Id", Id, "Praises");
+                        if (res > 0)
+                        {
+                            resultMode.Code = 11;
+                            resultMode.Data = res.ToString();
+                            resultMode.Msg = "统计成功";
+                        }
+                        else
+                        {
+                            resultMode.Code = -13;
+                            resultMode.Data = "0";
+                            resultMode.Msg = "统计失败！";
+                        }
+
+
+                        break;
+                    case "ReportsCount"://举报加1
+                        Id = FilterTools.FilterSpecial(httpObject["jsonEntity"]["Id"].ToString());
+                        res = OPBiz.SetCout("Id", Id, "Reports");
+                        if (res > 0)
+                        {
+                            resultMode.Code = 11;
+                            resultMode.Data = res.ToString();
+                            resultMode.Msg = "统计成功";
+                        }
+                        else
+                        {
+                            resultMode.Code = -13;
+                            resultMode.Data = "0";
+                            resultMode.Msg = "统计失败！";
+                        }
                         break;
                 }
             }
