@@ -58,7 +58,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgSys\IClientUserDao.cs" />
-    <Compile Include="AgSys\ICommentDao.cs" />
     <Compile Include="AgSys\IFile_tbDao.cs" />
     <Compile Include="IBaseDao.cs" />
     <Compile Include="IFile_ImageDao.cs" />
@@ -89,6 +88,7 @@
     <Compile Include="ISys_CityAreaDao.cs" />
     <Compile Include="ISys_AdvertisingDao.cs" />
     <Compile Include="ISys_AppVerSionDao.cs" />
+    <Compile Include="ICommentDao.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\e3net.common\e3net.common.csproj">
