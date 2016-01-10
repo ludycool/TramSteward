@@ -58,8 +58,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AgSys\ClientUser.cs" />
-    <Compile Include="AgSys\Comment.cs" />
     <Compile Include="AgSys\File_tb.cs" />
+    <Compile Include="Comment.cs" />
     <Compile Include="File_Image.cs" />
     <Compile Include="RMS\V_Role.cs" />
     <Compile Include="SysItem.cs" />

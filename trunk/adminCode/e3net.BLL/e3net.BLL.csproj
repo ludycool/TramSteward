@@ -60,7 +60,6 @@
     <Compile Include="File_ImageBiz.cs" />
     <Compile Include="ParameterXmlHelper.cs" />
     <Compile Include="AgSys\ClientUserBiz.cs" />
-    <Compile Include="AgSys\CommentBiz.cs" />
     <Compile Include="AgSys\File_tbBiz.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RMS\RMS_ButtonsBiz.cs" />
@@ -90,6 +89,7 @@
     <Compile Include="Sys_CityAreaBiz.cs" />
     <Compile Include="Sys_AdvertisingBiz.cs" />
     <Compile Include="Sys_AppVerSionBiz.cs" />
+    <Compile Include="CommentBiz.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\e3net.common\e3net.common.csproj">
