@@ -51,6 +51,7 @@
                          { field: 'AreaName', title: '区', width: 100 },
                          { field: 'CallCount', title: '呼叫量', width: 50 },
                         { field: 'Praises', title: '赞', width: 50 },
+                          { field: 'Clicks', title: '点击数', width: 50, sortable: true },
                         { field: 'StatesName', title: '状态', width: 100 },
                         { field: 'CreateTime', title: '添加时间', width: 100 },
                          { field: 'CategoryName', title: '类型', width: 100 },
@@ -147,9 +148,9 @@
                         DataBaseFunction.BindForm("ff", result);
                         UM.getEditor('Details').setContent(result["Details"], false);
                         $("#imgLogo").attr('src', result.ImageUrl);
-                       // $("#imgLogoM").attr('src', result.ImageUrlMax);
+                        // $("#imgLogoM").attr('src', result.ImageUrlMax);
                         $('#Category').combotree('setValue', result['Category']);
-                      
+
 
                         change(1);
                         $('#CityCode').val(result.CityCode);
@@ -224,7 +225,7 @@
                 _init_areaForSearch();//搜索省市区初始化
                 GetSonDictionaryNo("Category_like1", "07");
                 $('#States_eq').combobox('reload', '/httpHandle/DictionaryHandler.ashx?action=GetSysItem&ItemType=States');  // 使用新的URL重新载入列表数据
-              //  $("#fSearh").form("clear");
+                //  $("#fSearh").form("clear");
                 $("#Div_Searh").dialog('open').dialog('setTitle', '搜索').window('resize', { top: 100, left: 100 });
             }
             //删除
@@ -290,7 +291,50 @@
             function AddImg() {
                 FileUp("TS_Service")
             }
+            function ShowComment() {
+                var rows = $("#dg").datagrid('getSelected');
+                //首先取出来值判断只能选择一个
+                if (rows == null) {
+                    $.messager.alert("友情提示", "请选择", "error");
+                    return;
+                }
+                var ID = rows.Id;  //获取到了用选择的ID
+                $('#DivComment').dialog({
+                    title: '查看评论-' + rows.TName,
+                    //width: 400,
+                    //height: 200,
+                    closed: false,
+                    cache: false,
+                    // href: 'get_content.php',
+                    modal: true, top: 100,
+                    onClose: function () {
+                        //解决弹出窗口关闭后，验证消息还显示在最上面
+                    }
+                });
+                $('#tbComment').datagrid({
+                    url: '/httpHandle/CommentHandler.ashx?action=GetByPostIdPage&PostId=' + ID,
+                    columns: [[
+                        { field: 'Author', title: '用户', width: 70 },
+                        { field: 'Details', title: '详情', width: 400 },
+                          { field: 'AddTime', title: '时间', width: 150, sortable: true }
+                    ]],
+                    iconCls: 'icon-save',
+                    nowrap: true,
+                    width: 760,
+                    height: 550,
+                    fitColumns: true,
+                    singleSelect: true,
+                    striped: true,
+                    collapsible: true,
+                    pageSize: 20,
+                    pagination: true,
+                    rownumbers: true,
+                    sortName: 'AddTime',
+                    sortOrder: 'desc'
+                });
 
+
+            }
         </script>
     }
 
@@ -383,7 +427,7 @@
                         </td>
 
                     </tr>
-                @*    <tr>
+                    @*    <tr>
                         <td>
                             <label>展示大图片：</label></td>
                         <td>
@@ -474,6 +518,20 @@
             <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-ok" onclick="SaveInfo();">确定</a>
             <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" onclick="$('#DivEditor').dialog('close')">关闭</a>
         </div>
+    </div>
+
+    <!-- 评论列表 -->
+    <div id="DivComment" class="easyui-dialog" style="width: 780px; height: 600px;"
+        closed="true" resizable="true" modal="true" buttons="#dlg-buttons">
+        <table style="width: 100%;">
+            <tr>
+                <td colspan="4">
+
+                    <table id="tbComment"></table>
+                </td>
+
+            </tr>
+        </table>
     </div>
 </body>
 </html>

@@ -49,8 +49,9 @@
                         { field: 'ProvinceName', title: '省', width: 100 },
                          { field: 'CityName', title: '市', width: 80 },
                          { field: 'AreaName', title: '区', width: 100 },
-                         { field: 'CallCount', title: '呼叫量', width: 50},
+                         { field: 'CallCount', title: '呼叫量', width: 50 },
                         { field: 'Praises', title: '赞', width: 50 },
+                          { field: 'Clicks', title: '点击数', width: 50, sortable: true },
                         { field: 'StatesName', title: '状态', width: 100 },
                         { field: 'CreateTime', title: '添加时间', width: 100 },
                          { field: 'CategoryName', title: '类型', width: 100 },
@@ -147,7 +148,7 @@
                         $("#imgLogo").attr('src', result.ImageUrl);
                         $("#imgLogoM").attr('src', result.ImageUrlMax);
                         $('#Category').combotree('setValue', result['Category']);
-                     
+
                         change(1);
                         $('#CityCode').val(result.CityCode);
                         change(2);
@@ -222,7 +223,7 @@
                 _init_areaForSearch();//搜索省市区初始化
                 GetSonDictionaryNo("Category_like1", "05");
                 $('#States_eq').combobox('reload', '/httpHandle/DictionaryHandler.ashx?action=GetSysItem&ItemType=States');  // 使用新的URL重新载入列表数据
-              //  $("#fSearh").form("clear");
+                //  $("#fSearh").form("clear");
                 $("#Div_Searh").dialog('open').dialog('setTitle', '搜索').window('resize', { top: 100, left: 100 });
             }
             //删除
@@ -288,8 +289,7 @@
                 FileUp("TS_Shop")
             }
 
-            function ShowComment()
-            {
+            function ShowComment() {
                 var rows = $("#dg").datagrid('getSelected');
                 //首先取出来值判断只能选择一个
                 if (rows == null) {
@@ -328,46 +328,13 @@
                     pagination: true,
                     rownumbers: true,
                     sortName: 'AddTime',
-                    sortOrder: 'desc',
-                    toolbar: [{
-                        id: 'btnCancle',
-                        text: '删除评论',
-                        iconCls: 'icon-delete',
-                        handler: function () {
-
-                            var rows = $("#tbComment").datagrid('getSelected');
-                            //首先取出来值判断只能选择一个
-                            if (rows == null) {;
-                                return;
-                            }
-                            var ID = rows.Id;  
-                            var postData = "";
-                            postData = {
-                                Id:"'"+ ID+"'"
-                            };
-                            $.messager.confirm("删除信息", "您确认删除<font color='red' size='3'>" + rows.Author + "的评论</font>吗？", function (Delete) {
-                                if (Delete) {
-                                    $.get('/httpHandle/CommentHandler.ashx?action=delete', postData, function (result) {
-                                        var data = eval("(" + result + ")")
-                                        alerts(data.Msg, 2);
-                                        if (data.Code > 0) {
-                                            $("#tbComment").datagrid("reload");
-                                            $("#tbComment").datagrid("clearSelections");
-                                        }
-
-                                    });
-                                }
-                            });
-
-
-                        }
-                    }]
+                    sortOrder: 'desc'
                 });
 
-            
+
             }
             function SeachComment() {
-            
+
 
             }
         </script>
@@ -400,7 +367,7 @@
                         <input type="text" class="textbox" name="Phone_like" style="width: 200px;" />
                     </td>
                 </tr>
-                                  <tr>
+                <tr>
                     <td>
                         <label>省/市/区：</label></td>
                     <td>
@@ -545,17 +512,17 @@
 
 
     <!-- 评论列表 -->
-      <div id="DivComment" class="easyui-dialog" style="width:780px;height:600px;"
-         closed="true" resizable="true" modal="true" buttons="#dlg-buttons">
-                <table style="width:100%; ">
-                     <tr>
-                        <td colspan="4">
+    <div id="DivComment" class="easyui-dialog" style="width: 780px; height: 600px;"
+        closed="true" resizable="true" modal="true" buttons="#dlg-buttons">
+        <table style="width: 100%;">
+            <tr>
+                <td colspan="4">
 
-                             <table id="tbComment"></table>
-                        </td>           
-                        
-                    </tr>
-                </table>
-            </div>
+                    <table id="tbComment"></table>
+                </td>
+
+            </tr>
+        </table>
+    </div>
 </body>
 </html>

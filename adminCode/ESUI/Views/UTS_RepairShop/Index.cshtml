@@ -60,6 +60,7 @@
                           },
                          { field: 'CallCount', title: '呼叫量', width: 50},
                         { field: 'Praises', title: '赞', width: 50 },
+                          { field: 'Clicks', title: '点击数', width: 50, sortable: true },
                         { field: 'StatesName', title: '状态', width: 100 },
                         { field: 'CreateTime', title: '添加时间', width: 150 },
                          { field: 'CategoryName', title: '类型', width: 100 },
@@ -294,7 +295,50 @@
                     }
                 })
             }
+            function ShowComment() {
+                var rows = $("#dg").datagrid('getSelected');
+                //首先取出来值判断只能选择一个
+                if (rows == null) {
+                    $.messager.alert("友情提示", "请选择", "error");
+                    return;
+                }
+                var ID = rows.Id;  //获取到了用选择的ID
+                $('#DivComment').dialog({
+                    title: '查看评论-' + rows.TName,
+                    //width: 400,
+                    //height: 200,
+                    closed: false,
+                    cache: false,
+                    // href: 'get_content.php',
+                    modal: true, top: 100,
+                    onClose: function () {
+                        //解决弹出窗口关闭后，验证消息还显示在最上面
+                    }
+                });
+                $('#tbComment').datagrid({
+                    url: '/httpHandle/CommentHandler.ashx?action=GetByPostIdPage&PostId=' + ID,
+                    columns: [[
+                        { field: 'Author', title: '用户', width: 70 },
+                        { field: 'Details', title: '详情', width: 400 },
+                          { field: 'AddTime', title: '时间', width: 150, sortable: true }
+                    ]],
+                    iconCls: 'icon-save',
+                    nowrap: true,
+                    width: 760,
+                    height: 550,
+                    fitColumns: true,
+                    singleSelect: true,
+                    striped: true,
+                    collapsible: true,
+                    pageSize: 20,
+                    pagination: true,
+                    rownumbers: true,
+                    sortName: 'AddTime',
+                    sortOrder: 'desc'
+                });
 
+
+            }
 
 
         </script>
@@ -468,5 +512,18 @@
             <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" onclick="$('#DivEditor').dialog('close')">关闭</a>
         </div>
     </div>
+     <!-- 评论列表 -->
+      <div id="DivComment" class="easyui-dialog" style="width:780px;height:600px;"
+         closed="true" resizable="true" modal="true" buttons="#dlg-buttons">
+                <table style="width:100%; ">
+                     <tr>
+                        <td colspan="4">
+
+                             <table id="tbComment"></table>
+                        </td>           
+                        
+                    </tr>
+                </table>
+            </div>
 </body>
 </html>
