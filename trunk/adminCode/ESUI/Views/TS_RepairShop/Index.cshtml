@@ -44,7 +44,7 @@
                     url: BaseUrl + 'Search',
                     columns: [[
                         { field: 'ck', checkbox: true },
-                        { field: 'UserName', title: '发布者', width: 80,sortable:true },
+                        { field: 'UserName', title: '发布者', width: 80, sortable: true },
                             { field: 'TrueName', title: '姓名', width: 80, sortable: true },
                         { field: 'TName', title: '名称', width: 150, sortable: true },
                         { field: 'Star', title: '星级', width: 50 },
@@ -62,6 +62,7 @@
                               }
                           },
                          { field: 'CallCount', title: '呼叫量', width: 50, sortable: true },
+                    { field: 'Clicks', title: '点击数', width: 50, sortable: true },
                         { field: 'Praises', title: '赞', width: 50, sortable: true },
                         { field: 'StatesName', title: '状态', width: 50, sortable: true },
                         { field: 'CreateTime', title: '添加时间', width: 150, sortable: true },
@@ -298,7 +299,83 @@
                     }
                 })
             }
+            function ShowComment() {
+                var rows = $("#dg").datagrid('getSelected');
+                //首先取出来值判断只能选择一个
+                if (rows == null) {
+                    $.messager.alert("友情提示", "请选择", "error");
+                    return;
+                }
+                var ID = rows.Id;  //获取到了用选择的ID
+                $('#DivComment').dialog({
+                    title: '查看评论-' + rows.TName,
+                    //width: 400,
+                    //height: 200,
+                    closed: false,
+                    cache: false,
+                    // href: 'get_content.php',
+                    modal: true, top: 100,
+                    onClose: function () {
+                        //解决弹出窗口关闭后，验证消息还显示在最上面
+                    }
+                });
+                $('#tbComment').datagrid({
+                    url: '/httpHandle/CommentHandler.ashx?action=GetByPostIdPage&PostId=' + ID,
+                    columns: [[
+                        { field: 'Author', title: '用户', width: 70 },
+                        { field: 'Details', title: '详情', width: 400 },
+                          { field: 'AddTime', title: '时间', width: 150, sortable: true }
+                    ]],
+                    iconCls: 'icon-save',
+                    nowrap: true,
+                    width: 760,
+                    height: 550,
+                    fitColumns: true,
+                    singleSelect: true,
+                    striped: true,
+                    collapsible: true,
+                    pageSize: 20,
+                    pagination: true,
+                    rownumbers: true,
+                    sortName: 'AddTime',
+                    sortOrder: 'desc',
+                    toolbar: [{
+                        id: 'btnCancle',
+                        text: '删除评论',
+                        iconCls: 'icon-delete',
+                        handler: function () {
 
+                            var rows = $("#tbComment").datagrid('getSelected');
+                            //首先取出来值判断只能选择一个
+                            if (rows == null) {;
+                                return;
+                            }
+                            var ID = rows.Id;
+                            var postData = "";
+                            postData = {
+                                Id: "'" + ID + "'"
+                            };
+                            $.messager.confirm("删除信息", "您确认删除<font color='red' size='3'>" + rows.Author + "的评论</font>吗？", function (Delete) {
+                                if (Delete) {
+                                    $.get('/httpHandle/CommentHandler.ashx?action=delete', postData, function (result) {
+                                        var data = eval("(" + result + ")")
+                                        alerts(data.Msg, 2);
+                                        if (data.Code > 0) {
+                                            $("#tbComment").datagrid("reload");
+                                            $("#tbComment").datagrid("clearSelections");
+                                        }
+
+                                    });
+                                }
+                            });
+
+
+                        }
+                    }]
+                });
+
+
+            }
 
 
         </script>
@@ -516,6 +593,19 @@
             <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-ok" onclick="SaveInfo();">确定</a>
             <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" onclick="$('#DivEditor').dialog('close')">关闭</a>
         </div>
+    </div>
+    <!-- 评论列表 -->
+    <div id="DivComment" class="easyui-dialog" style="width: 780px; height: 600px;"
+        closed="true" resizable="true" modal="true" buttons="#dlg-buttons">
+        <table style="width: 100%;">
+            <tr>
+                <td colspan="4">
+
+                    <table id="tbComment"></table>
+                </td>
+
+            </tr>
+        </table>
     </div>
 </body>
 </html>
