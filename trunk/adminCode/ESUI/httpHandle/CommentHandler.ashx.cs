@@ -1,6 +1,7 @@
 ﻿using e3net.BLL;
 using e3net.common.SysMode;
 using e3net.Mode;
+using e3net.Mode.HttpView;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,16 +19,34 @@ namespace ESUI.httpHandle
         public void ProcessRequest(HttpContext context)
         {
             context.Response.ContentType = "text/plain";
-            context.Response.Write("Hello World");
             string action = context.Request["action"];
+            HttpReSultMode resultMode = new HttpReSultMode();
             switch (action)
             {
                 case "GetByPostIdPage":
-                    string RoleTypes = context.Request["RoleTypes"];
                     context.Response.Write(GetByPostIdPage( context));
                     context.Response.End();
                     break;
+                case "delete":
+                    string Id = context.Request["Id"];
 
+
+                      int f = OPBiz.DelForSetDelete("Id", Id);
+                        if (f > 0)
+                        {
+                            resultMode.Code = 11;
+                            resultMode.Msg = "删除评论成功";
+                            resultMode.Data = "";
+                        }
+                        else
+                        {
+                            resultMode.Code = -13;
+                            resultMode.Msg = "删除评论失败";
+                            resultMode.Data = "";
+                        }
+                    context.Response.Write(JsonHelper.ToJson(resultMode, true));
+                    context.Response.End();
+                    break;
 
             }
         }
