@@ -33,8 +33,9 @@ namespace ESUI.httpHandle
             }
             Guid ToId = new Guid();
 
-            if (context.Request["ToId"] != null)
+            if (context.Request["ToId"] != null && !string.IsNullOrEmpty(context.Request["ToId"]))
             {
+                string tooid = context.Request["ToId"].ToString();
                 ToId = Guid.Parse(context.Request["ToId"]);
             }
             string ShowName = "";
