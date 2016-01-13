@@ -455,6 +455,7 @@
     <Content Include="appweb\dowlown\live_ios.png" />
     <Content Include="appweb\dowlown\qq_android.png" />
     <Content Include="appweb\dowlown\qq_ios.png" />
+    <Content Include="appweb\View\demo.html" />
     <Content Include="App_Data\QuestionsHelpData.xml" />
     <Content Include="App_Data\AdvertisingData.xml" />
     <Content Include="App_Data\ParameterData.xml" />
