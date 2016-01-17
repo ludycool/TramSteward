@@ -396,6 +396,7 @@
     <Content Include="appweb\meizi\js\handlebars.min.js" />
     <Content Include="appweb\meizi\js\jquery.min.js" />
     <Content Include="appweb\meizi\js\plug.js" />
+    <Content Include="appweb\View\demo2.html" />
     <Content Include="appweb\View\index.html" />
     <Content Include="appweb\View\Information.html" />
     <Content Include="appweb\View\RepairShop.html" />

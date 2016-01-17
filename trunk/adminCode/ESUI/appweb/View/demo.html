@@ -31,17 +31,56 @@
     <script src="/appweb/meizi/js/jquery.min.js"></script>
     <script src="/appweb/meizi/js/amazeui.min.js"></script>
     <script src="/appweb/meizi/js/plug.js"></script>
+    <style type="text/css">
+        /*表单样式 start*/
+        form table {
+            margin: 0 auto;
+            border: solid #E1E1E1;
+            border-width: 1px 0px 0px 1px;
+        }
+
+            form table tr th {
+                height: 20px;
+                line-height: 20px;
+                background: #E1E1E1;
+            }
+
+            form table.stripes tr td {
+                height: 20px;
+                line-height: 20px;
+                background: #FFF;
+                vertical-align: middle;
+                border: solid #E1E1E1;
+                border-width: 0px 1px 1px 0px;
+                padding: 10px;
+            }
+            /* css注释：默认css背景被白色 */
+            form table.stripes tr.alt td {
+                background: #F9F9F9;
+            }
+            /* css 注释：默认隔行背景颜色 */
+            form table.stripes tr.over td {
+                background: #EFF4F7;
+            }
+        /* css注释：鼠标经过时候背景颜色 */
+
+        /*表单样式 end*/
+    </style>
     <script type="text/javascript">
 
-
-
-
-
-        //页面加载后执行
-        jQuery(document).ready(function () {
-
-
+        $(document).ready(function () { //这个就是传说的ready 
+            $(".stripes tr").mouseover(function () {
+                //如果鼠标移到class为stripe的表格的tr上时，执行函数 
+                $(this).addClass("over");
+            }).mouseout(function () {
+                //给这行添加class值为over，并且当鼠标一出该行时执行函数 
+                $(this).removeClass("over");
+            }) //移除该行的class 
+            $(".stripes tr:even").addClass("alt");
+            //给class为stripe的表格的偶数行添加class值为alt 
+            //www.divcss5.com 整理特效 
         });
+
     </script>
 </head>
 <body>
@@ -68,20 +107,83 @@
     </div>
 
     <!-- 单条数据展示 -->
-    <div id="details" >
+    <div id="details">
         <form id="ff">
-          <!--  <img src="" id="ImageUrl" class="am-img-responsive" style="width: 100%;" alt="" />-->
-            <img src="http://l.b2b168.com/2013/09/30/15/201309301529027879154.jpg" class="am-img-responsive" alt=""/>
+            <!--  <img src="" id="ImageUrl" class="am-img-responsive" style="width: 100%;" alt="" />-->
+
+            <div data-am-widget="slider" class="am-slider am-slider-c3" data-am-slider='{&quot;controlNav&quot;:false}'>
+                <ul class="am-slides">
+                    <li>
+                        <img src="http://www.sinaimg.cn/qc/photo_auto/photo/07/42/12230742/12230742_src.jpg" />
+                        <div class="am-slider-desc">
+                            <div class="am-slider-counter"><span class="am-active">1</span>/2</div>
+                            外形
+                        </div>
+
+                    </li>
+                    <li>
+                        <img src="http://img1.fblife.com/attachments1/day_131211/20131211_4fdd71a6e33ac1159c164VevdurIca43.jpg.thumb.jpg" />
+                        <div class="am-slider-desc">
+                            <div class="am-slider-counter"><span class="am-active">2</span>/2</div>
+                            行使证
+                        </div>
+                    </li>
+                </ul>
+            </div>
             <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
 
-            <div class="am-container">
-                <p class="am-text-primary">车主：<span name="Address" class="am-text-warning">老李</span></p>
-                <p class="am-text-primary">公司：<span name="Address" class="am-text-warning">南宁旅游</span></p>
-                <p class="am-text-primary">车牌：<span name="Address" class="am-text-warning">桂A 23223</span></p>
-                <p class="am-text-primary">颜色：<span name="Address" class="am-text-warning">蓝色</span></p>
-                 <p class="am-text-primary">线路：<span name="Address" class="am-text-warning">南宁-百色</span></p>
-                 <p class="am-text-primary">电话：<span name="Address" class="am-text-warning">1323545454</span></p>
-            </div>
+         
+
+
+                <table class="stripes" style="width: 100%;" border="0" cellspacing="0" cellpadding="0">
+
+
+                    <tr>
+                        <td>
+                            <span class="am-text-primary">车主：</span><span name="Address" class="am-text-warning">老李</span>
+                        </td>
+                        <td>
+                            <span class="am-text-primary">公司：</span><span name="Address" class="am-text-warning">南宁旅游</span>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="am-text-primary">线路：</span><span name="Address" class="am-text-warning">南宁-百色</span>
+                        </td>
+                        <td>
+                            <span class="am-text-primary">电话：</span><span name="Address" class="am-text-warning">1323545454</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="am-text-primary">车牌：</span><span name="Address" class="am-text-warning">桂A 23223</span>
+                        </td>
+                        <td>
+                            <span class="am-text-primary">颜色：</span><span name="Address" class="am-text-warning">绿色</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="am-text-primary">坐位数：</span><span name="Address" class="am-text-warning">32</span>
+                        </td>
+                        <td>
+                            <span class="am-text-primary">长：</span><span name="Address" class="am-text-warning">12m</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <span class="am-text-primary">宽：</span><span name="Address" class="am-text-warning">2.0m</span>
+                        </td>
+                        <td>
+                            <span class="am-text-primary">高：</span><span name="Address" class="am-text-warning">2.2m</span>
+                        </td>
+                    </tr>
+                </table>
+
+          
+
+
         </form>
     </div>
     <!--[if (gte IE 9)|!(IE)]><!-->
